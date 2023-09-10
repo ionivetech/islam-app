@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/eslint-module',
     '@pinia/nuxt',
-    '@nuxtjs/color-mode',
+    '@nuxt/ui',
     'nuxt-icon',
     '@nuxtjs/google-fonts',
   ],
@@ -49,6 +49,10 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+
+  tailwindcss: {
+    cssPath: false,
   },
 
   experimental: {

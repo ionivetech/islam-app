@@ -31,16 +31,20 @@ useSeoMeta({
       <div
         v-for="ayat in data!.ayat"
         :key="ayat.nomorAyat"
-        class="border-b border-gray-200 py-7"
+        class="border-b border-gray-200 py-7 dark:border-gray-600"
       >
         <p
-          class="mb-5 text-right font-mono text-3xl leading-[65px] text-slate-800 md:!leading-[70px] lg:text-4xl lg:!leading-[80px]"
+          class="mb-5 text-right font-mono text-3xl leading-[65px] text-slate-800 dark:text-slate-200 md:!leading-[70px] lg:text-4xl lg:!leading-[80px]"
         >
           {{ ayat.teksArab }}
         </p>
 
-        <p class="mb-3 text-sm !leading-relaxed text-teal-800 lg:text-base">{{ ayat.teksLatin }}</p>
-        <p class="text-sm !leading-relaxed text-slate-800 lg:text-base">{{ ayat.teksIndonesia }}</p>
+        <p class="mb-3 text-sm !leading-relaxed text-teal-800 dark:text-slate-200 lg:text-base">
+          {{ ayat.teksLatin }}
+        </p>
+        <p class="text-sm !leading-relaxed text-slate-800 dark:text-slate-400 lg:text-base">
+          {{ ayat.teksIndonesia }}
+        </p>
       </div>
     </div>
   </div>

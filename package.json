@@ -25,7 +25,9 @@
     "eslint-plugin-tailwindcss": "^3.13.0",
     "nuxt": "^3.7.0",
     "nuxt-icon": "^0.5.0",
-    "postcss": "^8.4.28",
-    "tailwindcss": "^3.3.3"
+    "postcss": "^8.4.28"
+  },
+  "dependencies": {
+    "@nuxt/ui": "^2.8.1"
   }
 }

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './components/**/*.{js,vue,ts}',
     './layouts/**/*.vue',
@@ -24,6 +25,10 @@ module.exports = {
       },
     },
     extend: {
+      colors: {
+        'background-light': '#f6f8fd',
+        'background-dark': '#1f2937',
+      },
       boxShadow: {
         header: '0 4px 10px rgba(240, 240, 240, 1)',
       },
