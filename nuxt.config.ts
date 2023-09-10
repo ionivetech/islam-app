@@ -9,10 +9,39 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  modules: ['@nuxtjs/eslint-module', '@pinia/nuxt'],
+  modules: [
+    '@nuxtjs/eslint-module',
+    '@pinia/nuxt',
+    '@nuxtjs/color-mode',
+    'nuxt-icon',
+    '@nuxtjs/google-fonts',
+  ],
+
+  colorMode: {
+    preference: 'light',
+    fallback: 'light',
+  },
 
   eslint: {
     lintOnStart: false,
+  },
+
+  googleFonts: {
+    families: {
+      'Open Sans': true,
+      'Scheherazade New': true,
+    },
+    display: 'swap',
+    preload: true,
+    download: true,
+  },
+
+  imports: {
+    dirs: ['stores'],
+  },
+
+  pinia: {
+    autoImports: ['defineStore'],
   },
 
   postcss: {
@@ -20,5 +49,9 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+
+  experimental: {
+    viewTransition: true,
   },
 })

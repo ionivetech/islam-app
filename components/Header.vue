@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const route = useRoute()
-
 // Variables
 const menus: { url: string; label: string }[] = [
   { url: '/', label: 'Home' },
@@ -11,7 +9,7 @@ const menus: { url: string; label: string }[] = [
 </script>
 
 <template>
-  <header class="w-full bg-white px-3 py-4 shadow-header">
+  <header class="fixed top-0 z-10 h-16 w-full bg-white px-3 py-4 shadow">
     <div class="container flex items-center space-x-5">
       <p class="text-2xl font-semibold text-slate-800">ISLAM APP</p>
 
@@ -23,8 +21,9 @@ const menus: { url: string; label: string }[] = [
           >
             <NuxtLink
               :to="menu.url"
-              :active-class="menu.url === route.path ? '!text-emerald-700 font-semibold' : ''"
-              class="text-base text-slate-700 transition duration-200 ease-in-out hover:text-emerald-700"
+              :active-class="'text-slate-700'"
+              :exact-active-class="'text-teal-700'"
+              class="text-base text-slate-700 transition duration-200 ease-in-out hover:text-teal-700"
             >
               {{ menu.label }}
             </NuxtLink>
