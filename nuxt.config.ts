@@ -52,7 +52,9 @@ export default defineNuxtConfig({
   },
 
   tailwindcss: {
-    cssPath: false,
+    cssPath: '~/assets/css/main.css',
+    configPath: 'tailwind.config',
+    viewer: false,
   },
 
   experimental: {

@@ -5,7 +5,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev --port 5000 --host",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "nuxt preview --host",
     "postinstall": "nuxt prepare",
     "lint": "eslint --ext \".ts,.vue\" --fix --ignore-path .gitignore",
     "prettier": "prettier --write ."

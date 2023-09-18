@@ -26,7 +26,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        'background-light': '#f6f8fd',
+        'background-light': '#FFFFFF',
         'background-dark': '#1f2937',
       },
       boxShadow: {

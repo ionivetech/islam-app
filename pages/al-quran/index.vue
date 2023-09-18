@@ -14,7 +14,7 @@ const alquranStore = useAlQuranStore()
 const search = ref<string>('')
 
 // Get list surah
-const { pending } = useFetch<ISurah[]>(ALQURAN_LIST_API, {
+const { pending } = useFetch<ISurah[]>(ALQURAN_API, {
   key: 'surah',
   lazy: true,
   server: false,
@@ -49,7 +49,7 @@ const surah = computed((): ISurah[] => {
       <input
         v-model="search"
         type="text"
-        placeholder="Search Surah"
+        placeholder="Cari Surah"
         class="input-search"
       />
       <Icon
@@ -68,7 +68,7 @@ const surah = computed((): ISurah[] => {
       <div
         v-for="i in 30"
         :key="i"
-        class="h-24 w-full animate-pulse rounded-lg bg-gray-200"
+        class="h-24 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-slate-600"
       />
     </div>
 

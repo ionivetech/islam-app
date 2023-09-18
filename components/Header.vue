@@ -1,9 +1,9 @@
 <script setup lang="ts">
+const route = useRoute()
 const colorMode = useColorMode()
 
 // Variables
 const menus: { url: string; label: string }[] = [
-  { url: '/', label: 'Home' },
   { url: '/al-quran', label: 'Al-Quran' },
   { url: '/hadist', label: 'Hadist' },
   { url: '/doa', label: 'Doa-doa' },
@@ -35,9 +35,12 @@ const isDark = computed<boolean>({
             >
               <NuxtLink
                 :to="menu.url"
-                :active-class="'text-slate-700 dark:text-teal-600'"
-                :exact-active-class="'text-teal-700 dark:text-teal-600'"
-                class="text-base text-slate-700 transition duration-200 ease-in-out hover:text-teal-700 dark:text-slate-200 dark:hover:text-teal-600"
+                :class="
+                  route.path.includes(menu.url)
+                    ? 'text-teal-700 dark:text-teal-500'
+                    : 'text-slate-700 dark:text-slate-200'
+                "
+                class="text-base transition duration-200 ease-in-out hover:text-teal-700 dark:hover:text-teal-500"
               >
                 {{ menu.label }}
               </NuxtLink>
@@ -48,10 +51,10 @@ const isDark = computed<boolean>({
 
       <!-- Toggle dark mode -->
       <div
-        class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-lg transition-all duration-200 ease-in-out hover:bg-slate-200/50 dark:hover:bg-slate-800"
+        class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-lg transition-all duration-100 ease-in-out hover:bg-slate-200/50 dark:hover:bg-slate-800"
         @click="isDark = !isDark"
       >
-        <UIcon :name="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'" />
+        <Icon :name="isDark ? 'heroicons:moon-20-solid' : 'heroicons:sun-20-solid'" />
       </div>
     </div>
   </header>
