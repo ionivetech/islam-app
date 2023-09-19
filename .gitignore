@@ -9,6 +9,11 @@ dist
 # Node dependencies
 node_modules
 
+# Lock
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
 # Logs
 logs
 *.log

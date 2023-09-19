@@ -36,31 +36,33 @@ useHead({
 <template>
   <div class="container pt-8">
     <!-- Header -->
-    <div class="mb-16 flex flex-col">
-      <p class="mb-4 text-center text-xl text-slate-800 dark:text-slate-200 lg:text-2xl">
+    <div class="mb-16 flex flex-col border-b border-gray-200 pb-5 dark:border-gray-600 md:pb-8">
+      <p class="mb-2 text-center text-2xl text-slate-800 dark:text-slate-200 md:mb-4">
         {{ data?.namaLatin }} &#x2022;
-        <span class="font-mono text-2xl lg:text-3xl">{{ data?.nama }}</span>
+        <span class="font-mono text-3xl">{{ data?.nama }}</span>
       </p>
 
-      <p class="mx-auto text-sm text-zinc-500 dark:text-zinc-400">
+      <p class="mx-auto text-xs text-zinc-500 dark:text-zinc-400 md:text-sm">
         {{ data?.tempatTurun }} &#x2022; {{ data?.arti }} &#x2022; {{ data?.jumlahAyat }} Ayat
       </p>
 
-      <div class="mt-8 flex items-center gap-x-5 self-end">
+      <div class="mt-5 flex items-center gap-x-5 self-center md:mt-8 md:self-end">
         <div
-          class="flex cursor-pointer items-center text-sm text-slate-800 dark:text-slate-200"
+          class="flex cursor-pointer items-center text-xs text-slate-800 dark:text-slate-200 md:text-sm"
           @click="showModalDetail = true"
         >
           <Icon
             name="heroicons:information-circle-solid"
-            class="mr-1 text-lg text-slate-800 dark:text-slate-200"
+            class="mr-1 text-base text-slate-800 dark:text-slate-200 md:text-lg"
           />
           Detail Surah
         </div>
-        <div class="flex cursor-pointer items-center text-sm text-teal-700 dark:text-teal-500">
+        <div
+          class="flex cursor-pointer items-center text-xs text-teal-700 dark:text-teal-500 md:text-sm"
+        >
           <Icon
             name="heroicons:play-solid"
-            class="mr-1 text-lg text-teal-700 dark:text-teal-500"
+            class="mr-1 text-base text-teal-700 dark:text-teal-500 md:text-lg"
           />
           Putar Audio
         </div>
