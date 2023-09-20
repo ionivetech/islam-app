@@ -26,8 +26,11 @@ module.exports = {
     },
     extend: {
       colors: {
-        'background-light': '#FFFFFF',
-        'background-dark': '#1f2937',
+        'background-light': 'rgb(255, 255, 255)',
+        'background-dark': 'rgb(12, 12, 13)',
+        yami: 'rgb(17, 24, 39)',
+        'smoke-1': 'rgb(55, 65, 81)',
+        'smoke-2': 'rgb(209, 213, 219)',
       },
       boxShadow: {
         header: '0 4px 10px rgba(240, 240, 240, 1)',

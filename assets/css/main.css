@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-background-light dark:bg-background-dark antialiased transition ease-in-out duration-300;
-}
-
 @layer components {
   .input-search {
     @apply block w-full rounded-2xl bg-white px-4 py-3 pl-12 text-slate-700 shadow focus:outline-none;
   }
+}
+
+body {
+  @apply bg-background-light dark:bg-background-dark antialiased;
 }

@@ -21,11 +21,11 @@ const isDark = computed<boolean>({
 
 <template>
   <header
-    class="fixed top-0 z-10 h-16 w-full border-b border-slate-700/10 bg-background-light px-3 py-4 shadow backdrop-blur-lg dark:border-slate-300/10 dark:bg-background-dark/70"
+    class="fixed top-0 z-10 h-16 w-full border-b border-slate-700/10 bg-background-light px-3 py-4 dark:border-slate-300/10 dark:bg-background-dark/70 dark:backdrop-blur"
   >
     <div class="container flex justify-between">
       <div class="flex items-center space-x-5">
-        <p class="text-2xl font-semibold text-slate-800 dark:text-slate-100">ISLAM APP</p>
+        <p class="text-2xl font-semibold text-yami dark:text-white">ISLAM APP</p>
 
         <nav>
           <ul class="flex items-center gap-x-5">
@@ -38,7 +38,7 @@ const isDark = computed<boolean>({
                 :class="
                   route.path.includes(menu.url)
                     ? 'text-teal-700 dark:text-teal-500'
-                    : 'text-slate-700 dark:text-slate-200'
+                    : 'text-yami/75 dark:text-gray-400'
                 "
                 class="text-base transition duration-200 ease-in-out hover:text-teal-700 dark:hover:text-teal-500"
               >

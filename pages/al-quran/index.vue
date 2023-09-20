@@ -37,7 +37,7 @@ const surah = computed((): ISurah[] => {
 <template>
   <!-- Header -->
   <div
-    class="mb-10 flex h-72 w-full flex-col items-center justify-center gap-y-8 bg-teal-600 p-4 dark:bg-slate-900/40 md:h-80"
+    class="mb-10 flex h-72 w-full flex-col items-center justify-center gap-y-8 bg-teal-600 p-4 dark:bg-background-dark/90 md:h-80"
   >
     <img
       src="/images/alquran.svg"
@@ -68,7 +68,7 @@ const surah = computed((): ISurah[] => {
       <div
         v-for="i in 30"
         :key="i"
-        class="h-24 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-slate-600"
+        class="h-24 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800"
       />
     </div>
 
