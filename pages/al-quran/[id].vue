@@ -59,45 +59,18 @@ useHead({
 </script>
 
 <template>
+  <!-- Header detail surah for show surah name & list surah -->
+  <HeaderDetailSurah
+    v-if="route.name === 'al-quran-id' && data"
+    :detail-surah="data"
+    @show-detail="showModalDetail = true"
+  />
+
   <div class="container pt-8">
-    <!-- Header -->
-    <div class="mb-16 flex flex-col border-b border-gray-200 pb-5 dark:border-gray-800 md:pb-8">
-      <p class="mb-2 text-center text-2xl text-slate-800 dark:text-slate-200 md:mb-4">
-        {{ data?.namaLatin }} &#x2022;
-        <span class="font-mono text-3xl">{{ data?.nama }}</span>
-      </p>
-
-      <p class="mx-auto text-xs text-zinc-500 dark:text-slate-400 md:text-sm">
-        {{ data?.tempatTurun }} &#x2022; {{ data?.arti }} &#x2022; {{ data?.jumlahAyat }} Ayat
-      </p>
-
-      <div class="mt-5 flex items-center gap-x-5 self-center md:mt-8 md:self-end">
-        <div
-          class="flex cursor-pointer items-center text-xs text-slate-800 dark:text-slate-200 md:text-sm"
-          @click="showModalDetail = true"
-        >
-          <Icon
-            name="heroicons:information-circle-solid"
-            class="mr-1 text-base text-slate-800 dark:text-slate-200 md:text-lg"
-          />
-          Detail Surah
-        </div>
-        <div
-          class="flex cursor-pointer items-center text-xs text-teal-700 dark:text-teal-500 md:text-sm"
-        >
-          <Icon
-            name="heroicons:play-solid"
-            class="mr-1 text-base text-teal-700 dark:text-teal-500 md:text-lg"
-          />
-          Putar Audio
-        </div>
-      </div>
-    </div>
-
     <!-- Bismillah images -->
     <img
       src="/images/bismillah.svg"
-      class="mx-auto mb-5 h-auto w-48 dark:brightness-0 dark:invert-[1] md:w-52 lg:w-56"
+      class="mx-auto my-5 h-auto w-48 dark:brightness-0 dark:invert-[1] md:w-52 lg:w-56"
       alt="bismillah-images"
     />
 
@@ -152,6 +125,7 @@ useHead({
     :ui="{
       rounded: 'rounded-xl',
       background: 'bg-background-light dark:bg-background-dark dark:border dark:border-gray-800',
+      width: 'sm:max-w-[60vw]',
       overlay: {
         background: 'bg-gray-200/50 dark:bg-background-dark/50 backdrop-blur',
       },
@@ -159,8 +133,8 @@ useHead({
   >
     <div class="p-6">
       <h4 class="mb-5 text-xl font-semibold text-yami dark:text-white">Detail Surah</h4>
-      <div
-        class="text-sm !leading-7 text-smoke-1 dark:text-smoke-2 md:text-base"
+      <p
+        class="whitespace-pre-wrap text-sm !leading-8 text-smoke-1 dark:text-smoke-2 md:text-base"
         v-html="data?.deskripsi"
       />
     </div>
@@ -189,10 +163,13 @@ useHead({
         />
       </div>
 
-      <div
-        class="max-h-[60vh] overflow-y-auto px-6 text-sm !leading-8 text-smoke-1 dark:text-smoke-2 md:text-base"
-        v-html="tafsirSelected?.teks"
-      />
+      <div class="max-h-[60vh] overflow-y-auto px-6">
+        <p
+          class="whitespace-pre-wrap text-sm !leading-8 text-smoke-1 dark:text-smoke-2 md:text-base"
+        >
+          {{ tafsirSelected?.teks }}
+        </p>
+      </div>
     </div>
   </UModal>
 </template>
