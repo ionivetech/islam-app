@@ -16,11 +16,12 @@ const emits = defineEmits(['show-detail', 'show-list'])
 
 <template>
   <div
-    class="sticky top-0 z-10 h-auto w-full border-b border-slate-700/10 bg-background-light p-3 dark:border-slate-300/10 dark:bg-background-dark/70 dark:backdrop-blur"
+    class="sticky top-0 z-10 flex h-10 w-full items-center border-b border-slate-700/10 bg-background-light px-3 dark:border-slate-300/10 dark:bg-background-dark/70 dark:backdrop-blur"
   >
     <div class="container flex items-center justify-between">
       <div
-        class="flex items-center gap-x-2"
+        class="flex cursor-pointer items-center gap-x-2"
+        role="button"
         @click="emits('show-list')"
       >
         <Icon

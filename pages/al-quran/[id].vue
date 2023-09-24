@@ -12,7 +12,7 @@ interface ITafsir {
 const route = useRoute()
 
 // Get detail surah
-const { data, pending } = await useAsyncData<ISurah>(
+const { data: dataDetail, pending } = await useAsyncData<ISurah>(
   'surahDetail',
   () => $fetch(`${ALQURAN_API}/${route.params.id}`),
   {
@@ -30,6 +30,7 @@ const { data: dataTafsir } = useFetch<ITafsir[]>(`${TAFSIR_API}/${route.params.i
 // Variable
 const showModalDetail = ref<boolean>(false)
 const showModalTafsir = ref<boolean>(false)
+const showListSurah = ref<boolean>(false)
 const tafsirSelected = ref<ITafsir | null>(null)
 
 // Open modal tafsir
@@ -50,8 +51,8 @@ const handleCloseModalTafsir = () => {
 
 // Meta SEO
 useHead({
-  title: `Surah ${data.value?.namaLatin} | Islam App`,
-  meta: [{ name: 'description', content: `Detail surah ${data.value?.namaLatin}` }],
+  title: `Surah ${dataDetail.value?.namaLatin} | Islam App`,
+  meta: [{ name: 'description', content: `Detail surah ${dataDetail.value?.namaLatin}` }],
   htmlAttrs: {
     lang: 'id',
   },
@@ -59,85 +60,104 @@ useHead({
 </script>
 
 <template>
-  <!-- Header detail surah for show surah name & list surah -->
-  <HeaderDetailSurah
-    v-if="route.name === 'al-quran-id' && data"
-    :detail-surah="data"
-    @show-detail="showModalDetail = true"
-  />
-
-  <div class="container pt-8">
-    <!-- Bismillah images -->
-    <img
-      src="/images/bismillah.svg"
-      class="mx-auto my-5 h-auto w-48 dark:brightness-0 dark:invert-[1] md:w-52 lg:w-56"
-      alt="bismillah-images"
+  <div class="relative">
+    <!-- Header detail surah for show surah name & list surah -->
+    <HeaderDetailSurah
+      v-if="route.name === 'al-quran-id' && dataDetail"
+      :detail-surah="dataDetail"
+      @show-detail="showModalDetail = true"
+      @show-list="showListSurah = true"
     />
 
-    <!-- List Ayat -->
-    <div v-if="!pending">
-      <div
-        v-for="(ayat, index) in data!.ayat"
-        :key="ayat.nomorAyat"
-        class="flex w-full flex-col gap-8 border-b border-gray-200 py-7 last:border-b-0 last:pb-0 dark:border-gray-800 md:flex-row md:gap-12"
-      >
-        <div class="flex items-center justify-start gap-3 md:flex-col">
-          <!-- Number surah & ayat -->
-          <p class="text-sm font-semibold tracking-wide text-smoke-1 dark:text-smoke-2">
-            {{ data!.nomor }}:{{ ayat.nomorAyat }}
-          </p>
+    <div class="container pt-8">
+      <!-- Bismillah images -->
+      <img
+        src="/images/bismillah.svg"
+        class="mx-auto my-5 h-auto w-48 dark:brightness-0 dark:invert-[1] md:w-52 lg:w-56"
+        alt="bismillah-images"
+      />
 
-          <!-- Button tafsir -->
-          <UTooltip text="Tafsir">
-            <div
-              class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-lg text-smoke-1 hover:bg-teal-100/60 hover:text-teal-700 dark:text-smoke-2 hover:dark:bg-teal-200/10 hover:dark:text-teal-500"
-              role="button"
-              @click="handleOpenModalTafsir(index)"
+      <!-- List Ayat -->
+      <SkeletonAyat v-if="pending" />
+
+      <div v-if="!pending">
+        <div
+          v-for="(ayat, index) in dataDetail!.ayat"
+          :key="ayat.nomorAyat"
+          class="flex w-full flex-col gap-8 border-b border-gray-200 py-7 last:border-b-0 last:pb-0 dark:border-gray-800 md:flex-row md:gap-12"
+        >
+          <div class="flex items-center justify-start gap-2 md:flex-col">
+            <!-- Number surah & ayat -->
+            <p class="text-sm font-semibold tracking-wide text-smoke-1 dark:text-smoke-2">
+              {{ dataDetail!.nomor }}:{{ ayat.nomorAyat }}
+            </p>
+
+            <!-- Button tafsir -->
+            <UTooltip text="Tafsir">
+              <div
+                class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-lg text-smoke-1 hover:bg-teal-100/60 hover:text-teal-700 dark:text-smoke-2 hover:dark:bg-teal-200/10 hover:dark:text-teal-500"
+                role="button"
+                @click="handleOpenModalTafsir(index)"
+              >
+                <Icon name="heroicons:book-open" />
+              </div>
+            </UTooltip>
+          </div>
+
+          <div class="w-full">
+            <p
+              class="mb-5 text-right font-mono text-3xl leading-[65px] text-slate-800 dark:text-slate-200 md:!leading-[70px] lg:text-4xl lg:!leading-[80px]"
             >
-              <Icon name="heroicons:book-open" />
-            </div>
-          </UTooltip>
-        </div>
+              {{ ayat.teksArab }}
+            </p>
 
-        <div class="w-full">
-          <p
-            class="mb-5 text-right font-mono text-3xl leading-[65px] text-slate-800 dark:text-slate-200 md:!leading-[70px] lg:text-4xl lg:!leading-[80px]"
-          >
-            {{ ayat.teksArab }}
-          </p>
-
-          <p
-            class="mb-3 text-sm !leading-relaxed tracking-wide text-teal-800 dark:text-white lg:text-base"
-          >
-            {{ ayat.teksLatin }}
-          </p>
-          <p class="text-sm !leading-relaxed text-smoke-1 dark:text-slate-400 lg:text-base">
-            {{ ayat.teksIndonesia }}
-          </p>
+            <p class="mb-3 text-base !leading-8 tracking-wide text-teal-800 dark:text-white">
+              {{ ayat.teksLatin }}
+            </p>
+            <p class="text-base !leading-8 text-smoke-1 dark:text-slate-400">
+              {{ ayat.teksIndonesia }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- List Surah -->
+  <USlideover
+    v-model="showListSurah"
+    side="left"
+    :ui="{
+      background:
+        'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
+      overlay: {
+        background: 'bg-gray-200/50 dark:bg-background-dark/50',
+      },
+    }"
+  >
+    <SlideSurah
+      :detail-surah="dataDetail"
+      @close-slide="showListSurah = false"
+    />
+  </USlideover>
 
   <!-- Modal Detail -->
   <UModal
     v-model="showModalDetail"
     :ui="{
       rounded: 'rounded-xl',
-      background: 'bg-background-light dark:bg-background-dark dark:border dark:border-gray-800',
+      background:
+        'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
       width: 'sm:max-w-[60vw]',
       overlay: {
         background: 'bg-gray-200/50 dark:bg-background-dark/50 backdrop-blur',
       },
     }"
   >
-    <div class="p-6">
-      <h4 class="mb-5 text-xl font-semibold text-yami dark:text-white">Detail Surah</h4>
-      <p
-        class="whitespace-pre-wrap text-sm !leading-8 text-smoke-1 dark:text-smoke-2 md:text-base"
-        v-html="data?.deskripsi"
-      />
-    </div>
+    <ModalDetailSurah
+      :description="dataDetail?.deskripsi"
+      @close-modal="showModalDetail = false"
+    />
   </UModal>
 
   <!-- Modal Tafsir -->
@@ -146,30 +166,17 @@ useHead({
     prevent-close
     :ui="{
       rounded: 'rounded-xl',
-      background: 'bg-background-light dark:bg-background-dark dark:border dark:border-gray-800',
+      background:
+        'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
       width: 'sm:max-w-[90vw]',
       overlay: {
         background: 'bg-gray-200/50 dark:bg-background-dark/50 backdrop-blur',
       },
     }"
   >
-    <div class="py-6">
-      <div class="mb-6 flex items-center justify-between px-6">
-        <h4 class="text-xl font-semibold text-yami dark:text-white">Tafsir</h4>
-        <Icon
-          name="heroicons:x-mark"
-          class="cursor-pointer text-xl"
-          @click="handleCloseModalTafsir"
-        />
-      </div>
-
-      <div class="max-h-[60vh] overflow-y-auto px-6">
-        <p
-          class="whitespace-pre-wrap text-sm !leading-8 text-smoke-1 dark:text-smoke-2 md:text-base"
-        >
-          {{ tafsirSelected?.teks }}
-        </p>
-      </div>
-    </div>
+    <ModalTafsir
+      :tafsir="tafsirSelected?.teks"
+      @close-modal="handleCloseModalTafsir"
+    />
   </UModal>
 </template>

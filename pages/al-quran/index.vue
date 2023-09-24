@@ -29,7 +29,7 @@ const { pending } = useFetch<ISurah[]>(ALQURAN_API, {
 const surah = computed((): ISurah[] => {
   if (search.value === '') return alquranStore.getSurah
   return alquranStore.getSurah.filter((surah) =>
-    surah.namaLatin.toLowerCase().includes(search.value),
+    surah.namaLatin.toLowerCase().includes(search.value.toLowerCase()),
   )
 })
 </script>
@@ -37,7 +37,7 @@ const surah = computed((): ISurah[] => {
 <template>
   <!-- Header -->
   <div
-    class="mb-10 mt-16 flex h-72 w-full flex-col items-center justify-center gap-y-8 bg-teal-600 p-4 dark:bg-background-dark/90 md:h-80"
+    class="mb-10 mt-16 flex h-72 w-full flex-col items-center justify-center gap-y-8 bg-teal-600 p-4 dark:bg-slate-700/50 md:h-80"
   >
     <img
       src="/images/alquran.svg"
@@ -54,7 +54,7 @@ const surah = computed((): ISurah[] => {
       />
       <Icon
         name="radix-icons:magnifying-glass"
-        class="absolute left-3 top-3 h-6 w-6 text-gray-400"
+        class="absolute left-3 top-[10px] h-6 w-6 text-gray-400 md:top-3"
       />
     </div>
   </div>
@@ -68,7 +68,7 @@ const surah = computed((): ISurah[] => {
       <div
         v-for="i in 30"
         :key="i"
-        class="h-24 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800"
+        class="h-24 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
       />
     </div>
 

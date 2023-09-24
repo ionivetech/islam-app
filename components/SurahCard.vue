@@ -13,12 +13,12 @@ defineProps({
 <template>
   <NuxtLink
     :to="`/al-quran/${surah.nomor}`"
-    class="group flex w-full cursor-pointer items-center justify-between rounded-lg border border-gray-200 p-4 hover:border-teal-700 dark:border-gray-700 dark:hover:border-teal-700"
+    class="group flex w-full cursor-pointer items-center justify-between rounded-lg border border-gray-200 p-4 hover:border-teal-700 dark:border-gray-700"
   >
     <div class="flex items-center gap-x-5">
       <!-- Surah number -->
       <div
-        class="flex h-11 w-11 rotate-45 items-center justify-center rounded-lg bg-gray-200/50 group-hover:bg-teal-600 dark:bg-slate-800/50"
+        class="flex h-11 w-11 rotate-45 items-center justify-center rounded-lg bg-gray-200/50 group-hover:bg-teal-600 dark:bg-slate-700/50"
       >
         <p
           class="-rotate-45 text-sm font-semibold text-yami group-hover:text-white dark:text-slate-300"
