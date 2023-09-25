@@ -77,7 +77,7 @@ const surah = computed((): ISurah[] => {
       v-else-if="!pending || surah.length > 0"
       class="grid grid-cols-quran-list gap-4"
     >
-      <SurahCard
+      <QuranSurahCard
         v-for="data in surah"
         :key="data.nama"
         :surah="data"

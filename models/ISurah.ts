@@ -5,7 +5,7 @@ interface IBeforeNextSurah {
   nomor: number
 }
 
-interface IAyat {
+export interface IAyat {
   audio: { [key: string]: string }[]
   nomorAyat: string
   teksArab: string

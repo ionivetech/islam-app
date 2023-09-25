@@ -67,6 +67,7 @@ const handleSelectSurah = (id: number) => {
       color="white"
       placeholder="Cari surah"
       :trailing="false"
+      :autofocus="false"
       :ui="{
         placeholder: 'placeholder-gray-500 dark:placeholder-gray-400',
         rounded: 'rounded-lg',
@@ -80,7 +81,10 @@ const handleSelectSurah = (id: number) => {
     />
   </div>
 
-  <div class="h-full space-y-1 overflow-y-auto pb-6 pl-6 pr-2">
+  <div
+    v-if="detailSurah"
+    class="h-full space-y-1 overflow-y-auto pb-6 pl-6 pr-2"
+  >
     <div
       v-for="surah in listSurah"
       :key="surah.nama"
