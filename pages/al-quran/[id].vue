@@ -57,6 +57,13 @@ useHead({
     lang: 'id',
   },
 })
+
+definePageMeta({
+  pageTransition: {
+    name: 'fade',
+    mode: 'out-in',
+  },
+})
 </script>
 
 <template>
@@ -100,6 +107,7 @@ useHead({
     :ui="{
       background:
         'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
+      width: 'w-screen md:max-w-md max-w-xs',
       overlay: {
         background: 'bg-gray-200/50 dark:bg-background-dark/50',
       },

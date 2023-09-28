@@ -67,7 +67,6 @@ const handleSelectSurah = (id: number) => {
       color="white"
       placeholder="Cari surah"
       :trailing="false"
-      :autofocus="false"
       :ui="{
         placeholder: 'placeholder-gray-500 dark:placeholder-gray-400',
         rounded: 'rounded-lg',

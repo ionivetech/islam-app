@@ -56,8 +56,4 @@ export default defineNuxtConfig({
     configPath: 'tailwind.config',
     viewer: false,
   },
-
-  experimental: {
-    viewTransition: true,
-  },
 })

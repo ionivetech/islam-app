@@ -7,6 +7,13 @@ useSeoMeta({
   title: 'Al-Quran',
 })
 
+definePageMeta({
+  pageTransition: {
+    name: 'scale',
+    mode: 'out-in',
+  },
+})
+
 // Store
 const alquranStore = useAlQuranStore()
 
