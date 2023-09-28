@@ -28,7 +28,7 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      'Open Sans': true,
+      Inter: true,
       'Scheherazade New': true,
     },
     display: 'swap',

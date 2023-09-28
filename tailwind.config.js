@@ -11,7 +11,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: 'Open Sans, sans-serif',
+      sans: 'Inter, sans-serif',
       mono: 'Scheherazade New, serif',
     },
     container: {

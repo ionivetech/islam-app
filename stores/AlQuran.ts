@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 // Interfaces
-import { ISurah } from '@/models/ISurah'
+import { ISurah } from 'models/ISurah'
 
 // Type state
 type Store = {

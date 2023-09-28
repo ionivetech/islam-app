@@ -23,7 +23,7 @@ const emits = defineEmits(['open-tafsir'])
 
 <template>
   <div
-    class="flex w-full flex-col gap-8 border-b border-gray-200 py-7 last:border-b-0 last:pb-0 dark:border-gray-800 md:flex-row md:gap-12"
+    class="flex w-full flex-col gap-8 border-b border-gray-200 py-7 last:border-b-0 last:pb-0 dark:border-zinc-700 md:flex-row md:gap-12"
   >
     <div class="flex items-center justify-start gap-2 md:flex-col">
       <!-- Number surah & ayat -->
@@ -50,10 +50,10 @@ const emits = defineEmits(['open-tafsir'])
         {{ ayat.teksArab }}
       </p>
 
-      <p class="mb-3 text-base !leading-8 tracking-wide text-teal-800 dark:text-white">
+      <p class="mb-3 text-base !leading-7 tracking-wide text-teal-800 dark:text-white">
         {{ ayat.teksLatin }}
       </p>
-      <p class="text-base !leading-8 text-smoke-1 dark:text-slate-400">
+      <p class="text-base !leading-7 text-smoke-1 dark:text-slate-400">
         {{ ayat.teksIndonesia }}
       </p>
     </div>
