@@ -3,6 +3,10 @@ import { fileURLToPath } from 'url'
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  app: {
+    pageTransition: { name: 'scale', mode: 'out-in' },
+  },
+
   alias: {
     models: fileURLToPath(new URL('./models/', import.meta.url)),
   },

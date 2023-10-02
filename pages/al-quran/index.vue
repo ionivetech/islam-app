@@ -7,13 +7,6 @@ useSeoMeta({
   title: 'Al-Quran',
 })
 
-definePageMeta({
-  pageTransition: {
-    name: 'scale',
-    mode: 'out-in',
-  },
-})
-
 // Store
 const alquranStore = useAlQuranStore()
 
@@ -42,53 +35,55 @@ const surah = computed((): ISurah[] => {
 </script>
 
 <template>
-  <!-- Header -->
-  <div
-    class="mb-10 mt-16 flex h-72 w-full flex-col items-center justify-center gap-y-8 bg-teal-600 p-4 dark:bg-slate-700/50 md:h-80"
-  >
-    <img
-      src="/images/alquran.svg"
-      alt="alquran-logo"
-      class="h-auto w-24"
-    />
-
-    <div class="relative w-full md:w-8/12 lg:w-6/12">
-      <input
-        v-model="search"
-        type="text"
-        placeholder="Cari Surah"
-        class="input-search"
-      />
-      <Icon
-        name="radix-icons:magnifying-glass"
-        class="absolute left-3 top-[10px] h-6 w-6 text-gray-400 md:top-3"
-      />
-    </div>
-  </div>
-
-  <div class="container">
-    <!-- Loading -->
+  <div>
+    <!-- Header -->
     <div
-      v-if="pending && surah.length === 0"
-      class="grid grid-cols-quran-list gap-4"
+      class="mb-10 mt-16 flex h-72 w-full flex-col items-center justify-center gap-y-8 bg-teal-600 p-4 dark:bg-slate-700/50 md:h-80"
     >
+      <img
+        src="/images/alquran.svg"
+        alt="alquran-logo"
+        class="h-auto w-24"
+      />
+
+      <div class="relative w-full md:w-8/12 lg:w-6/12">
+        <input
+          v-model="search"
+          type="text"
+          placeholder="Cari Surah"
+          class="input-search"
+        />
+        <Icon
+          name="radix-icons:magnifying-glass"
+          class="absolute left-3 top-[10px] h-6 w-6 text-gray-400 md:top-3"
+        />
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Loading -->
       <div
-        v-for="i in 30"
-        :key="i"
-        class="h-24 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
-      />
-    </div>
+        v-if="pending && surah.length === 0"
+        class="grid grid-cols-quran-list gap-4"
+      >
+        <div
+          v-for="i in 30"
+          :key="i"
+          class="h-24 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
+        />
+      </div>
 
-    <!-- List -->
-    <div
-      v-else-if="!pending || surah.length > 0"
-      class="grid grid-cols-quran-list gap-4"
-    >
-      <QuranSurahCard
-        v-for="data in surah"
-        :key="data.nama"
-        :surah="data"
-      />
+      <!-- List -->
+      <div
+        v-else-if="!pending || surah.length > 0"
+        class="grid grid-cols-quran-list gap-4"
+      >
+        <QuranSurahCard
+          v-for="data in surah"
+          :key="data.nama"
+          :surah="data"
+        />
+      </div>
     </div>
   </div>
 </template>

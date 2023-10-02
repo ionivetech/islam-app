@@ -7,13 +7,6 @@ useHead({
   title: 'Hadist',
 })
 
-definePageMeta({
-  pageTransition: {
-    name: 'scale',
-    mode: 'out-in',
-  },
-})
-
 // Variable
 const hadithHistorySelected = ref<string>('abu-dawud')
 const page = ref<number>(1)
@@ -64,12 +57,12 @@ const changeHadithHistory = (value: string) => (hadithHistorySelected.value = va
     <!-- List Of Hadith -->
     <div
       v-if="pending"
-      class="mb-4"
+      class="mb-4 space-y-4"
     >
       <div
         v-for="i in 10"
         :key="i"
-        class="h-32 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
+        class="h-60 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
       />
     </div>
 

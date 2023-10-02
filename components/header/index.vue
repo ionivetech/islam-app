@@ -49,7 +49,7 @@ const isDark = computed<boolean>({
                 :to="menu.url"
                 :class="
                   route.path.includes(menu.url)
-                    ? 'text-teal-700 dark:text-teal-500 font-semibold'
+                    ? 'text-teal-600 dark:text-teal-500 font-semibold'
                     : 'text-yami/75 dark:text-gray-400'
                 "
                 class="text-base transition duration-200 ease-in-out hover:text-teal-700 dark:hover:text-teal-500"
