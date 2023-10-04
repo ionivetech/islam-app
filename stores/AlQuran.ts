@@ -5,6 +5,7 @@ import { ISurah } from 'models/ISurah'
 // Type state
 type Store = {
   surah: ISurah[]
+  playingAudio: string
 }
 
 export const useAlQuranStore = defineStore({
@@ -12,15 +13,21 @@ export const useAlQuranStore = defineStore({
 
   state: (): Store => ({
     surah: [],
+    playingAudio: '',
   }),
 
   getters: {
     getSurah: (state) => state.surah,
+    getPlayingAudio: (state) => state.playingAudio,
   },
 
   actions: {
     setSurah(surah: ISurah[]) {
       this.surah = surah
+    },
+
+    setPlayingAudio(url: string) {
+      this.playingAudio = url
     },
   },
 })

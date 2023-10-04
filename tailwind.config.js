@@ -35,6 +35,7 @@ module.exports = {
       boxShadow: {
         header: '0 4px 10px rgba(240, 240, 240, 1)',
         slideover: '0px 4px 4px rgba(120, 120, 120, 0.25)',
+        'audio-player': '0px -2px 14px rgba(225, 225, 225, 1)',
       },
       gridTemplateColumns: {
         'quran-list': 'repeat(auto-fill, minmax(330px, 1fr))',

@@ -2,11 +2,6 @@
 // Interface
 import { IHadithList } from 'models/IHadith'
 
-// Meta
-useHead({
-  title: 'Hadist',
-})
-
 // Variable
 const hadithHistorySelected = ref<string>('abu-dawud')
 const page = ref<number>(1)
@@ -44,6 +39,14 @@ const { data: dataListHadith, pending } = await useAsyncData<IHadithList>(
 
 // Change hadit history selected
 const changeHadithHistory = (value: string) => (hadithHistorySelected.value = value)
+
+// Meta
+useHead({
+  title: 'Hadist',
+})
+definePageMeta({
+  pageTransition: { name: 'scale', mode: 'out-in' },
+})
 </script>
 
 <template>
@@ -87,7 +90,7 @@ const changeHadithHistory = (value: string) => (hadithHistorySelected.value = va
             {{ list.arab }}
           </p>
 
-          <p class="text-sm leading-relaxed text-smoke-1 dark:text-smoke-2 md:text-base">
+          <p class="text-sm !leading-8 text-smoke-1 dark:text-smoke-2 md:text-base">
             {{ list.id }}
           </p>
         </div>

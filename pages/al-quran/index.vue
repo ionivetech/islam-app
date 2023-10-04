@@ -2,11 +2,6 @@
 // Interfaces
 import { ISurah } from 'models/ISurah'
 
-// Meta
-useSeoMeta({
-  title: 'Al-Quran',
-})
-
 // Store
 const alquranStore = useAlQuranStore()
 
@@ -31,6 +26,14 @@ const surah = computed((): ISurah[] => {
   return alquranStore.getSurah.filter((surah) =>
     surah.namaLatin.toLowerCase().includes(search.value.toLowerCase()),
   )
+})
+
+// Meta
+useHead({
+  title: 'Al-Quran',
+})
+definePageMeta({
+  pageTransition: { name: 'scale', mode: 'out-in' },
 })
 </script>
 

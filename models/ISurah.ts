@@ -15,7 +15,7 @@ export interface IAyat {
 
 export interface ISurah {
   arti: string
-  audioFull: { [key: string]: string }[]
+  audioFull: string
   ayat?: IAyat[]
   deskripsi: string
   jumlahAyat: number

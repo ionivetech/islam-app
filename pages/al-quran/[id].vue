@@ -16,7 +16,14 @@ const { data: dataDetail, pending } = await useAsyncData<ISurah>(
   'surahDetail',
   () => $fetch(`${ALQURAN_API}/${route.params.id}`),
   {
-    transform: (data: any) => data.data,
+    transform: (data: any) => {
+      return {
+        ...data.data,
+        audioFull: Object.values(data.data.audioFull).find((audio: any) =>
+          audio.includes('Misyari'),
+        ),
+      }
+    },
   },
 )
 
@@ -56,10 +63,6 @@ useHead({
   htmlAttrs: {
     lang: 'id',
   },
-})
-
-definePageMeta({
-  pageTransition: false,
 })
 </script>
 

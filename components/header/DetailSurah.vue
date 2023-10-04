@@ -3,15 +3,23 @@
 import { ISurah } from 'models/ISurah'
 
 // Props
-defineProps({
+const props = defineProps({
   detailSurah: {
     type: Object as PropType<ISurah>,
     required: true,
   },
 })
 
+// Store
+const alQuranStore = useAlQuranStore()
+
 // Emits
 const emits = defineEmits(['show-detail', 'show-list'])
+
+// Play surah audio
+const playSurah = () => {
+  alQuranStore.setPlayingAudio(props.detailSurah.audioFull)
+}
 </script>
 
 <template>
@@ -34,6 +42,7 @@ const emits = defineEmits(['show-detail', 'show-list'])
       </div>
 
       <div class="flex items-center gap-x-4">
+        <!-- Detail button -->
         <div
           class="flex cursor-pointer items-center text-xs text-slate-800 dark:text-slate-200 md:text-sm"
           @click="emits('show-detail')"
@@ -44,8 +53,11 @@ const emits = defineEmits(['show-detail', 'show-list'])
           />
           Detail
         </div>
+
+        <!-- Play button -->
         <div
           class="flex cursor-pointer items-center text-xs text-teal-700 dark:text-teal-500 md:text-sm"
+          @click="playSurah"
         >
           <Icon
             name="heroicons:play-solid"

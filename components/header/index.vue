@@ -26,7 +26,10 @@ const isDark = computed<boolean>({
   >
     <div class="container flex justify-between">
       <div class="flex items-center space-x-5">
-        <div class="flex items-center">
+        <NuxtLink
+          to="/"
+          class="flex items-center"
+        >
           <Icon
             name="bi:moon-stars-fill"
             class="mr-2 text-xl text-teal-600/80 dark:text-teal-500"
@@ -36,7 +39,7 @@ const isDark = computed<boolean>({
           >
             Islam App
           </p>
-        </div>
+        </NuxtLink>
 
         <!-- Menu -->
         <nav>
