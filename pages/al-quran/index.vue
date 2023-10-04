@@ -32,9 +32,6 @@ const surah = computed((): ISurah[] => {
 useHead({
   title: 'Al-Quran',
 })
-definePageMeta({
-  pageTransition: { name: 'scale', mode: 'out-in' },
-})
 </script>
 
 <template>

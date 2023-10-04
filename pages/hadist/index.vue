@@ -44,9 +44,6 @@ const changeHadithHistory = (value: string) => (hadithHistorySelected.value = va
 useHead({
   title: 'Hadist',
 })
-definePageMeta({
-  pageTransition: { name: 'scale', mode: 'out-in' },
-})
 </script>
 
 <template>

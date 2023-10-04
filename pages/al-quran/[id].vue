@@ -12,20 +12,17 @@ interface ITafsir {
 const route = useRoute()
 
 // Get detail surah
-const { data: dataDetail, pending } = await useAsyncData<ISurah>(
-  'surahDetail',
-  () => $fetch(`${ALQURAN_API}/${route.params.id}`),
-  {
-    transform: (data: any) => {
-      return {
-        ...data.data,
-        audioFull: Object.values(data.data.audioFull).find((audio: any) =>
-          audio.includes('Misyari'),
-        ),
-      }
-    },
+const { data: dataDetail, pending } = useFetch<ISurah>(`${ALQURAN_API}/${route.params.id}`, {
+  key: 'surahDetail',
+  lazy: true,
+  server: false,
+  transform: (data: any) => {
+    return {
+      ...data.data,
+      audioFull: Object.values(data.data.audioFull).find((audio: any) => audio.includes('Misyari')),
+    }
   },
-)
+})
 
 // Get data tafsir
 const { data: dataTafsir } = useFetch<ITafsir[]>(`${TAFSIR_API}/${route.params.id}`, {
