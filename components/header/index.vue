@@ -30,15 +30,12 @@ const isDark = computed<boolean>({
           to="/"
           class="flex items-center"
         >
-          <Icon
-            name="bi:moon-stars-fill"
-            class="mr-2 text-xl text-teal-600/80 dark:text-teal-500"
+          <img
+            src="/logo-full.svg"
+            alt="logo-app"
+            height="24"
+            class="w-auto"
           />
-          <p
-            class="bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-xl font-semibold text-transparent dark:from-emerald-400 dark:to-teal-500"
-          >
-            Islam App
-          </p>
         </NuxtLink>
 
         <!-- Menu -->

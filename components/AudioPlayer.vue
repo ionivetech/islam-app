@@ -14,8 +14,8 @@ const isPlaying = ref<boolean>(false)
 const pauseUpdateSlider = ref<boolean>(false)
 const playbackTime = ref<number>(0)
 const maxDuration = ref<number>(0)
-const audioDuration = ref<string>('00:00:00')
-const currentTime = ref<string>('00:00:00')
+const labelAudioDuration = ref<string>('00:00:00')
+const labelCurrentTime = ref<string>('00:00:00')
 
 // Watch url audio
 watch(
@@ -27,6 +27,8 @@ watch(
         setTimeout(() => {
           initAudioPlayer()
         }, 250)
+      } else {
+        initAudioPlayer()
       }
     } else {
       showAudioPlayer.value = false
@@ -62,7 +64,10 @@ const stop = () => {
   playerRef.value.pause()
   playerRef.value.currentTime = 0
   isPlaying.value = false
-  alQuranStore.setPlayingAudio('')
+
+  setTimeout(() => {
+    alQuranStore.setPlayingAudio('')
+  }, 200)
 }
 
 const togglePlay = () => {
@@ -72,12 +77,12 @@ const togglePlay = () => {
 
 // Set time data audio duration
 const displayDuration = () => {
-  audioDuration.value = convertTime(Math.round(playerRef.value.duration))
+  labelAudioDuration.value = convertTime(Math.floor(playerRef.value.duration))
 }
 
 // Set maximum slider
 const setSliderMax = () => {
-  maxDuration.value = Math.round(playerRef.value.duration)
+  maxDuration.value = Math.floor(playerRef.value.duration)
 }
 
 // Set color slider
@@ -88,12 +93,18 @@ const setColorProgressSlider = (progress: number) => {
 // Handle time update audio element
 const onTimeUpdateListener = () => {
   if (!pauseUpdateSlider.value) {
-    currentTime.value = convertTime(playerRef.value.currentTime)
-    playbackTime.value = Math.round(playerRef.value.currentTime)
+    labelCurrentTime.value = convertTime(playerRef.value.currentTime)
+    playbackTime.value = Math.floor(playerRef.value.currentTime)
 
     const progress = (playbackTime.value / maxDuration.value) * 100
     setColorProgressSlider(progress)
   }
+}
+
+const onEndedPlaying = () => {
+  setTimeout(() => {
+    stop()
+  }, 500)
 }
 
 // Handle change position slider
@@ -109,7 +120,7 @@ const onInputSlider = (e: any) => {
 
   pauseUpdateSlider.value = true
   const tempSliderValue = e.target.value
-  currentTime.value = convertTime(tempSliderValue)
+  labelCurrentTime.value = convertTime(tempSliderValue)
 
   const progress = (tempSliderValue / maxDuration.value) * 100
   setColorProgressSlider(progress)
@@ -147,6 +158,7 @@ const initAudioPlayer = () => {
           ref="playerRef"
           preload="metadata"
           @timeupdate="onTimeUpdateListener"
+          @ended="onEndedPlaying"
         >
           <source
             :src="alQuranStore.getPlayingAudio"
@@ -165,7 +177,7 @@ const initAudioPlayer = () => {
         />
 
         <div class="flex items-center justify-between p-4">
-          <p class="text-sm text-yami dark:text-slate-200">{{ currentTime }}</p>
+          <p class="text-sm text-yami dark:text-slate-200">{{ labelCurrentTime }}</p>
 
           <div class="flex items-center gap-x-2">
             <div
@@ -186,7 +198,7 @@ const initAudioPlayer = () => {
           </div>
 
           <p class="text-sm text-yami dark:text-slate-200">
-            {{ audioDuration }}
+            {{ labelAudioDuration }}
           </p>
         </div>
       </div>

@@ -13,9 +13,6 @@ defineProps({
 // Emits
 const emits = defineEmits(['close-slide'])
 
-// Store
-const alquranStore = useAlQuranStore()
-
 // Router
 const router = useRouter()
 
@@ -23,21 +20,25 @@ const router = useRouter()
 const search = ref<string>('')
 
 // Get list surah
-useFetch<ISurah[]>(ALQURAN_API, {
+const { data: surahCache } = useNuxtData('surah')
+const { data: surah, pending: pendingFetch } = useFetch<ISurah[]>(ALQURAN_API, {
   key: 'surah',
   lazy: true,
   server: false,
-  immediate: alquranStore.getSurah.length === 0,
+  immediate: !surahCache.value,
   transform: (data: any) => {
-    if (data.data) alquranStore.setSurah(data.data)
     return data.data
   },
 })
 
+// Loading get surah list
+const loading = computed((): boolean => (surahCache.value ? false : pendingFetch.value))
+
 // List surah
-const listSurah = computed((): ISurah[] => {
-  if (search.value === '') return alquranStore.getSurah
-  return alquranStore.getSurah.filter((surah) =>
+const surahList = computed((): ISurah[] => {
+  const dataSurah: ISurah[] = surahCache.value || surah.value
+  if (search.value === '') return dataSurah
+  return dataSurah.filter((surah) =>
     surah.namaLatin.toLowerCase().includes(search.value.toLowerCase()),
   )
 })
@@ -80,28 +81,41 @@ const handleSelectSurah = (id: number) => {
     />
   </div>
 
+  <!-- Skeleton loading -->
   <div
-    v-if="detailSurah"
+    v-if="loading"
     class="h-full space-y-1 overflow-y-auto pb-6 pl-6 pr-2"
   >
     <div
-      v-for="surah in listSurah"
-      :key="surah.nama"
-      :class="{ '!bg-teal-600': surah.namaLatin === detailSurah.namaLatin }"
+      v-for="i in 20"
+      :key="i"
+      class="h-10 w-full animate-pulse rounded bg-gray-200 dark:bg-zinc-700/30"
+    />
+  </div>
+
+  <!-- Surah list -->
+  <div
+    v-else
+    class="h-full space-y-1 overflow-y-auto pb-6 pl-6 pr-2"
+  >
+    <div
+      v-for="data in surahList"
+      :key="data.nama"
+      :class="{ '!bg-teal-600': data.namaLatin === detailSurah?.namaLatin }"
       class="flex cursor-pointer items-center justify-between rounded px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-700"
-      @click="handleSelectSurah(surah.nomor)"
+      @click="handleSelectSurah(data.nomor)"
     >
       <p
-        :class="{ '!text-white': surah.namaLatin === detailSurah.namaLatin }"
+        :class="{ '!text-white': data.namaLatin === detailSurah?.namaLatin }"
         class="text-sm text-yami dark:text-slate-200 md:text-base"
       >
-        {{ surah.nomor }}. {{ surah.namaLatin }}
+        {{ data.nomor }}. {{ data.namaLatin }}
       </p>
       <p
-        :class="{ '!text-slate-200': surah.namaLatin === detailSurah.namaLatin }"
+        :class="{ '!text-slate-200': data.namaLatin === detailSurah?.namaLatin }"
         class="text-xs text-smoke-1/60 dark:text-slate-400 md:text-sm"
       >
-        {{ surah.jumlahAyat }} Ayat
+        {{ data.jumlahAyat }} Ayat
       </p>
     </div>
   </div>

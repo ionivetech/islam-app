@@ -2,28 +2,29 @@
 // Interfaces
 import { ISurah } from 'models/ISurah'
 
-// Store
-const alquranStore = useAlQuranStore()
-
 // Variables
 const search = ref<string>('')
 
 // Get list surah
-const { pending } = useFetch<ISurah[]>(ALQURAN_API, {
+const { data: surahCache } = useNuxtData('surah')
+const { data: surah, pending: pendingFetch } = useFetch<ISurah[]>(ALQURAN_API, {
   key: 'surah',
   lazy: true,
   server: false,
-  immediate: alquranStore.getSurah.length === 0,
+  immediate: !surahCache.value,
   transform: (data: any) => {
-    if (data.data) alquranStore.setSurah(data.data)
     return data.data
   },
 })
 
+// Loading get surah list
+const loading = computed((): boolean => (surahCache.value ? false : pendingFetch.value))
+
 // List surah
-const surah = computed((): ISurah[] => {
-  if (search.value === '') return alquranStore.getSurah
-  return alquranStore.getSurah.filter((surah) =>
+const surahList = computed((): ISurah[] => {
+  const dataSurah: ISurah[] = surahCache.value || surah.value
+  if (search.value === '') return dataSurah
+  return dataSurah.filter((surah) =>
     surah.namaLatin.toLowerCase().includes(search.value.toLowerCase()),
   )
 })
@@ -63,7 +64,7 @@ useHead({
     <div class="container">
       <!-- Loading -->
       <div
-        v-if="pending && surah.length === 0"
+        v-if="loading"
         class="grid grid-cols-quran-list gap-4"
       >
         <div
@@ -75,11 +76,11 @@ useHead({
 
       <!-- List -->
       <div
-        v-else-if="!pending || surah.length > 0"
+        v-else
         class="grid grid-cols-quran-list gap-4"
       >
         <QuranSurahCard
-          v-for="data in surah"
+          v-for="data in surahList"
           :key="data.nama"
           :surah="data"
         />

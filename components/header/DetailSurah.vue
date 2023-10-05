@@ -2,28 +2,24 @@
 // Interfaces
 import { ISurah } from 'models/ISurah'
 
-// Props
-const props = defineProps({
-  detailSurah: {
-    type: Object as PropType<ISurah>,
-    required: true,
-  },
-})
-
 // Store
 const alQuranStore = useAlQuranStore()
 
 // Emits
 const emits = defineEmits(['show-detail', 'show-list'])
 
+// Surah detail
+const { data: surahDetail } = useNuxtData<ISurah>('surahDetail')
+
 // Play surah audio
 const playSurah = () => {
-  alQuranStore.setPlayingAudio(props.detailSurah.audioFull)
+  if (surahDetail.value) alQuranStore.setPlayingAudio(surahDetail.value.audioFull)
 }
 </script>
 
 <template>
   <div
+    v-if="surahDetail"
     class="sticky top-0 z-10 flex h-10 w-full items-center border-b border-slate-700/10 bg-background-light px-3 dark:border-slate-300/10 dark:bg-background-dark/70 dark:backdrop-blur"
   >
     <div class="container flex items-center justify-between">
@@ -37,7 +33,7 @@ const playSurah = () => {
           class="text-base text-slate-800 dark:text-slate-200 md:text-lg"
         />
         <p class="text-xs text-slate-800 dark:text-slate-200 md:text-sm">
-          {{ detailSurah.namaLatin }}
+          {{ surahDetail.namaLatin }}
         </p>
       </div>
 

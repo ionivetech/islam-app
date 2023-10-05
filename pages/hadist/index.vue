@@ -22,7 +22,6 @@ watch(hadithHistorySelected, () => {
 
 // Get list hadith by name of history & params
 const { data: dataListHadith, pending } = await useAsyncData<IHadithList>(
-  'hadithList',
   () =>
     $fetch(hadithHistorySelected.value, {
       baseURL: HADIST_API,

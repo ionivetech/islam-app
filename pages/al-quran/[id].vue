@@ -69,7 +69,6 @@ useHead({
       <!-- Header detail surah for show surah name & list surah -->
       <HeaderDetailSurah
         v-if="route.name === 'al-quran-id' && dataDetail"
-        :detail-surah="dataDetail"
         @show-detail="showModalDetail = true"
         @show-list="showListSurah = true"
       />
@@ -144,7 +143,7 @@ useHead({
         rounded: 'rounded-xl',
         background:
           'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
-        width: 'sm:max-w-[90vw]',
+        width: 'sm:max-w-[60vw]',
         overlay: {
           background: 'bg-gray-200/50 dark:bg-background-dark/50 backdrop-blur',
         },
