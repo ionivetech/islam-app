@@ -28,6 +28,7 @@ module.exports = {
       colors: {
         'background-light': 'rgb(255, 255, 255)',
         'background-dark': 'rgb(31, 33, 37)',
+        'background-dark-soft': 'rgb(37, 41, 47)',
         yami: 'rgb(17, 24, 39)',
         'smoke-1': 'rgb(55, 65, 81)',
         'smoke-2': 'rgb(209, 213, 219)',
@@ -35,7 +36,8 @@ module.exports = {
       boxShadow: {
         header: '0 4px 10px rgba(240, 240, 240, 1)',
         slideover: '0px 4px 4px rgba(120, 120, 120, 0.25)',
-        'audio-player': '0px -2px 14px rgba(225, 225, 225, 1)',
+        'audio-player': '0px -2px 14px rgba(233, 233, 233, 1)',
+        'audio-player-dark': '0px -2px 20px rgba(24, 24, 24, 0.4)',
       },
       gridTemplateColumns: {
         'quran-list': 'repeat(auto-fill, minmax(330px, 1fr))',

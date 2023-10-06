@@ -6,6 +6,7 @@ const alQuranStore = useAlQuranStore()
 
 // Ref
 const playerRef = ref()
+const playerSourceRef = ref()
 const sliderRef = ref()
 
 // Variables
@@ -28,7 +29,8 @@ watch(
           initAudioPlayer()
         }, 250)
       } else {
-        initAudioPlayer()
+        playerSourceRef.value = val.source
+        playerRef.value.load()
       }
     } else {
       showAudioPlayer.value = false
@@ -66,7 +68,7 @@ const stop = () => {
   isPlaying.value = false
 
   setTimeout(() => {
-    alQuranStore.setPlayingAudio('')
+    alQuranStore.setPlayingAudio(null)
   }, 200)
 }
 
@@ -151,8 +153,9 @@ const initAudioPlayer = () => {
     <Transition name="audio">
       <div
         v-if="showAudioPlayer"
-        class="fixed inset-x-0 bottom-0 z-50 w-full border-t border-slate-700/10 bg-background-light dark:border-slate-300/10 dark:bg-background-dark"
+        class="fixed inset-x-0 bottom-0 z-50 w-full border-t border-slate-700/10 bg-background-light shadow-audio-player dark:border-slate-300/10 dark:bg-background-dark-soft dark:shadow-audio-player-dark"
       >
+        <!-- Audio element -->
         <audio
           v-show="false"
           ref="playerRef"
@@ -161,45 +164,67 @@ const initAudioPlayer = () => {
           @ended="onEndedPlaying"
         >
           <source
-            :src="alQuranStore.getPlayingAudio"
+            ref="playerSourceRef"
+            :src="alQuranStore.getPlayingAudio?.source"
             type="audio/mpeg"
           />
         </audio>
-        <input
-          id="slider"
-          ref="sliderRef"
-          v-model="playbackTime"
-          min="0"
-          :max="maxDuration"
-          type="range"
-          @input="onInputSlider"
-          @change="onChangeProgressPosition"
-        />
 
-        <div class="flex items-center justify-between p-4">
-          <p class="text-sm text-yami dark:text-slate-200">{{ labelCurrentTime }}</p>
-
-          <div class="flex items-center gap-x-2">
+        <div class="p-4">
+          <!-- Info surah -->
+          <div class="relative mb-2 flex w-full items-center">
+            <!-- Play & Pause button -->
             <div
-              class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-teal-100 text-lg text-teal-700 dark:bg-teal-200/10 dark:text-teal-500"
+              class="relative mr-2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-teal-600 text-2xl text-white md:absolute md:inset-x-0 md:mx-auto md:h-12 md:w-12"
               role="button"
               @click="togglePlay"
             >
               <Icon :name="isPlaying ? 'heroicons:pause-solid' : 'heroicons:play-solid'" />
             </div>
 
-            <div
-              class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-rose-100 text-lg text-rose-700 dark:bg-rose-200/10 dark:text-rose-500"
-              role="button"
-              @click="stop"
-            >
-              <Icon name="heroicons:stop-solid" />
+            <div>
+              <p
+                class="text-sm font-semibold tracking-wide text-yami dark:text-slate-200 md:text-base"
+              >
+                {{ alQuranStore.getPlayingAudio?.surah }}
+              </p>
+              <p class="text-xs font-medium text-smoke-1 dark:text-smoke-2 md:text-sm">
+                {{ alQuranStore.getPlayingAudio?.qori }}
+              </p>
             </div>
+
+            <UTooltip
+              text="Tutup pemutar audio"
+              class="absolute right-1 top-1 cursor-pointer md:right-2 md:top-2"
+            >
+              <Icon
+                name="heroicons:x-mark-solid"
+                class="text-xl text-yami dark:text-slate-200"
+                @click="stop"
+              />
+            </UTooltip>
           </div>
 
-          <p class="text-sm text-yami dark:text-slate-200">
-            {{ labelAudioDuration }}
-          </p>
+          <!-- Progress audio -->
+          <input
+            id="slider"
+            ref="sliderRef"
+            v-model="playbackTime"
+            min="0"
+            :max="maxDuration"
+            type="range"
+            @input="onInputSlider"
+            @change="onChangeProgressPosition"
+          />
+
+          <!-- Current time & duration -->
+          <div class="mt-1.5 flex items-center justify-between">
+            <p class="text-xs text-yami dark:text-slate-200">{{ labelCurrentTime }}</p>
+
+            <p class="text-xs text-smoke-1 dark:text-smoke-2">
+              {{ labelAudioDuration }}
+            </p>
+          </div>
         </div>
       </div>
     </Transition>
@@ -208,7 +233,7 @@ const initAudioPlayer = () => {
 
 <style>
 #slider {
-  @apply absolute -top-[2px] appearance-none w-full h-1 outline-none cursor-pointer;
+  @apply appearance-none w-full h-1 outline-none cursor-pointer;
   background: linear-gradient(
     to right,
     theme('colors.teal.500') var(--progress),

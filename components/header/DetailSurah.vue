@@ -13,7 +13,12 @@ const { data: surahDetail } = useNuxtData<ISurah>('surahDetail')
 
 // Play surah audio
 const playSurah = () => {
-  if (surahDetail.value) alQuranStore.setPlayingAudio(surahDetail.value.audioFull)
+  const data = {
+    surah: surahDetail.value!.namaLatin,
+    qori: 'Misyari Rasyid Al-Afasi',
+    source: surahDetail.value!.audioFull,
+  }
+  if (surahDetail.value) alQuranStore.setPlayingAudio(data)
 }
 </script>
 

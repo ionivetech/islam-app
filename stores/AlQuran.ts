@@ -1,15 +1,20 @@
 import { defineStore } from 'pinia'
 
 // Type state
+interface IDataAudio {
+  surah: string
+  qori: string
+  source: string
+}
 type Store = {
-  playingAudio: string
+  playingAudio: IDataAudio | null
 }
 
 export const useAlQuranStore = defineStore({
   id: 'alQuranStore',
 
   state: (): Store => ({
-    playingAudio: '',
+    playingAudio: null,
   }),
 
   getters: {
@@ -17,8 +22,8 @@ export const useAlQuranStore = defineStore({
   },
 
   actions: {
-    setPlayingAudio(url: string) {
-      this.playingAudio = url
+    setPlayingAudio(data: IDataAudio | null) {
+      this.playingAudio = data
     },
   },
 })
