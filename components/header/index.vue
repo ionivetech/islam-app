@@ -3,6 +3,7 @@ const route = useRoute()
 const colorMode = useColorMode()
 
 // Variables
+const showSidebarMenu = ref<boolean>(false)
 const menus: { url: string; label: string }[] = [
   { url: '/al-quran', label: 'Al-Quran' },
   { url: '/hadist', label: 'Hadist' },
@@ -24,11 +25,23 @@ const isDark = computed<boolean>({
     :class="{ fixed: route.name !== 'al-quran-id' }"
     class="top-0 z-10 h-16 w-full border-b border-slate-700/10 bg-background-light px-3 py-4 dark:border-slate-300/10 dark:bg-background-dark/70 dark:backdrop-blur"
   >
-    <div class="container flex justify-between">
-      <div class="flex items-center space-x-5">
+    <div class="container flex items-center justify-between">
+      <!-- Toggle Menu -->
+      <div
+        class="block cursor-pointer md:hidden"
+        @click="showSidebarMenu = true"
+      >
+        <Icon
+          name="ant-design:menu-outlined"
+          class="text-xl text-yami dark:text-slate-200"
+        />
+      </div>
+
+      <div class="flex items-center">
+        <!-- Icon -->
         <NuxtLink
           to="/"
-          class="flex items-center"
+          class="flex items-center md:mr-5"
         >
           <img
             src="/logo-full.svg"
@@ -39,7 +52,7 @@ const isDark = computed<boolean>({
         </NuxtLink>
 
         <!-- Menu -->
-        <nav>
+        <nav class="hidden md:block">
           <ul class="flex items-center gap-x-5">
             <li
               v-for="menu in menus"
@@ -70,4 +83,20 @@ const isDark = computed<boolean>({
       </div>
     </div>
   </header>
+
+  <!-- Sidebar menu -->
+  <USlideover
+    v-model="showSidebarMenu"
+    side="left"
+    :ui="{
+      background:
+        'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
+      width: 'w-screen md:max-w-md max-w-xs',
+      overlay: {
+        background: 'bg-gray-200/50 dark:bg-background-dark/50',
+      },
+    }"
+  >
+    <SlideMenu @close-slide="showSidebarMenu = false" />
+  </USlideover>
 </template>
