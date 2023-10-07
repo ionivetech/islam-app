@@ -13,6 +13,7 @@ const route = useRoute()
 
 // Get detail surah
 const { data: dataDetail, pending } = useFetch<ISurah>(`${ALQURAN_API}/${route.params.id}`, {
+  key: 'surahDetail',
   transform: (data: any) => {
     return {
       ...data.data,

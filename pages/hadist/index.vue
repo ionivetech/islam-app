@@ -89,6 +89,18 @@ useHead({
       @change-hadith-history="changeHadithHistory"
     />
 
+    <!-- Skeleton -->
+    <div
+      v-if="pending || isSearching"
+      class="mb-4 space-y-4"
+    >
+      <div
+        v-for="i in 10"
+        :key="i"
+        class="h-60 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
+      />
+    </div>
+
     <div v-if="!pending">
       <div class="mb-3 flex flex-col sm:flex-row-reverse sm:items-center sm:justify-between">
         <!-- Search input -->
@@ -117,18 +129,6 @@ useHead({
         >
           Menampilkan hadist {{ dataListHadith?.name }} nomor <b>{{ search }}</b>
         </p>
-      </div>
-
-      <!-- Skeleton -->
-      <div
-        v-if="pending || isSearching"
-        class="mb-4 space-y-4"
-      >
-        <div
-          v-for="i in 10"
-          :key="i"
-          class="h-60 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
-        />
       </div>
 
       <!-- List hadith -->
