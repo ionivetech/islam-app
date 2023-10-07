@@ -23,7 +23,7 @@ const isDark = computed<boolean>({
 <template>
   <header
     :class="{ fixed: route.name !== 'al-quran-id' }"
-    class="top-0 z-10 h-16 w-full border-b border-slate-700/10 bg-background-light px-3 py-4 dark:border-slate-300/10 dark:bg-background-dark/70 dark:backdrop-blur"
+    class="top-0 z-10 h-16 w-full border-b border-slate-700/10 bg-background-light py-4 dark:border-slate-300/10 dark:bg-background-dark/70 dark:backdrop-blur"
   >
     <div class="container flex items-center justify-between">
       <!-- Toggle Menu -->

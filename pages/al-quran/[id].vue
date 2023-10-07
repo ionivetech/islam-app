@@ -37,6 +37,18 @@ const showModalTafsir = ref<boolean>(false)
 const showListSurah = ref<boolean>(false)
 const tafsirSelected = ref<ITafsir | null>(null)
 
+watch(pending, (val) => {
+  if (!val) {
+    useHead({
+      title: `Surah ${dataDetail.value?.namaLatin} | Islam App`,
+      meta: [{ name: 'description', content: `Detail surah ${dataDetail.value?.namaLatin}` }],
+      htmlAttrs: {
+        lang: 'id',
+      },
+    })
+  }
+})
+
 // Open modal tafsir
 const handleOpenModalTafsir = (index: number) => {
   if (dataTafsir.value) {
@@ -52,15 +64,6 @@ const handleCloseModalTafsir = () => {
     tafsirSelected.value = null
   }, 400)
 }
-
-// Meta SEO
-useHead({
-  title: `Surah ${dataDetail.value?.namaLatin} | Islam App`,
-  meta: [{ name: 'description', content: `Detail surah ${dataDetail.value?.namaLatin}` }],
-  htmlAttrs: {
-    lang: 'id',
-  },
-})
 </script>
 
 <template>

@@ -35,24 +35,21 @@ const menus: { url: string; label: string }[] = [
     <p class="mb-3 pl-5 text-sm font-semibold text-yami dark:text-slate-200">Menu</p>
 
     <!-- Menu -->
-    <ul class="flex flex-col gap-y-1">
-      <li
+    <div class="flex flex-col gap-y-1">
+      <NuxtLink
         v-for="menu in menus"
         :key="menu.url"
+        :to="menu.url"
+        :class="
+          route.path.includes(menu.url)
+            ? 'text-teal-600 dark:text-teal-500 font-semibold'
+            : 'text-yami/75 dark:text-gray-400'
+        "
+        class="block w-full px-5 py-1.5 text-base transition duration-200 ease-in-out hover:bg-zinc-200 focus-visible:outline-none dark:hover:bg-zinc-700"
+        @click="emits('close-slide')"
       >
-        <NuxtLink
-          :to="menu.url"
-          :class="
-            route.path.includes(menu.url)
-              ? 'text-teal-600 dark:text-teal-500 font-semibold'
-              : 'text-yami/75 dark:text-gray-400'
-          "
-          class="block w-full rounded-md px-5 py-1.5 text-base transition duration-200 ease-in-out hover:bg-teal-200/30 dark:hover:bg-teal-200/10"
-          @click="emits('close-slide')"
-        >
-          {{ menu.label }}
-        </NuxtLink>
-      </li>
-    </ul>
+        {{ menu.label }}
+      </NuxtLink>
+    </div>
   </div>
 </template>

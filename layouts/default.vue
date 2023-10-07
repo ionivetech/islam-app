@@ -7,7 +7,7 @@ const alQuranStore = useAlQuranStore()
   <div>
     <Header />
 
-    <div :class="alQuranStore.getPlayingAudio ? 'pb-28' : 'pb-8'">
+    <div :class="alQuranStore.getPlayingAudio ? 'md:pb-[160px] pb-[156px]' : 'pb-8'">
       <slot />
 
       <AudioPlayer />
