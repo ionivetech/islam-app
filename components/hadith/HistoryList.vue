@@ -67,7 +67,7 @@ const emits = defineEmits(['change-hadith-history'])
             ? 'bg-teal-100 dark:bg-teal-800 text-teal-700 dark:text-teal-100'
             : 'bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400'
         "
-        class="cursor-pointer whitespace-nowrap rounded-full px-3 py-1 text-sm font-medium"
+        class="w-min cursor-pointer whitespace-nowrap rounded-full px-3 py-1 text-sm font-medium"
         @click="emits('change-hadith-history', hadithHistory.slug)"
       >
         {{ hadithHistory.name }}

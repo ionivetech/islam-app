@@ -13,9 +13,6 @@ const route = useRoute()
 
 // Get detail surah
 const { data: dataDetail, pending } = useFetch<ISurah>(`${ALQURAN_API}/${route.params.id}`, {
-  key: 'surahDetail',
-  lazy: true,
-  server: false,
   transform: (data: any) => {
     return {
       ...data.data,
@@ -91,6 +88,7 @@ const handleCloseModalTafsir = () => {
           <QuranAyatList
             v-for="(ayat, index) in dataDetail!.ayat"
             :key="ayat.nomorAyat"
+            :surah-name="dataDetail?.namaLatin"
             :surah-number="dataDetail?.nomor"
             :ayat="ayat"
             :index="index"

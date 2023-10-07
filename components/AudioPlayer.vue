@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useDebounceFn } from '@vueuse/core'
-
 // Store
 const alQuranStore = useAlQuranStore()
 
@@ -17,6 +15,7 @@ const playbackTime = ref<number>(0)
 const maxDuration = ref<number>(0)
 const labelAudioDuration = ref<string>('00:00:00')
 const labelCurrentTime = ref<string>('00:00:00')
+const debounceInputSlider = ref()
 
 // Watch url audio
 watch(
@@ -116,9 +115,10 @@ const onChangeProgressPosition = () => {
 
 // Handle input slider
 const onInputSlider = (e: any) => {
-  const debounceUnpause = useDebounceFn(() => {
+  if (debounceInputSlider.value) clearTimeout(debounceInputSlider.value)
+  debounceInputSlider.value = setTimeout(() => {
     pauseUpdateSlider.value = false
-  }, 2000)
+  }, 1000)
 
   pauseUpdateSlider.value = true
   const tempSliderValue = e.target.value
@@ -126,7 +126,6 @@ const onInputSlider = (e: any) => {
 
   const progress = (tempSliderValue / maxDuration.value) * 100
   setColorProgressSlider(progress)
-  debounceUnpause()
 }
 
 const initial = () => {

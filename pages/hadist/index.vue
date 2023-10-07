@@ -1,11 +1,17 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 // Interface
-import { IHadithList } from 'models/IHadith'
+import { IHadithList, IHadithItems } from 'models/IHadith'
 
 // Variable
 const hadithHistorySelected = ref<string>('abu-dawud')
 const page = ref<number>(1)
 const limit: number = 20
+const search = ref<string>('')
+const isSearching = ref<boolean>(false)
+const isErrorSearch = ref<boolean>(false)
+const isFinishSearch = ref<boolean>(false)
+const searchResult = ref<IHadithItems | null>(null)
+const debounceSearch = ref()
 
 // Watch if page is change
 watch(page, () => {
@@ -21,23 +27,53 @@ watch(hadithHistorySelected, () => {
 })
 
 // Get list hadith by name of history & params
-const { data: dataListHadith, pending } = await useAsyncData<IHadithList>(
-  () =>
-    $fetch(hadithHistorySelected.value, {
-      baseURL: HADIST_API,
-      params: {
-        page: page.value,
-        limit,
-      },
-    }),
-  {
-    pick: ['name', 'items', 'pagination'],
-    watch: [page, hadithHistorySelected],
+const { data: dataListHadith, pending } = await useFetch<IHadithList>(hadithHistorySelected, {
+  baseURL: HADIST_API,
+  params: {
+    page: page.value,
+    limit,
   },
-)
+  pick: ['name', 'items', 'pagination'],
+  watch: [page, hadithHistorySelected],
+})
 
 // Change hadit history selected
 const changeHadithHistory = (value: string) => (hadithHistorySelected.value = value)
+
+// Search hadith using number of hadith
+const searchHadithNumber = () => {
+  if (search.value) {
+    isErrorSearch.value = false
+    isFinishSearch.value = false
+    isSearching.value = true
+    $fetch(`${hadithHistorySelected.value}/${search.value}`, {
+      baseURL: HADIST_API,
+    })
+      .then((res) => {
+        searchResult.value = res
+        isSearching.value = false
+        isFinishSearch.value = true
+      })
+      .catch(() => {
+        searchResult.value = null
+        isSearching.value = false
+        isErrorSearch.value = true
+        isFinishSearch.value = true
+      })
+  } else {
+    searchResult.value = null
+    isErrorSearch.value = false
+    isFinishSearch.value = false
+  }
+}
+
+// Onchange input search
+const onChangeInputSearch = () => {
+  if (debounceSearch.value) clearTimeout(debounceSearch.value)
+  debounceSearch.value = setTimeout(() => {
+    searchHadithNumber()
+  }, 1000)
+}
 
 // Meta
 useHead({
@@ -53,49 +89,84 @@ useHead({
       @change-hadith-history="changeHadithHistory"
     />
 
-    <!-- List Of Hadith -->
-    <div
-      v-if="pending"
-      class="mb-4 space-y-4"
-    >
-      <div
-        v-for="i in 10"
-        :key="i"
-        class="h-60 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
-      />
-    </div>
+    <div v-if="!pending">
+      <div class="mb-3 flex flex-col sm:flex-row-reverse sm:items-center sm:justify-between">
+        <!-- Search input -->
+        <Input
+          v-model="search"
+          :loading="isSearching"
+          icon="i-heroicons-magnifying-glass-20-solid"
+          loading-icon="i-heroicons-arrow-path"
+          placeholder="No. hadist"
+          class="mb-6 w-full self-end sm:mb-0 sm:w-40"
+          @onchange-value="onChangeInputSearch"
+        />
 
-    <div v-else>
-      <p class="mb-3 text-sm text-yami dark:text-slate-200 md:text-base">
-        Terdapat <b>{{ dataListHadith?.pagination.totalItems }}</b> hadist menurut
-        {{ dataListHadith?.name }}
-      </p>
-      <div class="grid grid-cols-1 gap-4">
-        <div
-          v-for="list in dataListHadith?.items"
-          :key="list.number"
-          class="rounded-lg border border-gray-300/70 p-4 transition-all duration-150 ease-linear hover:!border-teal-600 hover:shadow-[0px_0px_20px_#e4e4e4] dark:border-gray-700 hover:dark:shadow-[0px_0px_20px_#2f2f2f] md:p-6"
+        <!-- Information total & search hadith -->
+        <p
+          v-if="!pending && !searchResult"
+          class="text-sm text-yami dark:text-slate-200 md:text-base"
         >
-          <p class="mb-6 text-sm font-semibold text-yami dark:text-slate-200 md:text-base">
-            Hadist {{ dataListHadith?.name }} Nomor {{ list.number }}
-          </p>
+          Terdapat <b>{{ dataListHadith?.pagination.totalItems }}</b> hadist menurut
+          {{ dataListHadith?.name }}
+        </p>
 
-          <p
-            class="mb-3 text-right font-mono text-2xl leading-[55px] text-yami dark:text-slate-200 md:leading-[60px] lg:text-3xl lg:!leading-[70px]"
-          >
-            {{ list.arab }}
-          </p>
+        <p
+          v-if="!pending && searchResult"
+          class="text-sm text-yami dark:text-slate-200 md:text-base"
+        >
+          Menampilkan hadist {{ dataListHadith?.name }} nomor <b>{{ search }}</b>
+        </p>
+      </div>
 
-          <p class="text-sm !leading-8 text-smoke-1 dark:text-smoke-2 md:text-base">
-            {{ list.id }}
-          </p>
+      <!-- Skeleton -->
+      <div
+        v-if="pending || isSearching"
+        class="mb-4 space-y-4"
+      >
+        <div
+          v-for="i in 10"
+          :key="i"
+          class="h-60 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
+        />
+      </div>
+
+      <!-- List hadith -->
+      <div v-if="!pending && !isSearching">
+        <!-- List all hadith -->
+        <div
+          v-if="!isFinishSearch"
+          class="grid grid-cols-1 gap-4"
+        >
+          <HadithList
+            v-for="list in dataListHadith?.items"
+            :key="list.number"
+            :hadith-history-name="dataListHadith?.name"
+            :hadith="list"
+          />
+        </div>
+
+        <!-- Show search result -->
+        <HadithList
+          v-if="isFinishSearch && searchResult && !isErrorSearch"
+          :hadith-history-name="dataListHadith?.name"
+          :hadith="searchResult"
+        />
+
+        <div
+          v-if="isFinishSearch && isErrorSearch"
+          class="rounded-lg bg-slate-200/50 p-5 text-sm font-normal text-yami dark:bg-slate-700/50 dark:text-slate-200 sm:text-base"
+        >
+          Tidak ditemukan hadist dengan nomor <b>{{ search }}</b>
         </div>
       </div>
 
       <!-- Pagination -->
-      <div class="mt-5 flex justify-end">
+      <div
+        v-if="!pending && !search && !isFinishSearch"
+        class="mt-5 flex justify-end"
+      >
         <UPagination
-          v-if="!pending"
           v-model="page"
           :page-count="limit"
           :total="dataListHadith!.pagination.totalItems"

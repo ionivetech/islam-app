@@ -16,6 +16,7 @@ const { data: surah, pending: pendingFetch } = useFetch<ISurah[]>(ALQURAN_API, {
     return data.data
   },
 })
+refreshNuxtData('surah')
 
 // Loading get surah list
 const loading = computed((): boolean => (surahCache.value ? false : pendingFetch.value))

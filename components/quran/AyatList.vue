@@ -2,7 +2,11 @@
 // Interfaces
 import { IAyat } from 'models/ISurah'
 // Props
-defineProps({
+const props = defineProps({
+  surahName: {
+    type: String,
+    default: '',
+  },
   surahNumber: {
     type: Number,
     default: 0,
@@ -19,6 +23,19 @@ defineProps({
 
 // Emits
 const emits = defineEmits(['open-tafsir'])
+
+// Store
+const alQuranStore = useAlQuranStore()
+
+// Play surah audio
+const playSurah = () => {
+  const data: any = {
+    surah: `${props.surahName} - ${props.ayat.nomorAyat}`,
+    qori: 'Misyari Rasyid Al-Afasi',
+    source: Object.values(props.ayat.audio).find((audio: any) => audio.includes('Misyari')),
+  }
+  alQuranStore.setPlayingAudio(data)
+}
 </script>
 
 <template>
@@ -39,6 +56,17 @@ const emits = defineEmits(['open-tafsir'])
           @click="emits('open-tafsir', index)"
         >
           <Icon name="heroicons:book-open" />
+        </div>
+      </UTooltip>
+
+      <!-- Play ayat -->
+      <UTooltip text="Putar ayat">
+        <div
+          class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-lg text-smoke-1 hover:bg-teal-100/60 hover:text-teal-700 dark:text-smoke-2 hover:dark:bg-teal-200/10 hover:dark:text-teal-500"
+          role="button"
+          @click="playSurah"
+        >
+          <Icon name="heroicons:play" />
         </div>
       </UTooltip>
     </div>

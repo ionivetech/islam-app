@@ -1,19 +1,19 @@
 import { defineStore } from 'pinia'
 
-// Type state
+// Interface state
 interface IDataAudio {
   surah: string
   qori: string
   source: string
 }
-type Store = {
+interface IStore {
   playingAudio: IDataAudio | null
 }
 
 export const useAlQuranStore = defineStore({
   id: 'alQuranStore',
 
-  state: (): Store => ({
+  state: (): IStore => ({
     playingAudio: null,
   }),
 

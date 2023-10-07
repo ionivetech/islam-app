@@ -1,4 +1,4 @@
-interface IHadithItems {
+export interface IHadithItems {
   arab: string
   id: string
   number: number

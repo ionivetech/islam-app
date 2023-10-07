@@ -61,23 +61,10 @@ const handleSelectSurah = (id: number) => {
       />
     </div>
 
-    <UInput
+    <Input
       v-model="search"
       icon="i-heroicons-magnifying-glass-20-solid"
-      size="lg"
-      color="white"
       placeholder="Cari surah"
-      :trailing="false"
-      :ui="{
-        placeholder: 'placeholder-gray-500 dark:placeholder-gray-400',
-        rounded: 'rounded-lg',
-        color: {
-          white: {
-            outline:
-              'shadow-sm bg-white dark:bg-gray-950/20 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-teal-500 dark:focus:ring-teal-600',
-          },
-        },
-      }"
     />
   </div>
 
