@@ -36,9 +36,7 @@ useHead({
 <template>
   <div class="container mt-16 space-y-8 pt-8">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-      <h1 class="mb-3 text-xl font-semibold text-yami dark:text-slate-200 md:mb-0">
-        Doa Sehari-hari
-      </h1>
+      <h1 class="mb-3 text-xl font-semibold text-yami dark:text-slate-200 md:mb-0">List Do'a</h1>
 
       <Input
         v-model="search"

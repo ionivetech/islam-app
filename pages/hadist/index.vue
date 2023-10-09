@@ -143,7 +143,7 @@ useHead({
           v-if="!isFinishSearch"
           class="grid grid-cols-1 gap-4"
         >
-          <HadithList
+          <HadithCard
             v-for="list in dataListHadith?.items"
             :key="list.number"
             :hadith-history-name="dataListHadith?.name"
@@ -152,7 +152,7 @@ useHead({
         </div>
 
         <!-- Show search result -->
-        <HadithList
+        <HadithCard
           v-if="isFinishSearch && searchResult && !isErrorSearch"
           :hadith-history-name="dataListHadith?.name"
           :hadith="searchResult"

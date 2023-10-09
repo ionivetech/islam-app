@@ -7,7 +7,8 @@ const showSidebarMenu = ref<boolean>(false)
 const menus: { url: string; label: string }[] = [
   { url: '/al-quran', label: 'Al-Quran' },
   { url: '/hadist', label: 'Hadist' },
-  { url: '/doa', label: 'Doa-doa' },
+  { url: '/doa', label: 'Doa' },
+  { url: '/jadwal-sholat', label: 'Jadwal Sholat' },
 ]
 
 const isDark = computed<boolean>({

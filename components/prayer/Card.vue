@@ -74,7 +74,7 @@ const emits = defineEmits(['toggle-expand-prayer'])
 
       <!-- Hadith history -->
       <div v-if="prayer.riwayat">
-        <p class="mb-1 text-sm font-semibold text-yami dark:text-slate-200">Hadist Riwayat:</p>
+        <p class="mb-1 text-sm font-semibold text-yami dark:text-slate-200">Riwayat:</p>
         <p class="text-xs text-smoke-1 dark:text-slate-400 md:text-sm">{{ prayer.riwayat }}</p>
       </div>
     </div>

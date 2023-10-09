@@ -112,7 +112,7 @@ const handleCloseModalTafsir = () => {
         },
       }"
     >
-      <SlideSurah
+      <LazySlideSurah
         :detail-surah="dataDetail"
         @close-slide="showListSurah = false"
       />
@@ -131,7 +131,7 @@ const handleCloseModalTafsir = () => {
         },
       }"
     >
-      <ModalDetailSurah
+      <LazyModalDetailSurah
         :description="dataDetail?.deskripsi"
         @close-modal="showModalDetail = false"
       />
@@ -151,7 +151,7 @@ const handleCloseModalTafsir = () => {
         },
       }"
     >
-      <ModalTafsir
+      <LazyModalTafsir
         :tafsir="tafsirSelected?.teks"
         @close-modal="handleCloseModalTafsir"
       />
