@@ -2,7 +2,7 @@
   "name": "islam-app",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build --max-old-space-size=8096",
     "dev": "nuxt dev --port 5000 --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
