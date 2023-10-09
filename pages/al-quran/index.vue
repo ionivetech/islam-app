@@ -32,7 +32,7 @@ const surahList = computed((): ISurah[] => {
 
 // Meta
 useHead({
-  title: 'Al-Quran',
+  title: 'Al-Quran | Islam App',
 })
 </script>
 

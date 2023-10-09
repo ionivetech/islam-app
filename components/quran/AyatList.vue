@@ -78,10 +78,10 @@ const playSurah = () => {
         {{ ayat.teksArab }}
       </p>
 
-      <p class="mb-3 text-base !leading-7 tracking-wide text-teal-800 dark:text-white">
+      <p class="mb-3 text-sm !leading-7 tracking-wide text-teal-800 dark:text-white md:text-base">
         {{ ayat.teksLatin }}
       </p>
-      <p class="text-base !leading-7 text-smoke-1 dark:text-slate-400">
+      <p class="text-sm !leading-7 text-smoke-1 dark:text-slate-400 md:text-base">
         {{ ayat.teksIndonesia }}
       </p>
     </div>

@@ -82,7 +82,7 @@ const clearResultSearch = () => {
 
 // Meta
 useHead({
-  title: 'Hadist',
+  title: 'Hadist | Islam App',
 })
 </script>
 
