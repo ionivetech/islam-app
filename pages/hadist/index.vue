@@ -21,16 +21,11 @@ watch(page, () => {
   })
 })
 
-// Watch if hadith history is change
-watch(hadithHistorySelected, () => {
-  page.value = 1
-})
-
 // Get list hadith by name of history & params
 const { data: dataListHadith, pending } = await useFetch<IHadithList>(hadithHistorySelected, {
   baseURL: HADIST_API,
   params: {
-    page: page.value,
+    page,
     limit,
   },
   pick: ['name', 'items', 'pagination'],
@@ -38,7 +33,12 @@ const { data: dataListHadith, pending } = await useFetch<IHadithList>(hadithHist
 })
 
 // Change hadit history selected
-const changeHadithHistory = (value: string) => (hadithHistorySelected.value = value)
+const changeHadithHistory = (value: string) => {
+  page.value = 1
+  search.value = ''
+  clearResultSearch()
+  hadithHistorySelected.value = value
+}
 
 // Search hadith using number of hadith
 const searchHadithNumber = () => {
@@ -61,9 +61,7 @@ const searchHadithNumber = () => {
         isFinishSearch.value = true
       })
   } else {
-    searchResult.value = null
-    isErrorSearch.value = false
-    isFinishSearch.value = false
+    clearResultSearch()
   }
 }
 
@@ -73,6 +71,13 @@ const onChangeInputSearch = () => {
   debounceSearch.value = setTimeout(() => {
     searchHadithNumber()
   }, 1000)
+}
+
+// Clear result search
+const clearResultSearch = () => {
+  searchResult.value = null
+  isErrorSearch.value = false
+  isFinishSearch.value = false
 }
 
 // Meta
