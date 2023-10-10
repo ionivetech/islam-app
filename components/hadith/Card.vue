@@ -29,7 +29,7 @@ defineProps({
       {{ hadith.arab }}
     </p>
 
-    <p class="text-sm !leading-8 text-smoke-1 dark:text-smoke-2 md:text-base">
+    <p class="text-sm !leading-7 text-smoke-1 dark:text-smoke-2 md:text-base">
       {{ hadith.id }}
     </p>
   </div>

@@ -125,7 +125,7 @@ const handleCloseModalTafsir = () => {
         rounded: 'rounded-xl',
         background:
           'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
-        width: 'sm:max-w-[60vw]',
+        width: 'sm:max-w-[80vw] md:max-w-[70vw]',
         overlay: {
           background: 'bg-gray-200/50 dark:bg-background-dark/50 backdrop-blur',
         },
@@ -145,7 +145,7 @@ const handleCloseModalTafsir = () => {
         rounded: 'rounded-xl',
         background:
           'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
-        width: 'sm:max-w-[60vw]',
+        width: 'sm:max-w-[80vw] md:max-w-[70vw]',
         overlay: {
           background: 'bg-gray-200/50 dark:bg-background-dark/50 backdrop-blur',
         },
