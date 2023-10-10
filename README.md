@@ -1,63 +1,79 @@
-# Nuxt 3 Boilerplate Minimal Starter
+<p align="center">
+  <img src="https://github.com/ionivetech/islam-app/blob/main/public/logo-full.svg" alt="alquran-list" align="center" />
+</p>
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+<h1 align="center">Islam Application</h1>
 
-## Setup
+<p align="center">
+  <a href="https://faridnugraha-islam.netlify.app/">DEMO</a>
+</p>
 
-Make sure to install the dependencies:
+<br>
+
+## :dart: About
+
+<p>This is a Web application for the Islamic religion, built with Nuxt JS</p>
+
+<br>
+
+## :gem: Features
+
+- Al-Quran List
+- Hadith List
+- Prayer List
+- Play Surah Audio
+- Prayer Schedule (coming soon)
+
+<br>
+
+## :floppy_disk: Source Data
+
+- [Al-Quran API](https://equran.id/apidev)
+- [Hadith API](https://equran.id/apidev)
+- [Prayer Data](https://github.com/ionivetech/islam-app/blob/main/assets/file/doa-harian.json)
+
+<br>
+
+## :art: Screenshot
+
+<img src="https://github.com/ionivetech/islam-app/blob/main/public/screenshot/alquran-list.png" alt="alquran-list" />
+
+<img src="https://github.com/ionivetech/islam-app/blob/main/public/screenshot/alquran-detail.png" alt="alquran-detail" />
+
+<img src="https://github.com/ionivetech/islam-app/blob/main/public/screenshot/hadith-list.png" alt="hadith-list" />
+
+<img src="https://github.com/ionivetech/islam-app/blob/main/public/screenshot/prayer-list.png" alt="prayer-list" />
+
+<br>
+
+## :rocket: Technologies
+
+The following technology were used in this project:
+
+- [Nuxt JS](https://nuxt.com/)
+- [Pinia](https://pinia.vuejs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Nuxt UI](https://ui.nuxt.com/)
+
+<br>
+
+## :checkered_flag: Installation
 
 ```bash
-# npm
-npm install
+# Install dependencies
+$ pnpm install
 
-# pnpm
-pnpm install
+# Run on development
+$ pnpm dev
 
-# yarn
-yarn install
+# Build application
+$ pnpm run
+
+# Build application
+$ pnpm run
+
+# Run on production
+$ pnpm preview
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+<br>
