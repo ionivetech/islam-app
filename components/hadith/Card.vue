@@ -20,7 +20,7 @@ defineProps({
     class="rounded-lg border border-gray-300/70 p-4 transition-all duration-150 ease-linear hover:!border-teal-600 hover:shadow-[0px_0px_20px_#e4e4e4] dark:border-gray-700 hover:dark:shadow-[0px_0px_20px_#2f2f2f] md:p-6"
   >
     <p class="mb-6 text-sm font-semibold text-yami dark:text-slate-200 md:text-base">
-      Hadist {{ hadithHistoryName }} Nomor {{ hadith.number }}
+      Hadits {{ hadithHistoryName }} Nomor {{ hadith.number }}
     </p>
 
     <p

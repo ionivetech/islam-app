@@ -24,21 +24,25 @@ const emits = defineEmits(['toggle-expand-prayer'])
 
 <template>
   <div
-    class="group rounded-lg border border-gray-300/70 p-2 transition-all duration-150 ease-linear hover:!border-teal-600 hover:shadow-[0px_0px_20px_#e4e4e4] dark:border-gray-700 hover:dark:shadow-[0px_0px_20px_#2f2f2f] md:p-4"
+    class="group rounded-lg border border-gray-300/70 p-2 transition-all duration-150 ease-linear hover:!border-teal-600 hover:shadow-[0px_0px_20px_#eeeeee] dark:border-gray-700 hover:dark:shadow-[0px_0px_20px_#2f2f2f] md:p-4"
   >
     <div
-      :class="index + 1 === prayerExpanded ? 'mb-5' : 'mb-0'"
-      class="flex items-center justify-between gap-x-2"
+      :class="
+        index + 1 === prayerExpanded
+          ? 'md:mb-4 md:pb-4 mb-2 pb-2 border-b border-gray-300/70 dark:border-gray-700'
+          : 'mb-0'
+      "
+      class="flex cursor-pointer items-center justify-between gap-x-2"
+      @click="emits('toggle-expand-prayer', index + 1)"
     >
-      <p class="text-sm font-semibold tracking-wide text-yami dark:text-slate-200 md:text-base">
+      <p class="text-sm font-medium tracking-wide text-yami dark:text-slate-200 md:text-base">
         {{ index + 1 }}. {{ prayer.nama }}
       </p>
 
       <Icon
         name="fluent:chevron-down-24-filled"
         :class="{ 'rotate-180': index + 1 === prayerExpanded }"
-        class="cursor-pointer text-lg transition-all duration-300 ease-in-out md:text-xl"
-        @click="emits('toggle-expand-prayer', index + 1)"
+        class="text-lg transition-all duration-300 ease-in-out md:text-xl"
       />
     </div>
 

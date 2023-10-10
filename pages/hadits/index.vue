@@ -23,7 +23,7 @@ watch(page, () => {
 
 // Get list hadith by name of history & params
 const { data: dataListHadith, pending } = await useFetch<IHadithList>(hadithHistorySelected, {
-  baseURL: HADIST_API,
+  baseURL: HADITH_API,
   params: {
     page,
     limit,
@@ -47,7 +47,7 @@ const searchHadithNumber = () => {
     isFinishSearch.value = false
     isSearching.value = true
     $fetch(`${hadithHistorySelected.value}/${search.value}`, {
-      baseURL: HADIST_API,
+      baseURL: HADITH_API,
     })
       .then((res) => {
         searchResult.value = res
@@ -82,7 +82,7 @@ const clearResultSearch = () => {
 
 // Meta
 useHead({
-  title: 'Hadist | Islam App',
+  title: 'Hadits | Islam App',
 })
 </script>
 
@@ -114,7 +114,7 @@ useHead({
           :loading="isSearching"
           icon="i-heroicons-magnifying-glass-20-solid"
           loading-icon="i-heroicons-arrow-path"
-          placeholder="No. hadist"
+          placeholder="No. hadits"
           class="mb-6 w-full self-end sm:mb-0 sm:w-40"
           @onchange-value="onChangeInputSearch"
         />
@@ -124,7 +124,7 @@ useHead({
           v-if="!pending && !searchResult"
           class="text-sm text-yami dark:text-slate-200 md:text-base"
         >
-          Terdapat <b>{{ dataListHadith?.pagination.totalItems }}</b> hadist menurut
+          Terdapat <b>{{ dataListHadith?.pagination.totalItems }}</b> hadits menurut
           {{ dataListHadith?.name }}
         </p>
 
@@ -132,7 +132,7 @@ useHead({
           v-if="!pending && searchResult"
           class="text-sm text-yami dark:text-slate-200 md:text-base"
         >
-          Menampilkan hadist {{ dataListHadith?.name }} nomor <b>{{ search }}</b>
+          Menampilkan hadits {{ dataListHadith?.name }} nomor <b>{{ search }}</b>
         </p>
       </div>
 
@@ -162,7 +162,7 @@ useHead({
           v-if="isFinishSearch && isErrorSearch"
           class="rounded-lg bg-slate-200/50 p-5 text-sm font-normal text-yami dark:bg-slate-700/50 dark:text-slate-200 sm:text-base"
         >
-          Tidak ditemukan hadist dengan nomor <b>{{ search }}</b>
+          Tidak ditemukan hadits dengan nomor <b>{{ search }}</b>
         </div>
       </div>
 

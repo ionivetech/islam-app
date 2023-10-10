@@ -34,7 +34,7 @@
 
 <br>
 
-## :art: Screenshot
+## :art: Preview
 
 <img src="https://github.com/ionivetech/islam-app/blob/main/public/screenshot/alquran-list.png" alt="alquran-list" />
 
@@ -75,5 +75,3 @@ $ pnpm run
 # Run on production
 $ pnpm preview
 ```
-
-<br>
