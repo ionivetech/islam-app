@@ -15,7 +15,7 @@
       <UButton
         v-if="$pwa.needRefresh"
         color="red"
-        label="Reload"
+        label="primary"
         class="mr-2"
         @click="$pwa.updateServiceWorker()"
       />
@@ -27,7 +27,6 @@
       />
     </div>
 
-    v-if="$pwa?.showInstallPrompt && !$pwa?.offlineReady && !$pwa?.needRefresh"
     <div
       v-if="$pwa?.showInstallPrompt && !$pwa?.offlineReady && !$pwa?.needRefresh"
       class="fixed bottom-5 right-5 z-[100] rounded-lg border border-gray-300/70 bg-white p-4 shadow dark:border-gray-700 dark:bg-background-dark-soft"
