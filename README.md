@@ -23,6 +23,7 @@
 - Prayer List
 - Play Surah Audio
 - Prayer Schedule (coming soon)
+- PWA (Progressive Web App)
 
 <br>
 
@@ -35,8 +36,6 @@
 <br>
 
 ## :art: Preview
-
-<b>Note:</b> Temporary look inspired by [Quran.com](https://quran.com/)
 
 <img src="https://github.com/ionivetech/islam-app/blob/main/public/screenshot/alquran-list.png" alt="alquran-list" />
 
