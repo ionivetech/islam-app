@@ -5,6 +5,7 @@ const alQuranStore = useAlQuranStore()
 
 <template>
   <div>
+    <VitePwaManifest />
     <NuxtLoadingIndicator />
 
     <div>
