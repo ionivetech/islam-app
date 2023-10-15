@@ -62,36 +62,42 @@ export default defineNuxtConfig({
   },
 
   pwa: {
-    registerType: 'autoUpdate',
     manifest: {
-      name: 'Islam App',
-      short_name: 'IslamApp',
+      theme_color: '#ffffff',
+      background_color: '#ffffff',
+      display: 'standalone',
+      scope: '/',
+      start_url: '/',
+      name: 'Islam Application',
+      short_name: 'Islam App',
       description: 'Web application for the Islamic religion',
-      start_url: '/al-quran',
-      scope: '/al-quran',
-      theme_color: '#FFFFFF',
       icons: [
         {
-          src: 'logo-192x192.png',
+          src: '/icon-pwa/icon-192x192.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: 'logo-512x512.png',
-          sizes: '512x512',
+          src: '/icon-pwa/icon-256x256.png',
+          sizes: '256x256',
           type: 'image/png',
         },
         {
-          src: 'logo-512x512.png',
+          src: '/icon-pwa/icon-384x384.png',
+          sizes: '384x384',
+          type: 'image/png',
+        },
+        {
+          src: '/icon-pwa/icon-512x512.png',
           sizes: '512x512',
           type: 'image/png',
-          purpose: 'any maskable',
         },
       ],
     },
     workbox: {
-      navigateFallback: '/al-quran',
+      navigateFallback: '/',
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+      cleanupOutdatedCaches: false,
     },
     client: {
       installPrompt: true,

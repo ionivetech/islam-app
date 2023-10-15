@@ -86,7 +86,7 @@ useHead({
         class="mb-12"
       >
         <p
-          class="mb-3 border-l-4 border-teal-600 pl-2 text-sm font-semibold text-yami dark:text-slate-200 md:text-base"
+          class="mb-3 border-l-4 border-teal-600 pl-2 text-base font-semibold text-yami dark:text-slate-200"
         >
           Surah Favorit
         </p>
@@ -111,7 +111,7 @@ useHead({
       <div>
         <p
           v-if="!search"
-          class="mb-3 border-l-4 border-teal-600 pl-2 text-sm font-semibold text-yami dark:text-slate-200 md:text-base"
+          class="mb-3 border-l-4 border-teal-600 pl-2 text-base font-semibold text-yami dark:text-slate-200"
         >
           List Surah
         </p>

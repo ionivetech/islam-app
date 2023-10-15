@@ -17,5 +17,7 @@ const alQuranStore = useAlQuranStore()
         <LazyAudioPlayer />
       </div>
     </div>
+
+    <PopupPwa />
   </div>
 </template>
