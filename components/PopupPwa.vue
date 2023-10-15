@@ -4,18 +4,18 @@
   <ClientOnly>
     <div
       v-if="$pwa?.offlineReady || $pwa?.needRefresh"
-      class="fixed bottom-5 right-5 z-[100] rounded-lg border border-gray-300/70 bg-white p-4 shadow dark:border-gray-700 dark:bg-background-dark-soft"
+      class="fixed bottom-2.5 right-2.5 z-[100] max-w-[80%] rounded-lg border border-gray-300/70 bg-white p-4 shadow dark:border-gray-700 dark:bg-background-dark-soft md:bottom-5 md:right-5"
       role="alert"
     >
       <div class="mb-2 text-sm text-yami dark:text-slate-200 md:text-base">
-        <span v-if="$pwa.offlineReady"> App ready to work offline </span>
+        <span v-if="$pwa.offlineReady">App ready to work offline</span>
         <span v-else> New content available, click on reload button to update. </span>
       </div>
 
       <UButton
         v-if="$pwa.needRefresh"
-        color="red"
-        label="primary"
+        color="primary"
+        label="Update"
         class="mr-2"
         @click="$pwa.updateServiceWorker()"
       />
@@ -29,7 +29,7 @@
 
     <div
       v-if="$pwa?.showInstallPrompt && !$pwa?.offlineReady && !$pwa?.needRefresh"
-      class="fixed bottom-5 right-5 z-[100] rounded-lg border border-gray-300/70 bg-white p-4 shadow dark:border-gray-700 dark:bg-background-dark-soft"
+      class="fixed bottom-2.5 right-2.5 z-[100] rounded-lg border border-gray-300/70 bg-white p-4 shadow dark:border-gray-700 dark:bg-background-dark-soft md:bottom-5 md:right-5"
       role="alert"
     >
       <p class="mb-2 text-sm text-yami dark:text-slate-200 md:text-base">
