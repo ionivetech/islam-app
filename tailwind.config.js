@@ -35,12 +35,15 @@ module.exports = {
       },
       boxShadow: {
         header: '0 4px 10px rgba(240, 240, 240, 1)',
+        'surah-card': '0px 0px 12px #E7E7E7',
+        'surah-card-dark': '0px 0px 12px #181616',
         slideover: '0px 4px 4px rgba(120, 120, 120, 0.25)',
         'audio-player': '0px -2px 14px rgba(233, 233, 233, 1)',
         'audio-player-dark': '0px -2px 20px rgba(24, 24, 24, 0.4)',
       },
       gridTemplateColumns: {
-        'quran-list': 'repeat(auto-fill, minmax(330px, 1fr))',
+        'quran-list-lg': 'repeat(auto-fill, minmax(275px, 1fr))',
+        'quran-list': 'repeat(auto-fill, minmax(240px, 1fr))',
       },
     },
   },

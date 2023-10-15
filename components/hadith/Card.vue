@@ -24,7 +24,9 @@ defineProps({
     </p>
 
     <p
-      class="mb-3 text-right font-mono text-2xl leading-[55px] text-yami dark:text-slate-200 md:leading-[60px] lg:text-3xl lg:!leading-[70px]"
+      dir="rtl"
+      lang="ar"
+      class="mb-3 text-right font-mono text-3xl leading-[65px] text-slate-800 dark:text-slate-200 md:!leading-[70px] lg:text-4xl lg:!leading-[80px]"
     >
       {{ hadith.arab }}
     </p>

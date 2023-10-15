@@ -35,6 +35,7 @@
 <br>
 
 ## :art: Preview
+
 <b>Note:</b> Temporary look inspired by [Quran.com](https://quran.com/)
 
 <img src="https://github.com/ionivetech/islam-app/blob/main/public/screenshot/alquran-list.png" alt="alquran-list" />
@@ -66,9 +67,6 @@ $ pnpm install
 
 # Run on development
 $ pnpm dev
-
-# Build application
-$ pnpm run
 
 # Build application
 $ pnpm run

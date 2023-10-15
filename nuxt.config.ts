@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   app: {
-    pageTransition: { name: 'scale', mode: 'out-in' },
+    pageTransition: { name: 'fade', mode: 'out-in' },
   },
 
   alias: {
@@ -12,15 +12,6 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/css/main.css'],
-
-  modules: [
-    '@nuxtjs/eslint-module',
-    '@pinia/nuxt',
-    '@nuxt/ui',
-    'nuxt-icon',
-    '@nuxtjs/google-fonts',
-    '@vueuse/nuxt',
-  ],
 
   colorMode: {
     preference: 'light',
@@ -33,7 +24,7 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      Inter: true,
+      Inter: [100, 200, 300, 400, 500, 600, 700, 800, 900],
       'Scheherazade New': true,
     },
     display: 'swap',
@@ -44,6 +35,15 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores'],
   },
+
+  modules: [
+    '@nuxtjs/eslint-module',
+    '@pinia/nuxt',
+    '@nuxt/ui',
+    'nuxt-icon',
+    '@nuxtjs/google-fonts',
+    '@vueuse/nuxt',
+  ],
 
   pinia: {
     autoImports: ['defineStore'],

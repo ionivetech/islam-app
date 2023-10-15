@@ -25,4 +25,5 @@ export interface ISurah {
   suratSebelumnya?: boolean | IBeforeNextSurah
   suratSelanjutnya?: boolean | IBeforeNextSurah
   tempatTurun: string
+  isFavorite: boolean
 }

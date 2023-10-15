@@ -75,9 +75,3 @@ const emits = defineEmits(['change-hadith-history'])
     </div>
   </div>
 </template>
-
-<style scoped>
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-</style>

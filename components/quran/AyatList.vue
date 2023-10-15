@@ -39,40 +39,45 @@ const playSurah = () => {
 </script>
 
 <template>
-  <div
-    class="flex w-full flex-col gap-8 border-b border-gray-200 py-7 last:border-b-0 last:pb-0 dark:border-zinc-700 md:flex-row md:gap-12"
-  >
-    <div class="flex items-center justify-start gap-2 md:flex-col">
+  <div class="flex w-full flex-col gap-8">
+    <!-- Header -->
+    <div
+      class="flex items-center justify-between rounded-xl bg-teal-600/10 px-4 py-1.5 dark:bg-teal-200/10"
+    >
       <!-- Number surah & ayat -->
-      <p class="text-sm font-semibold tracking-wide text-smoke-1 dark:text-smoke-2">
-        {{ surahNumber }}:{{ ayat.nomorAyat }}
+      <p class="text-sm font-semibold tracking-wide text-teal-700 dark:text-teal-500">
+        {{ ayat.nomorAyat }}
       </p>
 
-      <!-- Button tafsir -->
-      <UTooltip text="Tafsir">
-        <div
-          class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-lg text-smoke-1 hover:bg-teal-100/60 hover:text-teal-700 dark:text-smoke-2 hover:dark:bg-teal-200/10 hover:dark:text-teal-500"
-          role="button"
-          @click="emits('open-tafsir', index)"
-        >
-          <Icon name="heroicons:book-open" />
-        </div>
-      </UTooltip>
+      <div class="flex items-center gap-1">
+        <!-- Play ayat -->
+        <UTooltip text="Putar ayat">
+          <div
+            class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-lg text-teal-700 hover:bg-teal-100/60 dark:text-teal-500 hover:dark:bg-teal-200/10"
+            role="button"
+            @click="playSurah"
+          >
+            <Icon name="heroicons:play" />
+          </div>
+        </UTooltip>
 
-      <!-- Play ayat -->
-      <UTooltip text="Putar ayat">
-        <div
-          class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-lg text-smoke-1 hover:bg-teal-100/60 hover:text-teal-700 dark:text-smoke-2 hover:dark:bg-teal-200/10 hover:dark:text-teal-500"
-          role="button"
-          @click="playSurah"
-        >
-          <Icon name="heroicons:play" />
-        </div>
-      </UTooltip>
+        <!-- Button tafsir -->
+        <UTooltip text="Tafsir">
+          <div
+            class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-lg text-teal-700 hover:bg-teal-100/60 dark:text-teal-500 hover:dark:bg-teal-200/10"
+            role="button"
+            @click="emits('open-tafsir', index)"
+          >
+            <Icon name="heroicons:book-open" />
+          </div>
+        </UTooltip>
+      </div>
     </div>
 
     <div class="w-full">
       <p
+        dir="rtl"
+        lang="ar"
         class="mb-5 text-right font-mono text-3xl leading-[65px] text-slate-800 dark:text-slate-200 md:!leading-[70px] lg:text-4xl lg:!leading-[80px]"
       >
         {{ ayat.teksArab }}

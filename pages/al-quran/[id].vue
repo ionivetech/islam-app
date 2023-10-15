@@ -11,6 +11,12 @@ interface ITafsir {
 // Router
 const route = useRoute()
 
+// Variable
+const showModalDetail = ref<boolean>(false)
+const showModalTafsir = ref<boolean>(false)
+const showListSurah = ref<boolean>(false)
+const tafsirSelected = ref<ITafsir | null>(null)
+
 // Get detail surah
 const { data: dataDetail, pending } = useFetch<ISurah>(`${ALQURAN_API}/${route.params.id}`, {
   key: 'surahDetail',
@@ -28,12 +34,6 @@ const { data: dataTafsir } = useFetch<ITafsir[]>(`${TAFSIR_API}/${route.params.i
   server: false,
   transform: (data: any) => data.data.tafsir,
 })
-
-// Variable
-const showModalDetail = ref<boolean>(false)
-const showModalTafsir = ref<boolean>(false)
-const showListSurah = ref<boolean>(false)
-const tafsirSelected = ref<ITafsir | null>(null)
 
 watch(pending, (val) => {
   if (!val) {
@@ -78,14 +78,17 @@ const handleCloseModalTafsir = () => {
         <!-- Bismillah images -->
         <img
           src="/images/bismillah.svg"
-          class="mx-auto my-5 h-auto w-48 dark:brightness-0 dark:invert-[1] md:w-52 lg:w-56"
+          class="mx-auto mb-10 h-auto w-48 dark:brightness-0 dark:invert-[1] md:w-52 lg:w-56"
           alt="bismillah-images"
         />
 
         <!-- List Ayat -->
         <SkeletonAyat v-if="pending" />
 
-        <template v-if="!pending">
+        <div
+          v-if="!pending"
+          class="space-y-5"
+        >
           <QuranAyatList
             v-for="(ayat, index) in dataDetail!.ayat"
             :key="ayat.nomorAyat"
@@ -95,7 +98,7 @@ const handleCloseModalTafsir = () => {
             :index="index"
             @open-tafsir="handleOpenModalTafsir"
           />
-        </template>
+        </div>
       </div>
     </div>
 
