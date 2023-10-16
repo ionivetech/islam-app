@@ -5,6 +5,16 @@ export default defineNuxtConfig({
 
   app: {
     pageTransition: { name: 'fade', mode: 'out-in' },
+    head: {
+      meta: [
+        { name: 'theme_color', content: '#ffffff' },
+        { name: 'name', content: 'Islam Application' },
+        { name: 'author', content: 'Ionive Tech' },
+      ],
+      htmlAttrs: {
+        lang: 'id',
+      },
+    },
   },
 
   alias: {
@@ -86,6 +96,7 @@ export default defineNuxtConfig({
           src: '/icon-pwa/icon-384x384.png',
           sizes: '384x384',
           type: 'image/png',
+          purpose: 'any maskable',
         },
         {
           src: '/icon-pwa/icon-512x512.png',
@@ -95,7 +106,7 @@ export default defineNuxtConfig({
       ],
     },
     workbox: {
-      navigateFallback: '/',
+      navigateFallback: null,
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
       cleanupOutdatedCaches: false,
     },
@@ -105,8 +116,6 @@ export default defineNuxtConfig({
     },
     devOptions: {
       enabled: true,
-      suppressWarnings: true,
-      navigateFallbackAllowlist: [/^\/$/],
       type: 'module',
     },
   },

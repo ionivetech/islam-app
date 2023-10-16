@@ -40,9 +40,6 @@ watch(pending, (val) => {
     useHead({
       title: `Surah ${dataDetail.value?.namaLatin} | Islam App`,
       meta: [{ name: 'description', content: `Detail surah ${dataDetail.value?.namaLatin}` }],
-      htmlAttrs: {
-        lang: 'id',
-      },
     })
   }
 })
