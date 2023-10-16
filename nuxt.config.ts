@@ -96,12 +96,12 @@ export default defineNuxtConfig({
           src: '/icon-pwa/icon-384x384.png',
           sizes: '384x384',
           type: 'image/png',
-          purpose: 'any maskable',
         },
         {
           src: '/icon-pwa/icon-512x512.png',
           sizes: '512x512',
           type: 'image/png',
+          purpose: 'any maskable',
         },
       ],
     },
