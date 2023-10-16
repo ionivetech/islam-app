@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     pageTransition: { name: 'fade', mode: 'out-in' },
     head: {
       meta: [
-        { name: 'theme_color', content: '#ffffff' },
+        { name: 'theme-color', content: '#ffffff' },
         { name: 'name', content: 'Islam Application' },
         { name: 'author', content: 'Ionive Tech' },
       ],

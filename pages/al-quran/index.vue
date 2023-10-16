@@ -69,7 +69,7 @@ useHead({
         />
 
         <div
-          class="absolute inset-y-2/4 right-3 flex h-8 w-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:h-9 md:w-9"
+          class="absolute inset-y-2/4 right-2 flex h-8 w-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:h-9 md:w-9"
         >
           <Icon
             name="radix-icons:magnifying-glass"
