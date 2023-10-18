@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interfaces
-import { ISurah } from 'models/ISurah'
+import { ISurah, IAyat } from 'models/ISurah'
 
 // Local interface
 interface ITafsir {
@@ -11,7 +11,13 @@ interface ITafsir {
 // Router
 const route = useRoute()
 
+// Ref
+
 // Variable
+const masterAyatList = ref<IAyat[]>([])
+const chunkPage = ref<number>(1)
+const ayatChunk = ref<Array<IAyat[]>>([])
+const ayatList = ref<IAyat[]>([])
 const showModalDetail = ref<boolean>(false)
 const showModalTafsir = ref<boolean>(false)
 const showListSurah = ref<boolean>(false)
@@ -21,10 +27,24 @@ const tafsirSelected = ref<ITafsir | null>(null)
 const { data: dataDetail, pending } = useFetch<ISurah>(`${ALQURAN_API}/${route.params.id}`, {
   key: 'surahDetail',
   transform: (data: any) => {
-    return {
+    chunkPage.value = 1
+    masterAyatList.value = data.data.ayat
+
+    // Split array into chunks
+    for (let i = 0; i < masterAyatList.value.length; i += 20) {
+      const chunk = masterAyatList.value.slice(i, i + 20)
+      ayatChunk.value.push(chunk)
+    }
+
+    ayatList.value = ayatChunk.value[0]
+
+    const returnData = {
       ...data.data,
       audioFull: Object.values(data.data.audioFull).find((audio: any) => audio.includes('Misyari')),
     }
+
+    delete returnData.ayat
+    return returnData
   },
 })
 
@@ -59,6 +79,20 @@ const handleCloseModalTafsir = () => {
     tafsirSelected.value = null
   }, 400)
 }
+
+onMounted(() => {
+  window.onscroll = () => {
+    if (chunkPage.value !== ayatChunk.value.length && !pending.value) {
+      const bottomOfWindow =
+        window.innerHeight + Math.ceil(window.pageYOffset) === document.body.offsetHeight
+
+      if (bottomOfWindow) {
+        chunkPage.value += 1
+        ayatList.value.push(...ayatChunk.value[chunkPage.value - 1])
+      }
+    }
+  }
+})
 </script>
 
 <template>
@@ -87,7 +121,7 @@ const handleCloseModalTafsir = () => {
           class="space-y-5"
         >
           <QuranAyatList
-            v-for="(ayat, index) in dataDetail!.ayat"
+            v-for="(ayat, index) in ayatList"
             :key="ayat.nomorAyat"
             :surah-name="dataDetail?.namaLatin"
             :surah-number="dataDetail?.nomor"
@@ -113,6 +147,7 @@ const handleCloseModalTafsir = () => {
       }"
     >
       <LazySlideSurah
+        v-if="showListSurah"
         :detail-surah="dataDetail"
         @close-slide="showListSurah = false"
       />

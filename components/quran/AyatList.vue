@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // Interfaces
 import { IAyat } from 'models/ISurah'
+
 // Props
 const props = defineProps({
   surahName: {
@@ -39,7 +40,7 @@ const playSurah = () => {
 </script>
 
 <template>
-  <div class="flex w-full flex-col gap-8">
+  <div class="observable flex w-full flex-col gap-8">
     <!-- Header -->
     <div
       class="flex items-center justify-between rounded-xl bg-teal-600/10 px-4 py-1.5 dark:bg-teal-200/10"

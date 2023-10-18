@@ -105,7 +105,7 @@ export default defineNuxtConfig({
         },
         {
           src: '/icon-pwa/maskable-icon.png',
-          sizes: '192x192',
+          sizes: '512x512',
           type: 'image/png',
           purpose: 'maskable',
         },
@@ -124,6 +124,12 @@ export default defineNuxtConfig({
       enabled: true,
       type: 'module',
     },
+  },
+
+  routeRules: {
+    '/': { prerender: true, redirect: '/al-quran' },
+    '/al-quran/**': { isr: true },
+    '/hadits': { ssr: false },
   },
 
   tailwindcss: {

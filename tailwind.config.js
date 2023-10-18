@@ -44,6 +44,7 @@ module.exports = {
       gridTemplateColumns: {
         'quran-list-lg': 'repeat(auto-fill, minmax(275px, 1fr))',
         'quran-list': 'repeat(auto-fill, minmax(240px, 1fr))',
+        'prayer-time': 'repeat(auto-fill, minmax(220px, 1fr))',
       },
     },
   },
