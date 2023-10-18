@@ -7,9 +7,9 @@ const emits = defineEmits(['close-slide'])
 // Variables
 const menus: { url: string; label: string }[] = [
   { url: '/al-quran', label: 'Al-Quran' },
-  { url: '/hadits', label: 'Hadits' },
-  { url: '/doa', label: 'Doa' },
-  { url: '/jadwal-sholat', label: 'Jadwal Sholat' },
+  { url: '/hadith', label: 'Hadits' },
+  { url: '/prayer', label: 'Doa' },
+  { url: '/prayer-schedule', label: 'Jadwal Sholat' },
 ]
 </script>
 
@@ -46,7 +46,7 @@ const menus: { url: string; label: string }[] = [
             ? 'text-teal-600 dark:text-teal-500 font-semibold'
             : 'text-yami/75 dark:text-gray-400'
         "
-        class="block w-full px-5 py-1.5 text-base transition duration-200 ease-in-out hover:bg-zinc-200 focus-visible:outline-none dark:hover:bg-zinc-700"
+        class="block w-full px-5 py-1.5 text-base transition duration-200 ease-in-out hover:bg-gray-200/40 focus-visible:outline-none dark:hover:bg-zinc-700"
         @click="emits('close-slide')"
       >
         {{ menu.label }}

@@ -54,24 +54,21 @@ const emits = defineEmits(['change-hadith-history'])
 </script>
 
 <template>
-  <div>
-    <p class="mb-3 text-sm font-semibold text-yami dark:text-slate-200 md:text-base">
-      Hadist Riwayat:
-    </p>
-    <div class="no-scrollbar flex items-center gap-x-2 overflow-x-auto scroll-smooth">
-      <div
-        v-for="hadithHistory in hadithHistoryList"
-        :key="hadithHistory.slug"
-        :class="
-          selected === hadithHistory.slug
-            ? 'bg-teal-100 dark:bg-teal-800 text-teal-700 dark:text-teal-100'
-            : 'bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400'
-        "
-        class="w-min cursor-pointer whitespace-nowrap rounded-full px-3 py-1 text-sm font-medium"
-        @click="emits('change-hadith-history', hadithHistory.slug)"
-      >
-        {{ hadithHistory.name }}
-      </div>
+  <div
+    class="no-scrollbar flex w-full items-center gap-x-2 overflow-x-auto scroll-smooth lg:justify-center"
+  >
+    <div
+      v-for="hadithHistory in hadithHistoryList"
+      :key="hadithHistory.slug"
+      :class="
+        selected === hadithHistory.slug
+          ? 'bg-teal-100 dark:bg-teal-800 text-teal-700 dark:text-teal-100'
+          : 'bg-gray-100/80 dark:bg-slate-600/60 text-slate-500/80 dark:text-slate-400'
+      "
+      class="w-min cursor-pointer whitespace-nowrap rounded-full px-3 py-1 text-sm font-medium"
+      @click="emits('change-hadith-history', hadithHistory.slug)"
+    >
+      {{ hadithHistory.name }}
     </div>
   </div>
 </template>

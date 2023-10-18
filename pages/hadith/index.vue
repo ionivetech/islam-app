@@ -21,6 +21,13 @@ watch(page, () => {
   })
 })
 
+watch(search, () => {
+  if (debounceSearch.value) clearTimeout(debounceSearch.value)
+  debounceSearch.value = setTimeout(() => {
+    searchHadithNumber()
+  }, 1000)
+})
+
 // Get list hadith by name of history & params
 const { data: dataListHadith, pending } = await useFetch<IHadithList>(hadithHistorySelected, {
   baseURL: HADITH_API,
@@ -65,14 +72,6 @@ const searchHadithNumber = () => {
   }
 }
 
-// Onchange input search
-const onChangeInputSearch = () => {
-  if (debounceSearch.value) clearTimeout(debounceSearch.value)
-  debounceSearch.value = setTimeout(() => {
-    searchHadithNumber()
-  }, 1000)
-}
-
 // Clear result search
 const clearResultSearch = () => {
   searchResult.value = null
@@ -87,12 +86,40 @@ useHead({
 </script>
 
 <template>
-  <div class="container mt-16 space-y-8 pt-8">
-    <!-- List name of history -->
-    <HadithHistoryList
-      :selected="hadithHistorySelected"
-      @change-hadith-history="changeHadithHistory"
-    />
+  <div class="container pt-24">
+    <!-- Header -->
+    <div
+      class="mb-10 flex flex-col items-center space-y-8 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 px-5 py-8 dark:from-slate-700/50 dark:to-slate-600/60 sm:pb-10 sm:pt-8"
+    >
+      <Icon
+        name="solar:notebook-minimalistic-bold"
+        class="text-[80px] text-white sm:text-[95px]"
+      />
+
+      <div class="relative w-full md:w-2/3 lg:w-3/4 xl:w-6/12">
+        <input
+          v-model="search"
+          type="text"
+          placeholder="Cari nomor hadits"
+          class="input-search"
+        />
+
+        <div
+          class="absolute inset-y-2/4 right-2 flex h-8 w-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:h-9 md:w-9"
+        >
+          <Icon
+            name="radix-icons:magnifying-glass"
+            class="text-xl text-white"
+          />
+        </div>
+      </div>
+
+      <!-- List name of history -->
+      <HadithHistoryList
+        :selected="hadithHistorySelected"
+        @change-hadith-history="changeHadithHistory"
+      />
+    </div>
 
     <!-- Skeleton -->
     <div
@@ -106,10 +133,13 @@ useHead({
       />
     </div>
 
-    <div v-if="!pending">
-      <div class="mb-3 flex flex-col sm:flex-row-reverse sm:items-center sm:justify-between">
+    <div
+      v-if="!pending"
+      class="mt-5"
+    >
+      <div class="mb-3">
         <!-- Search input -->
-        <Input
+        <!-- <Input
           v-model="search"
           :loading="isSearching"
           icon="i-heroicons-magnifying-glass-20-solid"
@@ -117,7 +147,7 @@ useHead({
           placeholder="No. hadits"
           class="mb-6 w-full self-end sm:mb-0 sm:w-40"
           @onchange-value="onChangeInputSearch"
-        />
+        /> -->
 
         <!-- Information total & search hadith -->
         <p

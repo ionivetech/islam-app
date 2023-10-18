@@ -72,6 +72,7 @@ export default defineNuxtConfig({
   },
 
   pwa: {
+    registerType: 'autoUpdate',
     manifest: {
       theme_color: '#ffffff',
       background_color: '#ffffff',
@@ -129,7 +130,7 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true, redirect: '/al-quran' },
     '/al-quran/**': { isr: true },
-    '/hadits': { ssr: false },
+    '/hadith': { ssr: false },
   },
 
   tailwindcss: {

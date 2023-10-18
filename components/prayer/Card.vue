@@ -32,11 +32,11 @@ const emits = defineEmits(['toggle-expand-prayer'])
       class="flex cursor-pointer items-center justify-between gap-x-3 p-3 md:p-4"
       @click="emits('toggle-expand-prayer', index + 1)"
     >
-      <div class="flex items-center gap-x-1.5">
-        <p class="text-sm font-medium tracking-wide text-yami dark:text-slate-200 md:text-base">
+      <div class="flex items-start gap-x-1.5">
+        <p class="text-sm font-normal tracking-wide text-yami dark:text-slate-200 md:text-base">
           {{ index + 1 }}.
         </p>
-        <p class="text-sm font-medium text-yami dark:text-slate-200 md:text-base">
+        <p class="text-sm font-normal text-yami dark:text-slate-200 md:text-base">
           {{ prayer.nama }}
         </p>
       </div>

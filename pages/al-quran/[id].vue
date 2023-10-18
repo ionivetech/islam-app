@@ -120,7 +120,7 @@ onMounted(() => {
           v-if="!pending"
           class="space-y-5"
         >
-          <QuranAyatList
+          <QuranVerseList
             v-for="(ayat, index) in ayatList"
             :key="ayat.nomorAyat"
             :surah-name="dataDetail?.namaLatin"

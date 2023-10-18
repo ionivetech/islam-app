@@ -6,9 +6,9 @@ const colorMode = useColorMode()
 const showSidebarMenu = ref<boolean>(false)
 const menus: { url: string; label: string }[] = [
   { url: '/al-quran', label: 'Al-Quran' },
-  { url: '/hadits', label: 'Hadits' },
-  { url: '/doa', label: 'Doa' },
-  { url: '/jadwal-sholat', label: 'Jadwal Sholat' },
+  { url: '/hadith', label: 'Hadits' },
+  { url: '/prayer', label: 'Doa' },
+  { url: '/prayer-schedule', label: 'Jadwal Sholat' },
 ]
 
 const isDark = computed<boolean>({
@@ -33,7 +33,7 @@ const isDark = computed<boolean>({
         @click="showSidebarMenu = true"
       >
         <Icon
-          name="ant-design:menu-outlined"
+          name="heroicons:bars-3-bottom-left-20-solid"
           class="text-xl text-yami dark:text-slate-200"
         />
       </div>

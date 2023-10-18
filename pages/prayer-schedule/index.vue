@@ -135,9 +135,18 @@ useHead({
     >
       <div>
         <h1 class="text-xl font-semibold text-white md:text-2xl">Jadwal Sholat</h1>
-        <p class="text-sm text-slate-100 dark:text-slate-400 md:text-base">
+        <p
+          v-if="!isLoading"
+          class="text-sm text-slate-100 dark:text-slate-400 md:text-base"
+        >
           {{ prayerTime?.jadwal.tanggal }}
         </p>
+
+        <!-- Skeleton date -->
+        <div
+          v-else
+          class="h-6 w-[224px] animate-pulse rounded-md bg-gray-300 dark:bg-slate-600/50"
+        />
 
         <div class="mt-5 flex items-center space-x-2 text-white">
           <Icon
@@ -152,9 +161,10 @@ useHead({
             {{ dataLocation?.countryName }}
           </p>
 
+          <!-- Skeleton location -->
           <div
             v-else
-            class="h-6 w-[224px] animate-pulse rounded-md bg-gray-300 dark:bg-slate-700/30"
+            class="h-6 w-[224px] animate-pulse rounded-md bg-gray-300 dark:bg-slate-600/50"
           />
         </div>
       </div>
