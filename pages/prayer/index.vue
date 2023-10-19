@@ -3,6 +3,7 @@
 import type { IPrayer } from '@/models/IPrayer'
 
 // Variables
+const finishSetDataChunk = ref<boolean>(false)
 const search = ref<string>('')
 const masterPrayerList = ref<IPrayer[]>([])
 const chunkPage = ref<number>(1)
@@ -11,22 +12,23 @@ const dataPrayerList = ref<IPrayer[]>([])
 const prayerExpanded = ref<number>(0)
 
 // get list doa
-useAsyncData<IPrayer[]>(() => $fetch('/api/doa'), {
-  transform: (data: any) => {
-    chunkPage.value = 1
-    masterPrayerList.value = data
+const { data: dataPrayer, pending } = useAsyncData<IPrayer[]>('prayerList', () =>
+  $fetch('/api/doa'),
+)
 
-    // Split array into chunks
-    for (let i = 0; i < masterPrayerList.value.length; i += 20) {
-      const chunk = masterPrayerList.value.slice(i, i + 20)
-      prayerChunk.value.push(chunk)
-    }
+const setDataChunks = (data: IPrayer[]) => {
+  chunkPage.value = 1
+  masterPrayerList.value = data
 
-    dataPrayerList.value = prayerChunk.value[0]
+  // Split array into chunks
+  for (let i = 0; i < masterPrayerList.value.length; i += 20) {
+    const chunk = masterPrayerList.value.slice(i, i + 20)
+    prayerChunk.value.push(chunk)
+  }
 
-    return data
-  },
-})
+  dataPrayerList.value = prayerChunk.value[0]
+  finishSetDataChunk.value = true
+}
 
 // Function for expand / collapse pray
 const toggleExpandPrayer = (value: number) => {
@@ -36,41 +38,41 @@ const toggleExpandPrayer = (value: number) => {
 
 // List doa
 const prayerList = computed((): IPrayer[] => {
-  const prayerData: IPrayer[] = masterPrayerList.value
+  const prayerData: IPrayer[] = dataPrayer.value || masterPrayerList.value
   if (search.value === '') return dataPrayerList.value
   return prayerData.filter((prayer) =>
     prayer.nama.toLowerCase().includes(search.value.toLowerCase()),
   )
 })
 
-watch(search, () => {
-  prayerExpanded.value = 0
-})
-
-useHead({
-  title: 'Doa | Islam App',
-})
+watch(search, () => (prayerExpanded.value = 0))
 
 onMounted(() => {
-  window.onscroll = () => {
-    if (chunkPage.value !== prayerChunk.value.length) {
-      const bottomOfWindow =
-        window.innerHeight + Math.ceil(window.pageYOffset) === document.body.offsetHeight
+  setTimeout(() => {
+    if (dataPrayer.value) setDataChunks(dataPrayer.value)
+  }, 500)
 
-      if (bottomOfWindow) {
+  // Infinite scroll
+  window.onscroll = () => {
+    if (chunkPage.value !== prayerChunk.value.length && !pending.value) {
+      if (window.innerHeight + Math.ceil(window.pageYOffset) >= document.body.offsetHeight) {
         chunkPage.value += 1
         dataPrayerList.value.push(...prayerChunk.value[chunkPage.value - 1])
       }
     }
   }
 })
+
+useServerSeoMeta({
+  title: 'Doa | Islam App',
+})
 </script>
 
 <template>
-  <div class="container pt-24">
+  <div class="container pt-20 md:pt-24">
     <!-- Header -->
     <div
-      class="mb-10 flex flex-col items-center space-y-8 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 px-5 py-8 dark:from-slate-700/50 dark:to-slate-600/60 sm:pb-10 sm:pt-8"
+      class="mb-6 flex flex-col items-center space-y-8 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-4 dark:from-slate-700/50 dark:to-slate-600/60 sm:pb-10 sm:pt-8 md:mb-10"
     >
       <Icon
         name="material-symbols:prayer-times-rounded"
@@ -96,17 +98,20 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="space-y-4">
+    <SkeletonPrayer v-if="!finishSetDataChunk" />
+
+    <div
+      v-else
+      class="space-y-4"
+    >
       <PrayerCard
-        v-for="(doa, index) in prayerList"
-        :key="index"
+        v-for="(prayer, index) in prayerList"
+        :key="`prayer-${index}`"
         :index="index"
-        :prayer="doa"
+        :prayer="prayer"
         :prayer-expanded="prayerExpanded"
         @toggle-expand-prayer="toggleExpandPrayer"
       />
     </div>
   </div>
 </template>
-
-<style scoped></style>

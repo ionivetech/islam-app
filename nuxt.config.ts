@@ -57,7 +57,7 @@ export default defineNuxtConfig({
   ],
 
   pinia: {
-    autoImports: ['defineStore'],
+    storesDirs: ['./stores/**'],
   },
 
   postcss: {
@@ -122,15 +122,16 @@ export default defineNuxtConfig({
       periodicSyncForUpdates: 20,
     },
     devOptions: {
-      enabled: true,
+      enabled: false,
       type: 'module',
     },
   },
 
   routeRules: {
-    '/': { prerender: true, redirect: '/al-quran' },
+    '/': { redirect: '/al-quran' },
     '/al-quran/**': { isr: true },
     '/hadith': { ssr: false },
+    '/prayer': { isr: true },
   },
 
   tailwindcss: {

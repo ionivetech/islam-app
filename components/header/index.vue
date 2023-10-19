@@ -8,7 +8,7 @@ const menus: { url: string; label: string }[] = [
   { url: '/al-quran', label: 'Al-Quran' },
   { url: '/hadith', label: 'Hadits' },
   { url: '/prayer', label: 'Doa' },
-  { url: '/prayer-schedule', label: 'Jadwal Sholat' },
+  { url: '/schedule', label: 'Jadwal Sholat' },
 ]
 
 const isDark = computed<boolean>({
@@ -53,26 +53,21 @@ const isDark = computed<boolean>({
         </NuxtLink>
 
         <!-- Menu -->
-        <nav class="hidden md:block">
-          <ul class="flex items-center gap-x-5">
-            <li
-              v-for="menu in menus"
-              :key="menu.url"
-            >
-              <NuxtLink
-                :to="menu.url"
-                :class="
-                  route.path.includes(menu.url)
-                    ? 'text-teal-600 dark:text-teal-500 font-semibold'
-                    : 'text-yami/75 dark:text-gray-400'
-                "
-                class="text-base transition duration-200 ease-in-out hover:text-teal-700 dark:hover:text-teal-500"
-              >
-                {{ menu.label }}
-              </NuxtLink>
-            </li>
-          </ul>
-        </nav>
+        <div class="hidden items-center gap-x-5 md:flex">
+          <NuxtLink
+            v-for="menu in menus"
+            :key="menu.url"
+            :to="menu.url"
+            :class="
+              route.path.includes(menu.url)
+                ? 'text-teal-600 dark:text-teal-500 font-semibold'
+                : 'text-yami/75 dark:text-gray-400'
+            "
+            class="text-base transition duration-200 ease-in-out hover:text-teal-700 dark:hover:text-teal-500"
+          >
+            {{ menu.label }}
+          </NuxtLink>
+        </div>
       </div>
 
       <!-- Toggle dark mode -->

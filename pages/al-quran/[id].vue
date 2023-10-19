@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interfaces
-import { ISurah, IAyat } from 'models/ISurah'
+import type { ISurah, IVerse, IBeforeNextSurah } from 'models/ISurah'
 
 // Local interface
 interface ITafsir {
@@ -10,59 +10,59 @@ interface ITafsir {
 
 // Router
 const route = useRoute()
+const router = useRouter()
 
 // Ref
+const wrapperVerseListRef = ref()
 
 // Variable
-const masterAyatList = ref<IAyat[]>([])
+const finishSetDataChunk = ref<boolean>(false)
+const masterVerseList = ref<IVerse[]>([])
 const chunkPage = ref<number>(1)
-const ayatChunk = ref<Array<IAyat[]>>([])
-const ayatList = ref<IAyat[]>([])
+const verseChunk = ref<Array<IVerse[]>>([])
+const verseList = ref<IVerse[]>([])
 const showModalDetail = ref<boolean>(false)
 const showModalTafsir = ref<boolean>(false)
 const showListSurah = ref<boolean>(false)
 const tafsirSelected = ref<ITafsir | null>(null)
 
 // Get detail surah
-const { data: dataDetail, pending } = useFetch<ISurah>(`${ALQURAN_API}/${route.params.id}`, {
-  key: 'surahDetail',
-  transform: (data: any) => {
-    chunkPage.value = 1
-    masterAyatList.value = data.data.ayat
-
-    // Split array into chunks
-    for (let i = 0; i < masterAyatList.value.length; i += 20) {
-      const chunk = masterAyatList.value.slice(i, i + 20)
-      ayatChunk.value.push(chunk)
-    }
-
-    ayatList.value = ayatChunk.value[0]
-
-    const returnData = {
-      ...data.data,
-      audioFull: Object.values(data.data.audioFull).find((audio: any) => audio.includes('Misyari')),
-    }
-
-    delete returnData.ayat
-    return returnData
+const { data: dataDetail, pending } = useAsyncData<ISurah>(
+  'surahDetail',
+  () => $fetch(`${ALQURAN_API}/${route.params.id}`),
+  {
+    transform: (data: any) => {
+      const returnData = {
+        ...data.data,
+        audioFull: Object.values(data.data.audioFull).find((audio: any) =>
+          audio.includes('Misyari'),
+        ),
+      }
+      return returnData
+    },
   },
-})
+)
 
 // Get data tafsir
-const { data: dataTafsir } = useFetch<ITafsir[]>(`${TAFSIR_API}/${route.params.id}`, {
-  lazy: true,
+const { data: dataTafsir } = useLazyFetch<ITafsir[]>(`/${route.params.id}`, {
+  baseURL: TAFSIR_API,
   server: false,
   transform: (data: any) => data.data.tafsir,
 })
 
-watch(pending, (val) => {
-  if (!val) {
-    useHead({
-      title: `Surah ${dataDetail.value?.namaLatin} | Islam App`,
-      meta: [{ name: 'description', content: `Detail surah ${dataDetail.value?.namaLatin}` }],
-    })
+const setDataChunks = (data: IVerse[]) => {
+  chunkPage.value = 1
+  masterVerseList.value = data
+
+  // Split array into chunks
+  for (let i = 0; i < masterVerseList.value.length; i += 20) {
+    const chunk = masterVerseList.value.slice(i, i + 20)
+    verseChunk.value.push(chunk)
   }
-})
+
+  verseList.value = verseChunk.value[0]
+  finishSetDataChunk.value = true
+}
 
 // Open modal tafsir
 const handleOpenModalTafsir = (index: number) => {
@@ -80,18 +80,41 @@ const handleCloseModalTafsir = () => {
   }, 400)
 }
 
-onMounted(() => {
-  window.onscroll = () => {
-    if (chunkPage.value !== ayatChunk.value.length && !pending.value) {
-      const bottomOfWindow =
-        window.innerHeight + Math.ceil(window.pageYOffset) === document.body.offsetHeight
+// Scroll to top of page
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+}
 
-      if (bottomOfWindow) {
+// Go to previous / next surah
+const goToSurah = (surah: IBeforeNextSurah) => {
+  router.push(`/al-quran/${surah.nomor}`)
+}
+
+onMounted(() => {
+  setTimeout(() => {
+    if (dataDetail.value) setDataChunks(dataDetail.value!.ayat!)
+  }, 500)
+
+  // Infinite scroll
+  window.onscroll = () => {
+    if (chunkPage.value !== verseChunk.value.length && !pending.value) {
+      if (
+        window.innerHeight + Math.ceil(window.pageYOffset) >=
+        wrapperVerseListRef.value.offsetHeight - 500
+      ) {
         chunkPage.value += 1
-        ayatList.value.push(...ayatChunk.value[chunkPage.value - 1])
+        verseList.value.push(...verseChunk.value[chunkPage.value - 1])
       }
     }
   }
+})
+
+useSeoMeta({
+  title: () => `Surah ${dataDetail.value?.namaLatin} | Islam App`,
+  description: () => `Detail surah ${dataDetail.value?.namaLatin}`,
 })
 </script>
 
@@ -114,21 +137,66 @@ onMounted(() => {
         />
 
         <!-- List Ayat -->
-        <SkeletonAyat v-if="pending" />
+        <SkeletonVerse v-if="!finishSetDataChunk" />
 
-        <div
-          v-if="!pending"
-          class="space-y-5"
-        >
-          <QuranVerseList
-            v-for="(ayat, index) in ayatList"
-            :key="ayat.nomorAyat"
-            :surah-name="dataDetail?.namaLatin"
-            :surah-number="dataDetail?.nomor"
-            :ayat="ayat"
-            :index="index"
-            @open-tafsir="handleOpenModalTafsir"
-          />
+        <div v-else>
+          <div
+            ref="wrapperVerseListRef"
+            class="space-y-5"
+          >
+            <QuranVerseList
+              v-for="(verse, index) in verseList"
+              :key="`verse-${verse.nomorAyat}`"
+              :surah-name="dataDetail?.namaLatin"
+              :surah-number="dataDetail?.nomor"
+              :verse="verse"
+              :index="index"
+              @open-tafsir="handleOpenModalTafsir"
+            />
+          </div>
+
+          <!-- Button prev & next surah -->
+          <div
+            v-if="dataDetail"
+            class="mt-20 flex items-center justify-center space-x-3"
+          >
+            <!-- Previous surah -->
+            <button
+              v-if="dataDetail.suratSebelumnya"
+              class="flex items-center space-x-2 rounded-md border border-gray-300/70 px-2 py-1.5 text-sm text-smoke-1 dark:border-gray-700 dark:bg-background-dark-soft dark:text-smoke-2 sm:px-3 sm:py-2"
+              @click="goToSurah(dataDetail.suratSebelumnya as IBeforeNextSurah)"
+            >
+              <Icon
+                name="heroicons:chevron-left-solid"
+                class="text-base"
+              />
+              <span class="hidden sm:block">Surah sebelumnya</span>
+              <span class="block sm:hidden">Sebelumnya</span>
+            </button>
+
+            <!-- Back to top -->
+            <button
+              class="flex items-center rounded-md border border-gray-300/70 px-2 py-1.5 text-sm text-smoke-1 dark:border-gray-700 dark:bg-background-dark-soft dark:text-smoke-2 sm:px-3 sm:py-2"
+              @click="scrollToTop"
+            >
+              <span class="hidden sm:block">Kembali ke atas</span>
+              <span class="block sm:hidden">Ke atas</span>
+            </button>
+
+            <!-- Next surah -->
+            <button
+              v-if="dataDetail.suratSelanjutnya"
+              class="flex items-center space-x-2 rounded-md border border-gray-300/70 px-2 py-1.5 text-sm text-smoke-1 dark:border-gray-700 dark:bg-background-dark-soft dark:text-smoke-2 sm:px-3 sm:py-2"
+              @click="goToSurah(dataDetail.suratSelanjutnya as IBeforeNextSurah)"
+            >
+              <span class="hidden sm:block">Surah berikutnya</span>
+              <span class="block sm:hidden">Berikutnya</span>
+              <Icon
+                name="heroicons:chevron-right-solid"
+                class="text-base"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -146,7 +214,7 @@ onMounted(() => {
         },
       }"
     >
-      <LazySlideSurah
+      <SlideSurah
         v-if="showListSurah"
         :detail-surah="dataDetail"
         @close-slide="showListSurah = false"
@@ -166,7 +234,8 @@ onMounted(() => {
         },
       }"
     >
-      <LazyModalDetailSurah
+      <ModalDetailSurah
+        v-if="showModalDetail"
         :description="dataDetail?.deskripsi"
         @close-modal="showModalDetail = false"
       />
@@ -186,7 +255,8 @@ onMounted(() => {
         },
       }"
     >
-      <LazyModalTafsir
+      <ModalTafsir
+        v-if="showModalTafsir"
         :tafsir="tafsirSelected?.teks"
         @close-modal="handleCloseModalTafsir"
       />

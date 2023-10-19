@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interfaces
-import { IAyat } from 'models/ISurah'
+import { IVerse } from 'models/ISurah'
 
 // Props
 const props = defineProps({
@@ -12,8 +12,8 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-  ayat: {
-    type: Object as PropType<IAyat>,
+  verse: {
+    type: Object as PropType<IVerse>,
     required: true,
   },
   index: {
@@ -31,23 +31,23 @@ const alQuranStore = useAlQuranStore()
 // Play surah audio
 const playSurah = () => {
   const data: any = {
-    surah: `${props.surahName} - ${props.ayat.nomorAyat}`,
+    surah: `${props.surahName} - ${props.verse.nomorAyat}`,
     qori: 'Misyari Rasyid Al-Afasi',
-    source: Object.values(props.ayat.audio).find((audio: any) => audio.includes('Misyari')),
+    source: Object.values(props.verse.audio).find((audio: any) => audio.includes('Misyari')),
   }
   alQuranStore.setPlayingAudio(data)
 }
 </script>
 
 <template>
-  <div class="observable flex w-full flex-col gap-8">
+  <div class="flex w-full flex-col gap-8">
     <!-- Header -->
     <div
       class="flex items-center justify-between rounded-xl bg-teal-600/10 px-4 py-1.5 dark:bg-teal-200/10"
     >
       <!-- Number surah & ayat -->
       <p class="text-sm font-semibold tracking-wide text-teal-700 dark:text-teal-500">
-        {{ ayat.nomorAyat }}
+        {{ verse.nomorAyat }}
       </p>
 
       <div class="flex items-center gap-1">
@@ -81,14 +81,14 @@ const playSurah = () => {
         lang="ar"
         class="mb-5 text-right font-mono text-3xl leading-[65px] text-slate-800 dark:text-slate-200 md:!leading-[70px] lg:text-4xl lg:!leading-[80px]"
       >
-        {{ ayat.teksArab }}
+        {{ verse.teksArab }}
       </p>
 
       <p class="mb-3 text-sm !leading-7 tracking-wide text-teal-800 dark:text-white md:text-base">
-        {{ ayat.teksLatin }}
+        {{ verse.teksLatin }}
       </p>
       <p class="text-sm !leading-7 text-smoke-1 dark:text-slate-400 md:text-base">
-        {{ ayat.teksIndonesia }}
+        {{ verse.teksIndonesia }}
       </p>
     </div>
   </div>

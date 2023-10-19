@@ -1,11 +1,11 @@
-interface IBeforeNextSurah {
+export interface IBeforeNextSurah {
   jumlahAyat: number
   nama: string
   namaLatin: string
   nomor: number
 }
 
-export interface IAyat {
+export interface IVerse {
   audio: { [key: string]: string }[]
   nomorAyat: string
   teksArab: string
@@ -16,7 +16,7 @@ export interface IAyat {
 export interface ISurah {
   arti: string
   audioFull: string
-  ayat?: IAyat[]
+  ayat?: IVerse[]
   deskripsi: string
   jumlahAyat: number
   nama: string

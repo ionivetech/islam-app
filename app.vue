@@ -4,19 +4,22 @@ const alQuranStore = useAlQuranStore()
 </script>
 
 <template>
-  <div>
+  <div id="content">
     <VitePwaManifest />
     <NuxtLoadingIndicator />
 
-    <div>
-      <Header />
+    <Header />
 
-      <div :class="alQuranStore.getPlayingAudio ? 'md:pb-[160px] pb-[156px]' : 'pb-8'">
-        <NuxtPage />
+    <main
+      :class="alQuranStore.getPlayingAudio ? 'md:pb-[160px] pb-[156px]' : 'pb-8'"
+      class="min-h-[100vh]"
+    >
+      <NuxtPage />
 
-        <LazyAudioPlayer />
-      </div>
-    </div>
+      <LazyAudioPlayer />
+    </main>
+
+    <Footer />
 
     <PopupPwa />
   </div>

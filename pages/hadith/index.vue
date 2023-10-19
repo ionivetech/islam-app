@@ -86,10 +86,10 @@ useHead({
 </script>
 
 <template>
-  <div class="container pt-24">
+  <div class="container pt-20 md:pt-24">
     <!-- Header -->
     <div
-      class="mb-10 flex flex-col items-center space-y-8 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 px-5 py-8 dark:from-slate-700/50 dark:to-slate-600/60 sm:pb-10 sm:pt-8"
+      class="mb-6 flex flex-col items-center space-y-8 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-4 dark:from-slate-700/50 dark:to-slate-600/60 sm:pb-10 sm:pt-8 md:mb-10"
     >
       <Icon
         name="solar:notebook-minimalistic-bold"
@@ -122,33 +122,13 @@ useHead({
     </div>
 
     <!-- Skeleton -->
-    <div
-      v-if="pending || isSearching"
-      class="mb-4 space-y-4"
-    >
-      <div
-        v-for="i in 10"
-        :key="i"
-        class="h-60 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
-      />
-    </div>
+    <SkeletonHadith v-if="pending || isSearching" />
 
     <div
       v-if="!pending"
       class="mt-5"
     >
       <div class="mb-3">
-        <!-- Search input -->
-        <!-- <Input
-          v-model="search"
-          :loading="isSearching"
-          icon="i-heroicons-magnifying-glass-20-solid"
-          loading-icon="i-heroicons-arrow-path"
-          placeholder="No. hadits"
-          class="mb-6 w-full self-end sm:mb-0 sm:w-40"
-          @onchange-value="onChangeInputSearch"
-        /> -->
-
         <!-- Information total & search hadith -->
         <p
           v-if="!pending && !searchResult"
