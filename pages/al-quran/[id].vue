@@ -158,7 +158,7 @@ useSeoMeta({
           <!-- Button prev & next surah -->
           <div
             v-if="dataDetail"
-            class="mt-20 flex items-center justify-center space-x-3"
+            class="mt-12 flex items-center justify-center space-x-3 md:mt-20"
           >
             <!-- Previous surah -->
             <button

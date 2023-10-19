@@ -32,7 +32,7 @@
           </NuxtLink>
         </div>
 
-        <p class="pl-3 text-sm text-gray-600 dark:text-smoke-2">©2023 All rights reserved.</p>
+        <p class="pl-3 text-sm text-gray-600 dark:text-smoke-2">© 2023 All rights reserved.</p>
       </div>
     </div>
   </footer>

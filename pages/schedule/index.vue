@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // Interfaces
 import type { ILocation } from '@/models/ILocation'
-import { IPrayerTime, ISchedule } from '@/models/IPrayerTime'
+import type { IPrayerTime, ISchedule } from '@/models/IPrayerTime'
 
 // Variables
 const isLoading = ref<boolean>(true)

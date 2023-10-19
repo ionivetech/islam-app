@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // Interfaces
-import { ISurah } from 'models/ISurah'
+import type { ISurah } from 'models/ISurah'
 
 // Variables
 const search = ref<string>('')

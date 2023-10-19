@@ -22,7 +22,7 @@
 - Hadith List
 - Prayer List
 - Play Surah Audio
-- Prayer Schedule (coming soon)
+- Prayer Schedule
 - PWA (Progressive Web App)
 
 <br>
@@ -44,6 +44,8 @@
 <img src="https://github.com/ionivetech/islam-app/blob/main/public/screenshot/hadith-list.png" alt="hadith-list" />
 
 <img src="https://github.com/ionivetech/islam-app/blob/main/public/screenshot/prayer-list.png" alt="prayer-list" />
+
+<img src="https://github.com/ionivetech/islam-app/blob/main/public/screenshot/prayer-schedule.png" alt="prayer-schedule" />
 
 <br>
 
