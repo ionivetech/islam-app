@@ -72,7 +72,6 @@ export default defineNuxtConfig({
   },
 
   pwa: {
-    registerType: 'autoUpdate',
     manifest: {
       theme_color: '#ffffff',
       background_color: '#ffffff',
