@@ -100,10 +100,14 @@ onMounted(() => {
 
   // Infinite scroll
   window.onscroll = () => {
-    if (chunkPage.value !== verseChunk.value.length && !pending.value) {
+    if (
+      chunkPage.value !== verseChunk.value.length &&
+      !pending.value &&
+      wrapperVerseListRef.value
+    ) {
       if (
         window.innerHeight + Math.ceil(window.pageYOffset) >=
-        wrapperVerseListRef.value.offsetHeight - 500
+        wrapperVerseListRef.value.offsetHeight - 200
       ) {
         chunkPage.value += 1
         verseList.value.push(...verseChunk.value[chunkPage.value - 1])
@@ -130,7 +134,7 @@ useSeoMeta({
 
       <div class="container pt-8">
         <!-- Bismillah images -->
-        <img
+        <NuxtImg
           src="/images/bismillah.svg"
           class="mx-auto mb-10 h-auto w-48 dark:brightness-0 dark:invert-[1] md:w-52 lg:w-56"
           alt="bismillah-images"

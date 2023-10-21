@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxt/image": "^1.0.0",
     "@nuxtjs/color-mode": "^3.3.0",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
@@ -20,7 +21,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@types/node": "^20.8.7",
     "@vite-pwa/nuxt": "^0.1.1",
-    "nuxt": "^3.7.4",
+    "nuxt": "^3.8.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },

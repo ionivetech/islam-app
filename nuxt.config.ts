@@ -54,6 +54,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@vueuse/nuxt',
     '@vite-pwa/nuxt',
+    '@nuxt/image',
   ],
 
   pinia: {
@@ -131,6 +132,7 @@ export default defineNuxtConfig({
     '/al-quran/**': { isr: true },
     '/hadith': { ssr: false },
     '/prayer': { isr: true },
+    '/schedule': { ssr: false },
   },
 
   tailwindcss: {

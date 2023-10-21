@@ -16,27 +16,25 @@ const emits = defineEmits(['close-slide'])
 // Router
 const router = useRouter()
 
+const nuxtApp = useNuxtApp()
+
 // Variables
 const search = ref<string>('')
 
 // Get list surah
-const { data: surahCache } = useNuxtData('surah')
 const { data: surah, pending: pendingFetch } = useFetch<ISurah[]>(ALQURAN_API, {
   key: 'surah',
   lazy: true,
   server: false,
-  immediate: !surahCache.value,
   transform: (data: any) => {
     return data.data
   },
+  getCachedData: (key) => nuxtApp.static.data[key] ?? nuxtApp.payload.data[key],
 })
-
-// Loading get surah list
-const loading = computed((): boolean => (surahCache.value ? false : pendingFetch.value))
 
 // List surah
 const surahList = computed((): ISurah[] => {
-  const dataSurah: ISurah[] = surahCache.value || surah.value
+  const dataSurah: ISurah[] = surah.value!
   if (search.value === '') return dataSurah
   return dataSurah.filter((surah) =>
     surah.namaLatin.toLowerCase().includes(search.value.toLowerCase()),
@@ -71,7 +69,7 @@ const handleSelectSurah = (id: number) => {
 
     <!-- Skeleton loading -->
     <div
-      v-if="loading"
+      v-if="pendingFetch"
       class="h-full space-y-1 overflow-y-auto pb-6 pl-6 pr-2"
     >
       <div

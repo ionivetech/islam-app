@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { useGeolocation } from '@vueuse/core'
 // Interfaces
 import type { ILocation } from '@/models/ILocation'
 import type { IPrayerTime, ISchedule } from '@/models/IPrayerTime'
 
+// Get coordinate
+const { coords, pause: pauseWatchCoords } = useGeolocation()
+
 // Variables
 const isLoading = ref<boolean>(true)
+const dataLocation = ref<ILocation | null>(null)
 const idCity = ref<string>('')
 const prayerTime = ref<IPrayerTime>()
 const prayerTimeOneMonth = ref<ISchedule[]>()
@@ -19,6 +24,14 @@ const tabs = [
   },
 ]
 
+// Watch coordinate
+watch(
+  () => coords.value.latitude,
+  (val) => {
+    if (val !== Infinity) getDataLocation()
+  },
+)
+
 // Get date today
 const dateToday = computed(() => {
   const date = new Date()
@@ -30,16 +43,27 @@ const dateToday = computed(() => {
 })
 
 // Get data location
-const { data: dataLocation } = useAsyncData<ILocation>(() => $fetch(LOCATION_API), {
-  transform: (data: any) => {
-    return {
-      latitude: data.latitude,
-      longitude: data.longitude,
-      countryName: data.countryName,
-      cityName: data.localityInfo.administrative[2].name,
-    }
-  },
-})
+const getDataLocation = () => {
+  useFetch(LOCATION_API, {
+    query: {
+      latitude: coords.value.latitude,
+      longitude: coords.value.longitude,
+      localityLanguage: 'id',
+    },
+    transform: (data: any) => {
+      return {
+        latitude: data.latitude,
+        longitude: data.longitude,
+        countryName: data.countryName,
+        cityName: data.localityInfo.administrative[2].name,
+      }
+    },
+  }).then((res) => {
+    dataLocation.value = res.data.value
+    pauseWatchCoords()
+    getIdCity()
+  })
+}
 
 // Search & get city location
 const getIdCity = () => {
@@ -48,6 +72,8 @@ const getIdCity = () => {
     transform: (data: any) => data.data[0].id,
   }).then((res) => {
     idCity.value = res.data.value
+    getPrayerTime()
+    getPrayerTimeOneMonth()
   })
 }
 
@@ -88,19 +114,6 @@ const getPrayerTimeOneMonth = () => {
     prayerTimeOneMonth.value = res.data.value
   })
 }
-
-watch(idCity, (val) => {
-  if (val) {
-    getPrayerTime()
-    getPrayerTimeOneMonth()
-  }
-})
-
-onMounted(() =>
-  setTimeout(() => {
-    getIdCity()
-  }, 500),
-)
 
 // Meta
 useHead({

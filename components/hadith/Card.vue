@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interface
-import { IHadithItems } from 'models/IHadith'
+import type { IHadithItems } from 'models/IHadith'
 
 // Props
 defineProps({
