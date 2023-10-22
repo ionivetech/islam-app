@@ -54,7 +54,6 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@vueuse/nuxt',
     '@vite-pwa/nuxt',
-    '@nuxt/image',
   ],
 
   pinia: {

@@ -44,7 +44,7 @@ const isDark = computed<boolean>({
           to="/"
           class="flex items-center md:mr-5"
         >
-          <NuxtImg
+          <img
             src="/logo-full.svg"
             alt="logo-app"
             width="121"

@@ -134,7 +134,7 @@ useSeoMeta({
 
       <div class="container pt-8">
         <!-- Bismillah images -->
-        <NuxtImg
+        <img
           src="/images/bismillah.svg"
           class="mx-auto mb-10 h-auto w-48 dark:brightness-0 dark:invert-[1] md:w-52 lg:w-56"
           alt="bismillah-images"
