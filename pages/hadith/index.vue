@@ -29,7 +29,7 @@ watch(search, () => {
 })
 
 // Get list hadith by name of history & params
-const { data: dataListHadith, pending } = await useFetch<IHadithList>(hadithHistorySelected, {
+const { data: dataListHadith, pending } = useFetch<IHadithList>(hadithHistorySelected, {
   baseURL: HADITH_API,
   params: {
     page,

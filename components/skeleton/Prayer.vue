@@ -5,7 +5,7 @@
     <div
       v-for="i in 10"
       :key="i"
-      class="h-10 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
+      class="h-14 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-zinc-700/30"
     />
   </div>
 </template>
