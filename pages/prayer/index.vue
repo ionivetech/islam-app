@@ -11,10 +11,8 @@ const prayerChunk = ref<Array<IPrayer[]>>([])
 const dataPrayerList = ref<IPrayer[]>([])
 const prayerExpanded = ref<number>(0)
 
-// get list doa
-const { data: dataPrayer, pending } = useAsyncData<IPrayer[]>('prayerList', () =>
-  $fetch('/api/doa'),
-)
+// get list prayer
+const { data: dataPrayer, pending } = await useFetch<IPrayer[]>('/api/doa')
 
 const setDataChunks = (data: IPrayer[]) => {
   chunkPage.value = 1
