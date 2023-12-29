@@ -1,54 +1,31 @@
 <script setup lang="ts">
+import type { InputSize } from '@nuxt/ui/dist/runtime/types'
+
 // Props
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: '',
-  },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  icon: {
-    type: String,
-    default: '',
-  },
-  loadingIcon: {
-    type: String,
-    default: '',
-  },
-  size: {
-    type: String,
-    default: 'md',
-  },
-  placeholder: {
-    type: String,
-    default: '',
-  },
-})
-
-// Emits
-const emits = defineEmits(['update:modelValue', 'onchange-value'])
-
-// Variables
-const value = ref<string>(props.modelValue)
-
-watch(
-  () => props.modelValue,
-  (val) => {
-    value.value = val
+withDefaults(
+  defineProps<{
+    loading: boolean
+    icon?: string
+    loadingIcon?: string
+    size?: InputSize
+    placeholder?: string
+  }>(),
+  {
+    loading: false,
+    icon: '',
+    loadingIcon: '',
+    size: 'md',
+    placeholder: '',
   },
 )
 
-const onChangeInput = (e: string) => {
-  emits('update:modelValue', e)
-  emits('onchange-value', e)
-}
+// Variables
+const modelValue = defineModel<string>('')
 </script>
 
 <template>
   <UInput
-    :model-value="value"
+    v-model="modelValue"
     :icon="icon"
     :loading-icon="loadingIcon"
     :size="size"
@@ -66,6 +43,5 @@ const onChangeInput = (e: string) => {
         },
       },
     }"
-    @update:model-value="onChangeInput"
   />
 </template>
