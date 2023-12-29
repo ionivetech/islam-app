@@ -11,6 +11,8 @@ node_modules
 
 # Lock
 package-lock.json
+yarn-lock.yaml
+pnpm-lock.yaml
 
 # Logs
 logs
