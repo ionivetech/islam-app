@@ -89,7 +89,7 @@ useHead({
   <div class="container pt-20 md:pt-24">
     <!-- Header -->
     <div
-      class="mb-6 flex flex-col items-center space-y-8 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-4 dark:from-slate-700/50 dark:to-slate-600/60 sm:pb-10 sm:pt-8 md:mb-10"
+      class="mb-6 flex flex-col items-center space-y-8 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-4 sm:pb-10 sm:pt-8 md:mb-10 dark:from-slate-700/50 dark:to-slate-600/60"
     >
       <Icon
         name="solar:notebook-minimalistic-bold"
@@ -105,7 +105,7 @@ useHead({
         />
 
         <div
-          class="absolute inset-y-2/4 right-2 flex h-8 w-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:h-9 md:w-9"
+          class="absolute inset-y-2/4 right-2 flex h-8 w-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 md:h-9 md:w-9 dark:bg-slate-700"
         >
           <Icon
             name="radix-icons:magnifying-glass"
@@ -132,7 +132,7 @@ useHead({
         <!-- Information total & search hadith -->
         <p
           v-if="!pending && !searchResult"
-          class="text-sm text-yami dark:text-slate-200 md:text-base"
+          class="text-sm text-yami md:text-base dark:text-slate-200"
         >
           Terdapat <b>{{ dataListHadith?.pagination.totalItems }}</b> hadits menurut
           {{ dataListHadith?.name }}
@@ -140,7 +140,7 @@ useHead({
 
         <p
           v-if="!pending && searchResult"
-          class="text-sm text-yami dark:text-slate-200 md:text-base"
+          class="text-sm text-yami md:text-base dark:text-slate-200"
         >
           Menampilkan hadits {{ dataListHadith?.name }} nomor <b>{{ search }}</b>
         </p>
@@ -170,7 +170,7 @@ useHead({
 
         <div
           v-if="isFinishSearch && isErrorSearch"
-          class="rounded-lg bg-slate-200/50 p-5 text-sm font-normal text-yami dark:bg-slate-700/50 dark:text-slate-200 sm:text-base"
+          class="rounded-lg bg-slate-200/50 p-5 text-sm font-normal text-yami sm:text-base dark:bg-slate-700/50 dark:text-slate-200"
         >
           Tidak ditemukan hadits dengan nomor <b>{{ search }}</b>
         </div>

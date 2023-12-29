@@ -23,7 +23,7 @@ const emits = defineEmits(['close-modal'])
         />
       </div>
       <p
-        class="whitespace-pre-wrap text-sm !leading-8 text-smoke-1 dark:text-smoke-2 md:text-base"
+        class="whitespace-pre-wrap text-sm !leading-8 text-smoke-1 md:text-base dark:text-smoke-2"
         v-html="description"
       />
     </div>

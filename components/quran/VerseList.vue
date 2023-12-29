@@ -79,15 +79,15 @@ const playSurah = () => {
       <p
         dir="rtl"
         lang="ar"
-        class="mb-5 text-right font-mono text-3xl leading-[65px] text-slate-800 dark:text-slate-200 md:!leading-[70px] lg:text-4xl lg:!leading-[80px]"
+        class="mb-5 text-right font-mono text-3xl leading-[65px] text-slate-800 md:!leading-[70px] lg:text-4xl lg:!leading-[80px] dark:text-slate-200"
       >
         {{ verse.teksArab }}
       </p>
 
-      <p class="mb-3 text-sm !leading-7 tracking-wide text-teal-800 dark:text-white md:text-base">
+      <p class="mb-3 text-sm !leading-7 tracking-wide text-teal-800 md:text-base dark:text-white">
         {{ verse.teksLatin }}
       </p>
-      <p class="text-sm !leading-7 text-smoke-1 dark:text-slate-400 md:text-base">
+      <p class="text-sm !leading-7 text-smoke-1 md:text-base dark:text-slate-400">
         {{ verse.teksIndonesia }}
       </p>
     </div>

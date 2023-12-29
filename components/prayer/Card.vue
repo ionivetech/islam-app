@@ -33,10 +33,10 @@ const emits = defineEmits(['toggle-expand-prayer'])
       @click="emits('toggle-expand-prayer', index + 1)"
     >
       <div class="flex items-start gap-x-1.5">
-        <p class="text-sm font-normal tracking-wide text-yami dark:text-slate-200 md:text-base">
+        <p class="text-sm font-normal tracking-wide text-yami md:text-base dark:text-slate-200">
           {{ index + 1 }}.
         </p>
-        <p class="text-sm font-normal text-yami dark:text-slate-200 md:text-base">
+        <p class="text-sm font-normal text-yami md:text-base dark:text-slate-200">
           {{ prayer.nama }}
         </p>
       </div>
@@ -58,18 +58,18 @@ const emits = defineEmits(['toggle-expand-prayer'])
         <p
           dir="rtl"
           lang="ar"
-          class="mb-3 text-right font-mono text-3xl leading-[65px] text-slate-800 dark:text-slate-200 md:!leading-[70px] lg:text-4xl lg:!leading-[80px]"
+          class="mb-3 text-right font-mono text-3xl leading-[65px] text-slate-800 md:!leading-[70px] lg:text-4xl lg:!leading-[80px] dark:text-slate-200"
         >
           {{ prayer.arab }}
         </p>
 
         <p
-          class="mb-3 text-sm !leading-6 tracking-wide text-teal-800 dark:text-white md:text-base md:!leading-7"
+          class="mb-3 text-sm !leading-6 tracking-wide text-teal-800 md:text-base md:!leading-7 dark:text-white"
         >
           {{ prayer.latin }}
         </p>
 
-        <p class="text-sm !leading-6 text-smoke-1 dark:text-slate-400 md:text-base md:!leading-7">
+        <p class="text-sm !leading-6 text-smoke-1 md:text-base md:!leading-7 dark:text-slate-400">
           {{ prayer.arti }}
         </p>
       </div>
@@ -78,7 +78,7 @@ const emits = defineEmits(['toggle-expand-prayer'])
       <div v-if="prayer.keterangan">
         <p class="mb-1 text-sm font-semibold text-yami dark:text-slate-200">Keterangan:</p>
         <p
-          class="text-xs text-smoke-1 dark:text-slate-400 md:text-sm"
+          class="text-xs text-smoke-1 md:text-sm dark:text-slate-400"
           v-html="prayer.keterangan"
         ></p>
       </div>
@@ -87,9 +87,9 @@ const emits = defineEmits(['toggle-expand-prayer'])
     <!-- Hadith history -->
     <div
       v-if="index + 1 === prayerExpanded && prayer.riwayat"
-      class="rounded-b-lg bg-gray-100 px-3 py-2 dark:bg-gray-700 md:px-4"
+      class="rounded-b-lg bg-gray-100 px-3 py-2 md:px-4 dark:bg-gray-700"
     >
-      <p class="text-xs text-smoke-1 dark:text-smoke-2 md:text-sm">{{ prayer.riwayat }}</p>
+      <p class="text-xs text-smoke-1 md:text-sm dark:text-smoke-2">{{ prayer.riwayat }}</p>
     </div>
   </div>
 </template>

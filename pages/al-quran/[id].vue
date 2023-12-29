@@ -136,7 +136,7 @@ useSeoMeta({
         <!-- Bismillah images -->
         <img
           src="/images/bismillah.svg"
-          class="mx-auto mb-10 h-auto w-48 dark:brightness-0 dark:invert-[1] md:w-52 lg:w-56"
+          class="mx-auto mb-10 h-auto w-48 md:w-52 lg:w-56 dark:brightness-0 dark:invert-[1]"
           alt="bismillah-images"
         />
 
@@ -167,7 +167,7 @@ useSeoMeta({
             <!-- Previous surah -->
             <button
               v-if="dataDetail.suratSebelumnya"
-              class="flex items-center space-x-2 rounded-md border border-gray-300/70 px-2 py-1.5 text-sm text-smoke-1 dark:border-gray-700 dark:bg-background-dark-soft dark:text-smoke-2 sm:px-3 sm:py-2"
+              class="flex items-center space-x-2 rounded-md border border-gray-300/70 px-2 py-1.5 text-sm text-smoke-1 sm:px-3 sm:py-2 dark:border-gray-700 dark:bg-background-dark-soft dark:text-smoke-2"
               @click="goToSurah(dataDetail.suratSebelumnya as IBeforeNextSurah)"
             >
               <Icon
@@ -180,7 +180,7 @@ useSeoMeta({
 
             <!-- Back to top -->
             <button
-              class="flex items-center rounded-md border border-gray-300/70 px-2 py-1.5 text-sm text-smoke-1 dark:border-gray-700 dark:bg-background-dark-soft dark:text-smoke-2 sm:px-3 sm:py-2"
+              class="flex items-center rounded-md border border-gray-300/70 px-2 py-1.5 text-sm text-smoke-1 sm:px-3 sm:py-2 dark:border-gray-700 dark:bg-background-dark-soft dark:text-smoke-2"
               @click="scrollToTop"
             >
               <span class="hidden sm:block">Kembali ke atas</span>
@@ -190,7 +190,7 @@ useSeoMeta({
             <!-- Next surah -->
             <button
               v-if="dataDetail.suratSelanjutnya"
-              class="flex items-center space-x-2 rounded-md border border-gray-300/70 px-2 py-1.5 text-sm text-smoke-1 dark:border-gray-700 dark:bg-background-dark-soft dark:text-smoke-2 sm:px-3 sm:py-2"
+              class="flex items-center space-x-2 rounded-md border border-gray-300/70 px-2 py-1.5 text-sm text-smoke-1 sm:px-3 sm:py-2 dark:border-gray-700 dark:bg-background-dark-soft dark:text-smoke-2"
               @click="goToSurah(dataDetail.suratSelanjutnya as IBeforeNextSurah)"
             >
               <span class="hidden sm:block">Surah berikutnya</span>

@@ -125,13 +125,13 @@ useHead({
   <div class="container pt-20 md:pt-24">
     <!-- Header -->
     <div
-      class="mb-8 flex items-center justify-between space-x-2 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-5 dark:from-slate-700/50 dark:to-slate-600/60 md:mb-10"
+      class="mb-8 flex items-center justify-between space-x-2 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-5 md:mb-10 dark:from-slate-700/50 dark:to-slate-600/60"
     >
       <div>
         <h1 class="text-xl font-semibold text-white md:text-2xl">Jadwal Sholat</h1>
         <p
           v-if="!isLoading"
-          class="text-sm text-slate-100 dark:text-slate-400 md:text-base"
+          class="text-sm text-slate-100 md:text-base dark:text-slate-400"
         >
           {{ prayerTime?.jadwal.tanggal }}
         </p>
@@ -165,7 +165,7 @@ useHead({
 
       <Icon
         name="fa6-solid:mosque"
-        class="text-[70px] text-white/40 dark:text-white/20 sm:text-[80px]"
+        class="text-[70px] text-white/40 sm:text-[80px] dark:text-white/20"
       />
     </div>
 

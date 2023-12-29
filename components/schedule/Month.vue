@@ -29,7 +29,7 @@ const selectedColumns = ref([...tableColumns.value])
     <div
       class="mb-5 flex flex-col items-start justify-start gap-1 sm:flex-row sm:items-center sm:justify-end sm:gap-2"
     >
-      <p class="text-sm text-yami dark:text-slate-200 sm:text-base">Tampilkan kolom:</p>
+      <p class="text-sm text-yami sm:text-base dark:text-slate-200">Tampilkan kolom:</p>
       <USelectMenu
         v-model="selectedColumns"
         :options="tableColumns"
@@ -47,7 +47,7 @@ const selectedColumns = ref([...tableColumns.value])
       />
     </div>
 
-    <div class="rounded-xl bg-teal-600/5 p-4 dark:bg-background-dark-soft md:p-5">
+    <div class="rounded-xl bg-teal-600/5 p-4 md:p-5 dark:bg-background-dark-soft">
       <UTable
         :columns="selectedColumns"
         :rows="dataSchedule"

@@ -4,10 +4,10 @@
   <ClientOnly>
     <div
       v-if="$pwa?.offlineReady || $pwa?.needRefresh"
-      class="fixed bottom-2.5 right-2.5 z-[100] max-w-[80%] rounded-lg border border-gray-300/70 bg-white p-4 shadow dark:border-gray-700 dark:bg-background-dark-soft md:bottom-5 md:right-5"
+      class="fixed bottom-2.5 right-2.5 z-[100] max-w-[80%] rounded-lg border border-gray-300/70 bg-white p-4 shadow md:bottom-5 md:right-5 dark:border-gray-700 dark:bg-background-dark-soft"
       role="alert"
     >
-      <div class="mb-2 text-sm text-yami dark:text-slate-200 md:text-base">
+      <div class="mb-2 text-sm text-yami md:text-base dark:text-slate-200">
         <span v-if="$pwa.offlineReady">App ready to work offline</span>
         <span v-else> New content available, click on reload button to update. </span>
       </div>
@@ -29,10 +29,10 @@
 
     <div
       v-if="$pwa?.showInstallPrompt && !$pwa?.offlineReady && !$pwa?.needRefresh"
-      class="fixed bottom-2.5 right-2.5 z-[100] rounded-lg border border-gray-300/70 bg-white p-4 shadow dark:border-gray-700 dark:bg-background-dark-soft md:bottom-5 md:right-5"
+      class="fixed bottom-2.5 right-2.5 z-[100] rounded-lg border border-gray-300/70 bg-white p-4 shadow md:bottom-5 md:right-5 dark:border-gray-700 dark:bg-background-dark-soft"
       role="alert"
     >
-      <p class="mb-2 text-sm text-yami dark:text-slate-200 md:text-base">
+      <p class="mb-2 text-sm text-yami md:text-base dark:text-slate-200">
         Install Application to Home screen
       </p>
 

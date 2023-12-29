@@ -184,11 +184,11 @@ const initAudioPlayer = () => {
 
               <div>
                 <p
-                  class="text-sm font-semibold tracking-wide text-yami dark:text-slate-200 md:text-base"
+                  class="text-sm font-semibold tracking-wide text-yami md:text-base dark:text-slate-200"
                 >
                   {{ alQuranStore.getPlayingAudio?.surah }}
                 </p>
-                <p class="text-xs font-medium text-smoke-1 dark:text-smoke-2 md:text-sm">
+                <p class="text-xs font-medium text-smoke-1 md:text-sm dark:text-smoke-2">
                   {{ alQuranStore.getPlayingAudio?.qori }}
                 </p>
               </div>
