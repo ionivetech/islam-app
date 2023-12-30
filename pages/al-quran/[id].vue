@@ -1,8 +1,6 @@
 <script setup lang="ts">
 // Interfaces
 import type { ISurah, IVerse, IBeforeNextSurah } from 'models/ISurah'
-
-// Local interface
 interface ITafsir {
   ayat: number
   teks: string
@@ -13,7 +11,7 @@ const route = useRoute()
 const router = useRouter()
 
 // Ref
-const wrapperVerseListRef = ref()
+const bottomVerseList = ref(null)
 
 // Variable
 const finishSetDataChunk = ref<boolean>(false)
@@ -26,8 +24,25 @@ const showModalTafsir = ref<boolean>(false)
 const showListSurah = ref<boolean>(false)
 const tafsirSelected = ref<ITafsir | null>(null)
 
+// Composables
+useInfiniteScrolling(
+  bottomVerseList,
+  () => {
+    // load more
+    if (chunkPage.value !== verseChunk.value.length) {
+      chunkPage.value += 1
+      verseList.value.push(...verseChunk.value[chunkPage.value - 1])
+    }
+  },
+  {
+    root: null,
+    threshold: 0,
+    rootMargin: '-100px 0px 0px 0px',
+  },
+)
+
 // Get detail surah
-const { data: dataDetail, pending } = useAsyncData<ISurah>(
+const { data: dataDetail } = useAsyncData<ISurah>(
   'surahDetail',
   () => $fetch(`${ALQURAN_API}/${route.params.id}`),
   {
@@ -99,21 +114,21 @@ onMounted(() => {
   }, 500)
 
   // Infinite scroll
-  window.onscroll = () => {
-    if (
-      chunkPage.value !== verseChunk.value.length &&
-      !pending.value &&
-      wrapperVerseListRef.value
-    ) {
-      if (
-        window.innerHeight + Math.ceil(window.pageYOffset) >=
-        wrapperVerseListRef.value.offsetHeight - 200
-      ) {
-        chunkPage.value += 1
-        verseList.value.push(...verseChunk.value[chunkPage.value - 1])
-      }
-    }
-  }
+  // window.onscroll = () => {
+  //   if (
+  //     chunkPage.value !== verseChunk.value.length &&
+  //     !pending.value &&
+  //     wrapperVerseListRef.value
+  //   ) {
+  //     if (
+  //       window.innerHeight + Math.ceil(window.pageYOffset) >=
+  //       wrapperVerseListRef.value.offsetHeight - 200
+  //     ) {
+  //       chunkPage.value += 1
+  //       verseList.value.push(...verseChunk.value[chunkPage.value - 1])
+  //     }
+  //   }
+  // }
 })
 
 useSeoMeta({
@@ -144,10 +159,7 @@ useSeoMeta({
         <SkeletonVerse v-if="!finishSetDataChunk" />
 
         <div v-else>
-          <div
-            ref="wrapperVerseListRef"
-            class="space-y-5"
-          >
+          <div class="space-y-5">
             <QuranVerseList
               v-for="(verse, index) in verseList"
               :key="`verse-${verse.nomorAyat}`"
@@ -158,6 +170,7 @@ useSeoMeta({
               @open-tafsir="handleOpenModalTafsir"
             />
           </div>
+          <div ref="bottomVerseList" />
 
           <!-- Button prev & next surah -->
           <div

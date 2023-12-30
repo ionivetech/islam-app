@@ -2,6 +2,8 @@
 // Interfaces
 import type { ISurah } from 'models/ISurah'
 
+const nuxtApp = useNuxtApp()
+
 // Variables
 const search = ref<string>('')
 const surahFavorite = ref<ISurah[]>([])
@@ -14,6 +16,7 @@ const {
 } = useLazyFetch<ISurah[]>(ALQURAN_API, {
   key: 'surah',
   server: false,
+  getCachedData: (key) => nuxtApp.static.data[key] ?? nuxtApp.payload.data[key],
   transform: (data: any) => {
     const getDataFavorite = localStorage.getItem('surah-favorite')
     surahFavorite.value = getDataFavorite ? JSON.parse(getDataFavorite) : []
