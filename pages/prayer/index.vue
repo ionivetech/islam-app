@@ -2,6 +2,9 @@
 // Interfaces
 import type { IPrayer } from '@/models/IPrayer'
 
+// Ref
+const bottomPrayList = ref(null)
+
 // Variables
 const finishSetDataChunk = ref<boolean>(false)
 const search = ref<string>('')
@@ -11,8 +14,25 @@ const prayerChunk = ref<Array<IPrayer[]>>([])
 const dataPrayerList = ref<IPrayer[]>([])
 const prayerExpanded = ref<number>(0)
 
+// Composables
+useInfiniteScrolling(
+  bottomPrayList,
+  () => {
+    // load more
+    if (chunkPage.value !== prayerChunk.value.length) {
+      chunkPage.value += 1
+      dataPrayerList.value.push(...prayerChunk.value[chunkPage.value - 1])
+    }
+  },
+  {
+    root: null,
+    threshold: 0,
+    rootMargin: '-200px 0px 0px 0px',
+  },
+)
+
 // get list prayer
-const { data: dataPrayer, pending } = await useFetch<IPrayer[]>('/api/doa')
+const { data: dataPrayer } = await useFetch<IPrayer[]>('/api/doa')
 
 const setDataChunks = (data: IPrayer[]) => {
   chunkPage.value = 1
@@ -49,16 +69,6 @@ onMounted(() => {
   setTimeout(() => {
     if (dataPrayer.value) setDataChunks(dataPrayer.value)
   }, 500)
-
-  // Infinite scroll
-  window.onscroll = () => {
-    if (chunkPage.value !== prayerChunk.value.length && !pending.value) {
-      if (window.innerHeight + Math.ceil(window.pageYOffset) >= document.body.offsetHeight) {
-        chunkPage.value += 1
-        dataPrayerList.value.push(...prayerChunk.value[chunkPage.value - 1])
-      }
-    }
-  }
 })
 
 useServerSeoMeta({
@@ -110,6 +120,7 @@ useServerSeoMeta({
         :prayer-expanded="prayerExpanded"
         @toggle-expand-prayer="toggleExpandPrayer"
       />
+      <div ref="bottomPrayList" />
     </div>
   </div>
 </template>

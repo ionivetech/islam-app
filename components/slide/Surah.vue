@@ -26,10 +26,10 @@ const { data: surah, pending: pendingFetch } = useFetch<ISurah[]>(ALQURAN_API, {
   key: 'surah',
   lazy: true,
   server: false,
+  getCachedData: (key) => nuxtApp.static.data[key] ?? nuxtApp.payload.data[key],
   transform: (data: any) => {
     return data.data
   },
-  getCachedData: (key) => nuxtApp.static.data[key] ?? nuxtApp.payload.data[key],
 })
 
 // List surah

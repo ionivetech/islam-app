@@ -37,7 +37,7 @@ useInfiniteScrolling(
   {
     root: null,
     threshold: 0,
-    rootMargin: '-100px 0px 0px 0px',
+    rootMargin: '-200px 0px 0px 0px',
   },
 )
 
@@ -112,23 +112,6 @@ onMounted(() => {
   setTimeout(() => {
     if (dataDetail.value) setDataChunks(dataDetail.value!.ayat!)
   }, 500)
-
-  // Infinite scroll
-  // window.onscroll = () => {
-  //   if (
-  //     chunkPage.value !== verseChunk.value.length &&
-  //     !pending.value &&
-  //     wrapperVerseListRef.value
-  //   ) {
-  //     if (
-  //       window.innerHeight + Math.ceil(window.pageYOffset) >=
-  //       wrapperVerseListRef.value.offsetHeight - 200
-  //     ) {
-  //       chunkPage.value += 1
-  //       verseList.value.push(...verseChunk.value[chunkPage.value - 1])
-  //     }
-  //   }
-  // }
 })
 
 useSeoMeta({

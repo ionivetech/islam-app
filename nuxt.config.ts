@@ -128,7 +128,6 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/': { prerender: true, redirect: '/al-quran' },
-    '/al-quran/**': { isr: true },
     '/hadith': { ssr: true },
     '/prayer': { ssr: true },
     '/schedule': { ssr: false },

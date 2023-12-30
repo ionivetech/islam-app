@@ -3,19 +3,17 @@
 import type { ISurah } from 'models/ISurah'
 
 // Props
-const props = defineProps({
-  surah: {
-    type: Object as PropType<ISurah>,
-    required: true,
-  },
-})
+const props = defineProps<{
+  surah: ISurah
+}>()
 
 // Emits
-const emits = defineEmits(['refresh-data'])
+const emits = defineEmits<{
+  (e: 'refresh-data'): void
+}>()
 
 const toggleFavorite = () => {
-  const getDataFavorite = localStorage.getItem('surah-favorite')
-  const dataFavorite: ISurah[] = getDataFavorite ? JSON.parse(getDataFavorite) : []
+  const dataFavorite: ISurah[] = useLocalStorage('surah-favorite', []).value
 
   if (dataFavorite.length > 0) {
     const index = dataFavorite.findIndex(
