@@ -2,12 +2,9 @@
 // Interfaces
 import type { ISchedule } from '@/models/IPrayerTime'
 
-defineProps({
-  dataSchedule: {
-    type: Array as PropType<ISchedule[]>,
-    required: true,
-  },
-})
+defineProps<{
+  dataSchedule: ISchedule[]
+}>()
 
 // Variables
 const tableColumns = ref<{ key: string; label: string }[]>([

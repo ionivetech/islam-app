@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 // Props
-defineProps({
-  tafsir: {
-    type: String,
-    default: '',
-  },
-})
+defineProps<{
+  tafsir: string
+}>()
 
 // Emits
-const emits = defineEmits(['close-modal'])
+const emits = defineEmits<{
+  (e: 'close-modal'): void
+}>()
 </script>
 
 <template>

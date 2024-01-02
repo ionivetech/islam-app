@@ -3,12 +3,9 @@
 import type { IPrayerTime, ISchedule } from '@/models/IPrayerTime'
 
 // Props
-defineProps({
-  dataSchedule: {
-    type: Object as PropType<IPrayerTime>,
-    required: true,
-  },
-})
+defineProps<{
+  dataSchedule: IPrayerTime
+}>()
 
 // Variables
 const schedules = ref<{ key: string; text: string; icon: string }[]>([

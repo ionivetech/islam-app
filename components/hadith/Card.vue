@@ -3,16 +3,15 @@
 import type { IHadithItems } from 'models/IHadith'
 
 // Props
-defineProps({
-  hadithHistoryName: {
-    type: String,
-    default: '',
+withDefaults(
+  defineProps<{
+    hadithHistoryName: string
+    hadith: IHadithItems
+  }>(),
+  {
+    hadithHistoryName: '',
   },
-  hadith: {
-    type: Object as PropType<IHadithItems>,
-    required: true,
-  },
-})
+)
 </script>
 
 <template>

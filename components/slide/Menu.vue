@@ -2,7 +2,9 @@
 const route = useRoute()
 
 // Emits
-const emits = defineEmits(['close-slide'])
+const emits = defineEmits<{
+  (e: 'close-slide'): void
+}>()
 
 // Variables
 const menus: { url: string; label: string }[] = [

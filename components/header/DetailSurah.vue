@@ -6,7 +6,10 @@ import type { ISurah } from 'models/ISurah'
 const alQuranStore = useAlQuranStore()
 
 // Emits
-const emits = defineEmits(['show-detail', 'show-list'])
+const emits = defineEmits<{
+  (e: 'show-detail'): void
+  (e: 'show-list'): void
+}>()
 
 // Surah detail
 const { data: surahDetail } = useNuxtData<ISurah>('surahDetail')

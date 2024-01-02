@@ -3,27 +3,17 @@
 import type { IVerse } from 'models/ISurah'
 
 // Props
-const props = defineProps({
-  surahName: {
-    type: String,
-    default: '',
-  },
-  surahNumber: {
-    type: Number,
-    default: 0,
-  },
-  verse: {
-    type: Object as PropType<IVerse>,
-    required: true,
-  },
-  index: {
-    type: Number,
-    default: 0,
-  },
-})
+const props = defineProps<{
+  surahName: string
+  surahNumber: number
+  verse: IVerse
+  index: number
+}>()
 
 // Emits
-const emits = defineEmits(['open-tafsir'])
+const emits = defineEmits<{
+  (e: 'open-tafsir', value: number): void
+}>()
 
 // Store
 const alQuranStore = useAlQuranStore()

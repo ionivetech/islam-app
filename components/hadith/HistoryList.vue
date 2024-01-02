@@ -2,12 +2,9 @@
 import type { IHadithHistory } from 'models/IHadith'
 
 // Props
-defineProps({
-  selected: {
-    type: String,
-    default: '',
-  },
-})
+defineProps<{
+  selected: string
+}>()
 
 // Variable
 const hadithHistoryList: IHadithHistory[] = [

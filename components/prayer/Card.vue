@@ -3,23 +3,16 @@
 import type { IPrayer } from '@/models/IPrayer'
 
 // Props
-defineProps({
-  prayer: {
-    type: Object as PropType<IPrayer>,
-    required: true,
-  },
-  index: {
-    type: Number,
-    default: 0,
-  },
-  prayerExpanded: {
-    type: Number,
-    default: 0,
-  },
-})
+defineProps<{
+  prayer: IPrayer
+  index: number
+  prayerExpanded: number
+}>()
 
 // Emits
-const emits = defineEmits(['toggle-expand-prayer'])
+const emits = defineEmits<{
+  (e: 'toggle-expand-prayer', value: number): void
+}>()
 </script>
 
 <template>

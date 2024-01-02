@@ -3,15 +3,14 @@
 import type { ISurah } from 'models/ISurah'
 
 // Props
-defineProps({
-  detailSurah: {
-    type: Object as PropType<ISurah | null>,
-    required: true,
-  },
-})
+defineProps<{
+  detailSurah: ISurah | null
+}>()
 
 // Emits
-const emits = defineEmits(['close-slide'])
+const emits = defineEmits<{
+  (e: 'close-slide'): void
+}>()
 
 // Router
 const router = useRouter()
