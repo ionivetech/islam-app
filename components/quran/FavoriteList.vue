@@ -14,7 +14,8 @@ const emits = defineEmits<{
 
 // Delete surah from favorites
 const deleteFromFavorite = (surah: ISurah) => {
-  const dataFavorite: ISurah[] = useLocalStorage('surah-favorite', []).value
+  const getFromLocalStorage = localStorage.getItem('surah-favorite')
+  const dataFavorite: ISurah[] = getFromLocalStorage ? JSON.parse(getFromLocalStorage) : []
 
   const index = dataFavorite.findIndex(
     (data) => data.namaLatin.toLowerCase() === surah.namaLatin.toLowerCase(),
@@ -23,9 +24,8 @@ const deleteFromFavorite = (surah: ISurah) => {
   if (index > -1) {
     dataFavorite.splice(index, 1)
     localStorage.setItem('surah-favorite', JSON.stringify(dataFavorite))
+    emits('refresh-data')
   }
-
-  emits('refresh-data')
 }
 </script>
 

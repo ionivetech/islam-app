@@ -66,7 +66,7 @@ useHead({
 
     <div class="container">
       <!-- Favorite Section -->
-      <QuranFavorites
+      <QuranFavoriteList
         v-if="!search"
         :favorites="surahFavorites"
         @refresh-data="setDataSurahAndFavorites"
