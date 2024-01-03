@@ -47,6 +47,8 @@ const closeModal = () => (showModal.value = false)
     <div>
       <UCard
         :ui="{
+          background:
+            'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
           divide: '',
           header: {
             base: 'h-[124px]',
@@ -58,7 +60,7 @@ const closeModal = () => (showModal.value = false)
         }"
       >
         <template #header>
-          <div class="mb-4 flex items-center justify-between bg-white">
+          <div class="mb-4 flex items-center justify-between">
             <h4 class="text-xl font-semibold text-yami dark:text-white">Pilih Lokasi</h4>
             <Icon
               name="heroicons:x-mark"
@@ -81,7 +83,7 @@ const closeModal = () => (showModal.value = false)
           <div
             v-for="loc in locationLists"
             :key="loc.id"
-            class="flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-gray-100 p-3 text-sm capitalize text-gray-600 transition-colors duration-200 ease-in-out hover:border-teal-600"
+            class="flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-gray-100 p-3 text-sm capitalize text-gray-600 transition-colors duration-200 ease-in-out hover:border-teal-600 dark:bg-slate-700/30 dark:text-slate-200"
             @click="emits('select-location', loc)"
           >
             {{ loc.lokasi }}
