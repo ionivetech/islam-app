@@ -6,5 +6,5 @@ export const TAFSIR_API = 'https://equran.id/api/v2/tafsir'
 export const HADITH_API = 'https://hadis-api-id.vercel.app/hadith'
 
 // Jadwal Sholat
-export const SHOLAT_API = 'https://api.myquran.com/v1/sholat'
+export const SHOLAT_API = 'https://api.myquran.com/v2/sholat'
 export const LOCATION_API = 'https://api.bigdatacloud.net/data/reverse-geocode-client'

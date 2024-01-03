@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import { useGeolocation } from '@vueuse/core'
 // Interfaces
-import type { ILocation } from '@/models/ILocation'
+import type { ILocation, ILocations } from '@/models/ILocation'
 import type { IPrayerTime, ISchedule } from '@/models/IPrayerTime'
 
 // Get coordinate
-const { coords, pause: pauseWatchCoords } = useGeolocation()
+const { coords, pause: pauseWatchCoords, error: errorGetLocation } = useGeolocation()
 
 // Variables
 const isLoading = ref<boolean>(true)
+const showModalLocation = ref<boolean>(false)
 const dataLocation = ref<ILocation | null>(null)
+const locationLists = ref<ILocations[]>([])
+const locationSelected = ref<ILocations | null>(null)
 const idCity = ref<string>('')
 const prayerTime = ref<IPrayerTime>()
 const prayerTimeOneMonth = ref<ISchedule[]>()
+const indexActiveTab = ref<number>(0)
 const tabs = [
   {
     key: 'today',
@@ -31,6 +35,9 @@ watch(
     if (val !== Infinity) getDataLocation()
   },
 )
+watch(errorGetLocation, (val) => {
+  if (val) showModalLocation.value = true
+})
 
 // Get date today
 const dateToday = computed(() => {
@@ -65,20 +72,47 @@ const getDataLocation = () => {
   })
 }
 
+// get all location
+const getAllLocation = () => {
+  useFetch('/kota/semua', {
+    baseURL: SHOLAT_API,
+    transform: (data: any) => {
+      const newData = data.data.map((d: ILocations) => {
+        return { id: d.id, lokasi: d.lokasi.toLowerCase() }
+      })
+      return newData
+    },
+  }).then((res) => {
+    locationLists.value = res.data.value.sort()
+  })
+}
+
 // Search & get city location
 const getIdCity = () => {
-  useFetch(`/kota/cari/${dataLocation.value?.cityName}`, {
+  useFetch(`/kota/cari/${dataLocation.value?.cityName.toLowerCase()}`, {
     baseURL: SHOLAT_API,
     transform: (data: any) => data.data[0].id,
   }).then((res) => {
     idCity.value = res.data.value
-    getPrayerTime()
+    getPrayerTimeToday()
     getPrayerTimeOneMonth()
   })
 }
 
-// Get data prayer time
-const getPrayerTime = () => {
+// Handle select manual location
+const handleSelectLocation = (location: ILocations) => {
+  locationSelected.value = location
+  indexActiveTab.value = 0
+  isLoading.value = true
+
+  idCity.value = location.id
+  showModalLocation.value = false
+  getPrayerTimeToday()
+  getPrayerTimeOneMonth()
+}
+
+// Get data prayer time today
+const getPrayerTimeToday = () => {
   useFetch(`/jadwal/${idCity.value}/${dateToday.value}`, {
     baseURL: SHOLAT_API,
     transform: (data: any) => data.data,
@@ -115,6 +149,9 @@ const getPrayerTimeOneMonth = () => {
   })
 }
 
+// Created
+getAllLocation()
+
 // Meta
 useHead({
   title: 'Jadwal Sholat | Islam App',
@@ -123,6 +160,16 @@ useHead({
 
 <template>
   <div class="container pt-20 md:pt-24">
+    <!-- Button change location -->
+    <div
+      role="button"
+      class="mb-2 flex cursor-pointer items-center justify-end space-x-1 text-sm font-medium text-teal-600 md:text-base dark:text-teal-500"
+      @click="showModalLocation = true"
+    >
+      <Icon name="heroicons:pencil-20-solid" />
+      <span>Ubah Lokasi</span>
+    </div>
+
     <!-- Header -->
     <div
       class="mb-8 flex items-center justify-between space-x-2 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-5 md:mb-10 dark:from-slate-700/50 dark:to-slate-600/60"
@@ -148,11 +195,17 @@ useHead({
             class="text-base md:text-lg"
           />
           <p
-            v-if="!isLoading"
+            v-if="!isLoading && !locationSelected"
             class="text-sm capitalize md:text-base"
           >
             {{ dataLocation?.cityName }}, {{ prayerTime?.daerah.toLowerCase() }},
             {{ dataLocation?.countryName }}
+          </p>
+          <p
+            v-else-if="!isLoading && locationSelected"
+            class="text-sm capitalize md:text-base"
+          >
+            {{ locationSelected.lokasi }}
           </p>
 
           <!-- Skeleton location -->
@@ -172,6 +225,7 @@ useHead({
     <!-- Tabs -->
     <UTabs
       :items="tabs"
+      :default-index="indexActiveTab"
       class="w-full"
       :ui="{
         container: 'pt-3',
@@ -209,5 +263,12 @@ useHead({
         </div>
       </template>
     </UTabs>
+
+    <!-- Modal location -->
+    <ModalLocations
+      v-model="showModalLocation"
+      :locations="locationLists"
+      @select-location="handleSelectLocation"
+    />
   </div>
 </template>

@@ -1,8 +1,13 @@
 <script lang="ts" setup>
 // Props
-defineProps<{
-  tafsir: string
-}>()
+withDefaults(
+  defineProps<{
+    tafsir: string
+  }>(),
+  {
+    tafsir: '',
+  },
+)
 
 // Emits
 const emits = defineEmits<{

@@ -3,12 +3,18 @@
 import type { IVerse } from 'models/ISurah'
 
 // Props
-const props = defineProps<{
-  surahName: string
-  surahNumber: number
-  verse: IVerse
-  index: number
-}>()
+const props = withDefaults(
+  defineProps<{
+    surahName: string
+    surahNumber: number
+    verse: IVerse
+    index: number
+  }>(),
+  {
+    surahName: '',
+    surahNumber: 0,
+  },
+)
 
 // Emits
 const emits = defineEmits<{

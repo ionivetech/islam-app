@@ -4,7 +4,7 @@ import type { InputSize } from '@nuxt/ui/dist/runtime/types'
 // Props
 withDefaults(
   defineProps<{
-    loading: boolean
+    loading?: boolean
     icon?: string
     loadingIcon?: string
     size?: InputSize
@@ -31,6 +31,7 @@ const modelValue = defineModel<string>('')
     :size="size"
     :placeholder="placeholder"
     :loading="loading"
+    :autofocus="false"
     trailing
     :ui="{
       base: 'w-full',

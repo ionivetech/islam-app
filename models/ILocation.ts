@@ -4,3 +4,8 @@ export interface ILocation {
   countryName: string
   cityName: string
 }
+
+export interface ILocations {
+  id: string
+  lokasi: string
+}

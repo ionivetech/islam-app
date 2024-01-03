@@ -1,8 +1,13 @@
 <script lang="ts" setup>
 // Props
-defineProps<{
-  description: string
-}>()
+withDefaults(
+  defineProps<{
+    description: string
+  }>(),
+  {
+    description: '',
+  },
+)
 
 // Emits
 const emits = defineEmits<{
