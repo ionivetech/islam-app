@@ -51,7 +51,7 @@ const handleSelectSurah = (id: number) => {
   <ClientOnly>
     <div class="p-6">
       <div class="mb-6 flex items-center justify-between">
-        <h4 class="text-base font-semibold text-yami md:text-lg dark:text-white">List Surah</h4>
+        <h4 class="text-base font-semibold text-yami dark:text-white md:text-lg">List Surah</h4>
         <Icon
           name="heroicons:x-mark"
           class="cursor-pointer text-xl"
@@ -92,13 +92,13 @@ const handleSelectSurah = (id: number) => {
       >
         <p
           :class="{ '!text-white': data.namaLatin === detailSurah?.namaLatin }"
-          class="text-sm text-yami md:text-base dark:text-slate-200"
+          class="text-sm text-yami dark:text-slate-200 md:text-base"
         >
           {{ data.nomor }}. {{ data.namaLatin }}
         </p>
         <p
           :class="{ '!text-slate-200': data.namaLatin === detailSurah?.namaLatin }"
-          class="text-xs text-smoke-1/60 md:text-sm dark:text-slate-400"
+          class="text-xs text-smoke-1/60 dark:text-slate-400 md:text-sm"
         >
           {{ data.jumlahAyat }} Ayat
         </p>

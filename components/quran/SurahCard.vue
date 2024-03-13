@@ -39,7 +39,7 @@ const toggleFavorite = () => {
     <div class="mb-3 flex items-center justify-between">
       <!-- Number -->
       <div
-        class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200/50 text-xs font-medium text-yami group-hover:bg-teal-600 group-hover:text-white dark:bg-slate-700 dark:text-slate-300"
+        class="flex size-10 items-center justify-center rounded-full bg-gray-200/50 text-xs font-medium text-yami group-hover:bg-teal-600 group-hover:text-white dark:bg-slate-700 dark:text-slate-300"
       >
         {{ surah.nomor }}
       </div>

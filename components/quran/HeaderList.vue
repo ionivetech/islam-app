@@ -4,7 +4,7 @@ const modelValue = defineModel<string>()
 
 <template>
   <div
-    class="mb-10 mt-16 flex h-72 w-full flex-col items-center justify-center gap-y-8 bg-gradient-to-br from-teal-700 to-teal-500 p-4 md:h-80 dark:from-slate-800/50 dark:to-slate-700/50"
+    class="mb-10 mt-16 flex h-72 w-full flex-col items-center justify-center gap-y-8 bg-gradient-to-br from-teal-700 to-teal-500 p-4 dark:from-slate-800/50 dark:to-slate-700/50 md:h-80"
   >
     <img
       src="/images/alquran.svg"
@@ -21,7 +21,7 @@ const modelValue = defineModel<string>()
       />
 
       <div
-        class="absolute inset-y-2/4 right-2 flex h-8 w-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 md:h-9 md:w-9 dark:bg-slate-700"
+        class="absolute inset-y-2/4 right-2 flex size-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:size-9"
       >
         <Icon
           name="radix-icons:magnifying-glass"

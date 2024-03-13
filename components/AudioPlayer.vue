@@ -175,7 +175,7 @@ const initAudioPlayer = () => {
             <div class="relative mb-2 flex w-full items-center">
               <!-- Play & Pause button -->
               <div
-                class="relative mr-2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-teal-600 text-2xl text-white md:absolute md:inset-x-0 md:mx-auto md:h-12 md:w-12"
+                class="relative mr-2 flex size-10 cursor-pointer items-center justify-center rounded-full bg-teal-600 text-2xl text-white md:absolute md:inset-x-0 md:mx-auto md:size-12"
                 role="button"
                 @click="togglePlay"
               >
@@ -184,11 +184,11 @@ const initAudioPlayer = () => {
 
               <div>
                 <p
-                  class="text-sm font-semibold tracking-wide text-yami md:text-base dark:text-slate-200"
+                  class="text-sm font-semibold tracking-wide text-yami dark:text-slate-200 md:text-base"
                 >
                   {{ alQuranStore.getPlayingAudio?.surah }}
                 </p>
-                <p class="text-xs font-medium text-smoke-1 md:text-sm dark:text-smoke-2">
+                <p class="text-xs font-medium text-smoke-1 dark:text-smoke-2 md:text-sm">
                   {{ alQuranStore.getPlayingAudio?.qori }}
                 </p>
               </div>

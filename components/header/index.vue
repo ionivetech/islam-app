@@ -72,7 +72,7 @@ const isDark = computed<boolean>({
 
       <!-- Toggle dark mode -->
       <div
-        class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-lg transition-all duration-100 ease-in-out hover:bg-slate-200/50 dark:hover:bg-slate-800"
+        class="flex size-8 cursor-pointer items-center justify-center rounded-md text-lg transition-all duration-100 ease-in-out hover:bg-slate-200/50 dark:hover:bg-slate-800"
         @click="isDark = !isDark"
       >
         <Icon :name="isDark ? 'heroicons:moon-20-solid' : 'heroicons:sun-20-solid'" />

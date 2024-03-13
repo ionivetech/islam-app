@@ -27,7 +27,7 @@ const emits = defineEmits<{
         />
       </div>
       <p
-        class="whitespace-pre-wrap text-sm !leading-8 text-smoke-1 md:text-base dark:text-smoke-2"
+        class="whitespace-pre-wrap text-sm !leading-8 text-smoke-1 dark:text-smoke-2 md:text-base"
         v-html="description"
       />
     </div>

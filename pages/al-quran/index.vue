@@ -83,7 +83,7 @@ useHead({
 
         <p
           v-else
-          class="mb-3 text-sm text-yami md:text-base dark:text-slate-200"
+          class="mb-3 text-sm text-yami dark:text-slate-200 md:text-base"
         >
           Menampilkan hasil pencarian <b>{{ search }}</b>
         </p>

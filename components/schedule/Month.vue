@@ -21,7 +21,7 @@ const tableColumns = ref<{ key: string; label: string }[]>([
 </script>
 
 <template>
-  <div class="rounded-xl bg-teal-600/5 p-4 md:p-5 dark:bg-background-dark-soft">
+  <div class="rounded-xl bg-teal-600/5 p-4 dark:bg-background-dark-soft md:p-5">
     <UTable
       :columns="tableColumns"
       :rows="dataSchedule"

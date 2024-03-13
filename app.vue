@@ -13,7 +13,7 @@ const alQuranStore = useAlQuranStore()
 
     <Header />
 
-    <main class="min-h-[100vh] pb-8">
+    <main class="min-h-screen pb-8">
       <NuxtPage />
 
       <LazyAudioPlayer />

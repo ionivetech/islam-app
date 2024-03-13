@@ -58,11 +58,12 @@ const getDataLocation = () => {
       localityLanguage: 'id',
     },
     transform: (data: any) => {
+      const adminisTrativeLength = data.localityInfo.administrative.length
       return {
         latitude: data.latitude,
         longitude: data.longitude,
         countryName: data.countryName,
-        cityName: data.localityInfo.administrative[2].name,
+        cityName: data.localityInfo.administrative[adminisTrativeLength - 1].name,
       }
     },
   }).then((res) => {
@@ -163,7 +164,7 @@ useHead({
     <!-- Button change location -->
     <div
       role="button"
-      class="mb-2 flex cursor-pointer items-center justify-end space-x-1 text-sm font-medium text-teal-600 md:text-base dark:text-teal-500"
+      class="mb-2 flex cursor-pointer items-center justify-end space-x-1 text-sm font-medium text-teal-600 dark:text-teal-500 md:text-base"
       @click="showModalLocation = true"
     >
       <Icon name="heroicons:pencil-20-solid" />
@@ -172,13 +173,13 @@ useHead({
 
     <!-- Header -->
     <div
-      class="mb-8 flex items-center justify-between space-x-2 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-5 md:mb-10 dark:from-slate-700/50 dark:to-slate-600/60"
+      class="mb-8 flex items-center justify-between space-x-2 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-5 dark:from-slate-700/50 dark:to-slate-600/60 md:mb-10"
     >
       <div>
         <h1 class="text-xl font-semibold text-white md:text-2xl">Jadwal Sholat</h1>
         <p
           v-if="!isLoading"
-          class="text-sm text-slate-100 md:text-base dark:text-slate-400"
+          class="text-sm text-slate-100 dark:text-slate-400 md:text-base"
         >
           {{ prayerTime?.jadwal.tanggal }}
         </p>
@@ -218,7 +219,7 @@ useHead({
 
       <Icon
         name="fa6-solid:mosque"
-        class="text-[70px] text-white/40 sm:text-[80px] dark:text-white/20"
+        class="text-[70px] text-white/40 dark:text-white/20 sm:text-[80px]"
       />
     </div>
 
