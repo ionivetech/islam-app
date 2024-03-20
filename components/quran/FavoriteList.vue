@@ -12,13 +12,12 @@ const emits = defineEmits<{
   (e: 'refresh-data'): void
 }>()
 
-// Delete surah from favorites
-const deleteFromFavorite = (surah: ISurah) => {
-  const getFromLocalStorage = localStorage.getItem('surah-favorite')
+const deleteFromFavorite = (surah: ISurah): void => {
+  const getFromLocalStorage: string | null = localStorage.getItem('surah-favorite')
   const dataFavorite: ISurah[] = getFromLocalStorage ? JSON.parse(getFromLocalStorage) : []
 
-  const index = dataFavorite.findIndex(
-    (data) => data.namaLatin.toLowerCase() === surah.namaLatin.toLowerCase(),
+  const index: number = dataFavorite.findIndex(
+    (data: ISurah): boolean => data.namaLatin.toLowerCase() === surah.namaLatin.toLowerCase(),
   )
 
   if (index > -1) {
@@ -50,6 +49,7 @@ const deleteFromFavorite = (surah: ISurah) => {
       v-else
       class="no-scrollbar flex gap-x-3 overflow-x-auto scroll-smooth"
     >
+      <!-- Surah Favorite Card -->
       <NuxtLink
         v-for="(surah, index) in favorites"
         :key="`favorite-${index}`"

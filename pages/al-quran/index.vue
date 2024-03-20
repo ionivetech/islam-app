@@ -20,27 +20,29 @@ const { data: dataSurah, pending: pendingFetch } = useLazyFetch<ISurah[]>(ALQURA
 
 // List surah
 const surahList = computed((): ISurah[] => {
-  if (search.value === '') return masterSurah.value || []
-  return masterSurah.value!.filter((surah) =>
-    surah.namaLatin.toLowerCase().includes(search.value.toLowerCase()),
+  return (
+    masterSurah.value?.filter((surah) =>
+      surah.namaLatin.toLowerCase().includes(search.value.toLowerCase()),
+    ) || []
   )
 })
 
 // Set data list surah & favorite
 const setDataSurahAndFavorites = () => {
   surahFavorites.value = useLocalStorage('surah-favorite', []).value
-  if (!pendingFetch.value && dataSurah.value && dataSurah.value.length > 0) {
+  if (dataSurah.value && dataSurah.value.length > 0) {
     const favorites = surahFavorites.value.map((surah) => surah.namaLatin.toLowerCase())
 
     const dataList = dataSurah.value?.map((surah: ISurah) => {
-      if (surahFavorites.value.length > 0) {
-        const itsInFavorite = favorites.includes(surah.namaLatin.toLowerCase())
-        surah.isFavorite = !!itsInFavorite
-      } else {
-        surah.isFavorite = false
-      }
+      const isFavorite = favorites.includes(surah.namaLatin.toLowerCase())
+      surah.isFavorite = !!isFavorite
       return surah
     })
+    if (surahFavorites.value.length > 0) {
+      for (const surah of dataList) {
+        surah.isFavorite = favorites.includes(surah.namaLatin.toLowerCase())
+      }
+    }
 
     masterSurah.value = dataList
     isLoading.value = false
@@ -48,9 +50,7 @@ const setDataSurahAndFavorites = () => {
 }
 
 watchEffect(() => {
-  setTimeout(() => {
-    setDataSurahAndFavorites()
-  }, 250)
+  if (!pendingFetch.value) setDataSurahAndFavorites()
 })
 
 // Meta
