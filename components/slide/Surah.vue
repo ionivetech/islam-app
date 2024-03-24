@@ -2,6 +2,11 @@
 // Interfaces
 import type { ISurah } from 'models/ISurah'
 
+const nuxtApp = useNuxtApp()
+
+// Define Model
+const showSlideOver = defineModel<boolean>()
+
 // Props
 defineProps<{
   detailSurah: ISurah | null
@@ -15,29 +20,26 @@ const emits = defineEmits<{
 // Router
 const router = useRouter()
 
-const nuxtApp = useNuxtApp()
-
 // Variables
 const search = ref<string>('')
 
 // Get list surah
-const { data: surah, pending: pendingFetch } = useFetch<ISurah[]>(ALQURAN_API, {
-  key: 'surah',
-  lazy: true,
-  server: false,
-  getCachedData: (key) => nuxtApp.static.data[key] ?? nuxtApp.payload.data[key],
-  transform: (data: any) => {
-    return data.data
+const { data: surah, pending: pendingFetch } = useAsyncData<ISurah[]>(
+  'surah',
+  () => $fetch(ALQURAN_API),
+  {
+    getCachedData: (key) => nuxtApp.static.data[key] ?? nuxtApp.payload.data[key],
+    transform: (data: any) => data.data,
   },
-})
+)
 
 // List surah
 const surahList = computed((): ISurah[] => {
-  const dataSurah: ISurah[] = surah.value!
-  if (search.value === '') return dataSurah
-  return dataSurah.filter((surah) =>
-    surah.namaLatin.toLowerCase().includes(search.value.toLowerCase()),
-  )
+  const filteredSurahList =
+    surah.value?.filter((surah) =>
+      surah.namaLatin.toLowerCase().includes(search.value.toLowerCase()),
+    ) ?? []
+  return filteredSurahList
 })
 
 // Handle select surah
@@ -48,7 +50,19 @@ const handleSelectSurah = (id: number) => {
 </script>
 
 <template>
-  <ClientOnly>
+  <USlideover
+    v-model="showSlideOver"
+    side="left"
+    :ui="{
+      background:
+        'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
+      width: 'w-screen md:max-w-md max-w-xs',
+      overlay: {
+        background: 'bg-gray-200/50 dark:bg-background-dark/50',
+      },
+    }"
+  >
+    <!-- Title & Search -->
     <div class="p-6">
       <div class="mb-6 flex items-center justify-between">
         <h4 class="text-base font-semibold text-yami dark:text-white md:text-lg">List Surah</h4>
@@ -104,5 +118,5 @@ const handleSelectSurah = (id: number) => {
         </p>
       </div>
     </div>
-  </ClientOnly>
+  </USlideover>
 </template>

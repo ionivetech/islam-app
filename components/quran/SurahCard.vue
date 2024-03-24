@@ -13,19 +13,14 @@ const emits = defineEmits<{
 }>()
 
 const toggleFavorite = () => {
-  const getFromLocalStorage = localStorage.getItem('surah-favorite')
-  const dataFavorite: ISurah[] = getFromLocalStorage ? JSON.parse(getFromLocalStorage) : []
+  const dataFavorite: ISurah[] = JSON.parse(localStorage.getItem('surah-favorite') || '[]')
+  const index = dataFavorite.findIndex(
+    (data) => data.namaLatin.toLowerCase() === props.surah.namaLatin.toLowerCase(),
+  )
 
-  if (dataFavorite.length > 0) {
-    const index = dataFavorite.findIndex(
-      (data) => data.namaLatin.toLowerCase() === props.surah.namaLatin.toLowerCase(),
-    )
+  if (index === -1) dataFavorite.push(props.surah)
+  else dataFavorite.splice(index, 1)
 
-    if (index > -1) dataFavorite.splice(index, 1)
-    else dataFavorite.push(props.surah)
-  } else {
-    dataFavorite.push(props.surah)
-  }
   localStorage.setItem('surah-favorite', JSON.stringify(dataFavorite))
   emits('refresh-data')
 }

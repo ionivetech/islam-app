@@ -78,9 +78,10 @@ const getAllLocation = () => {
   useFetch('/kota/semua', {
     baseURL: SHOLAT_API,
     transform: (data: any) => {
-      const newData = data.data.map((d: ILocations) => {
-        return { id: d.id, lokasi: d.lokasi.toLowerCase() }
-      })
+      const newData = data.data.map(({ id, lokasi }: ILocations) => ({
+        id,
+        lokasi: lokasi.toLowerCase(),
+      }))
       return newData
     },
   }).then((res) => {
@@ -103,7 +104,6 @@ const getIdCity = () => {
 // Handle select manual location
 const handleSelectLocation = (location: ILocations) => {
   locationSelected.value = location
-  indexActiveTab.value = 0
   isLoading.value = true
 
   idCity.value = location.id
@@ -131,17 +131,14 @@ const getPrayerTimeOneMonth = () => {
   useFetch(`/jadwal/${idCity.value}/${date.join('/')}`, {
     baseURL: SHOLAT_API,
     transform: (data: any) => {
-      const date = new Date()
-      const newData = data.data.jadwal.map((data: ISchedule, index: any) => {
-        const value = { ...data }
-        value.tanggal = index + 1 < 10 ? `0${index + 1}` : index + 1
-
-        if (index + 1 === date.getDate()) {
-          value.class = 'bg-teal-600/20 dark:bg-teal-500/20 rounded-lg'
-        }
-
-        return value
-      })
+      const newData = data.data.jadwal.map((data: ISchedule, index: number) => ({
+        ...data,
+        tanggal: (index + 1).toString().padStart(2, '0'),
+        class:
+          index + 1 === new Date().getDate()
+            ? 'active-row bg-teal-600/20 dark:bg-teal-500/20 rounded-lg'
+            : '',
+      }))
 
       return newData
     },
@@ -149,6 +146,21 @@ const getPrayerTimeOneMonth = () => {
     prayerTimeOneMonth.value = res.data.value
   })
 }
+
+watch(indexActiveTab, (val) => {
+  if (val === 1) scrollToActiveRow()
+})
+
+// Function for scroll to element with classname active-row
+const scrollToActiveRow = () => {
+  setTimeout(() => {
+    const element = document.querySelector('.active-row')
+    if (element) element.scrollIntoView({ behavior: 'smooth' })
+  }, 250)
+}
+
+// Change index active tab
+const onChangeTab = (index: number) => (indexActiveTab.value = index)
 
 // Created
 getAllLocation()
@@ -162,18 +174,20 @@ useHead({
 <template>
   <div class="container pt-20 md:pt-24">
     <!-- Button change location -->
-    <div
-      role="button"
-      class="mb-2 flex cursor-pointer items-center justify-end space-x-1 text-sm font-medium text-teal-600 dark:text-teal-500 md:text-base"
-      @click="showModalLocation = true"
-    >
-      <Icon name="heroicons:pencil-20-solid" />
-      <span>Ubah Lokasi</span>
+    <div class="flex justify-end">
+      <div
+        role="button"
+        class="mb-2 flex cursor-pointer items-center space-x-1 text-sm font-medium text-teal-600 dark:text-teal-500 md:text-base"
+        @click="showModalLocation = true"
+      >
+        <Icon name="heroicons:pencil-20-solid" />
+        <span>Ubah Lokasi</span>
+      </div>
     </div>
 
     <!-- Header -->
     <div
-      class="mb-8 flex items-center justify-between space-x-2 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-5 dark:from-slate-700/50 dark:to-slate-600/60 md:mb-10"
+      class="mb-8 flex items-center justify-between space-x-2 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 px-5 py-7 dark:from-slate-700/50 dark:to-slate-600/60 md:mb-10"
     >
       <div>
         <h1 class="text-xl font-semibold text-white md:text-2xl">Jadwal Sholat</h1>
@@ -226,7 +240,7 @@ useHead({
     <!-- Tabs -->
     <UTabs
       :items="tabs"
-      :default-index="indexActiveTab"
+      :default-index="0"
       class="w-full"
       :ui="{
         container: 'pt-3',
@@ -237,6 +251,7 @@ useHead({
           },
         },
       }"
+      @change="onChangeTab"
     >
       <template #item="{ item }">
         <!-- Prayer schedule today -->

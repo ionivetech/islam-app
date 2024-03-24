@@ -71,6 +71,7 @@ const playSurah = () => {
       </div>
     </div>
 
+    <!-- Verse -->
     <div class="w-full">
       <p
         dir="rtl"
