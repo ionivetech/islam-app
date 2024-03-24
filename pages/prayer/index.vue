@@ -12,7 +12,6 @@ const masterPrayerList = ref<IPrayer[]>([])
 const chunkPage = ref<number>(1)
 const prayerChunk = ref<Array<IPrayer[]>>([])
 const dataPrayerList = ref<IPrayer[]>([])
-const prayerExpanded = ref<number>(0)
 
 // Composables
 useInfiniteScrolling(
@@ -48,12 +47,6 @@ const setDataChunks = (data: IPrayer[]) => {
   finishSetDataChunk.value = true
 }
 
-// Function for expand / collapse pray
-const toggleExpandPrayer = (value: number) => {
-  if (prayerExpanded.value === value) prayerExpanded.value = 0
-  else prayerExpanded.value = value
-}
-
 // List doa
 const prayerList = computed((): IPrayer[] => {
   const prayerData: IPrayer[] = dataPrayer.value || masterPrayerList.value
@@ -63,12 +56,8 @@ const prayerList = computed((): IPrayer[] => {
   )
 })
 
-watch(search, () => (prayerExpanded.value = 0))
-
-onMounted(() => {
-  setTimeout(() => {
-    if (dataPrayer.value) setDataChunks(dataPrayer.value)
-  }, 500)
+watchEffect(() => {
+  if (dataPrayer.value) setDataChunks(dataPrayer.value)
 })
 
 useServerSeoMeta({
@@ -77,50 +66,17 @@ useServerSeoMeta({
 </script>
 
 <template>
-  <div class="container pt-20 md:pt-24">
+  <div>
     <!-- Header -->
-    <div
-      class="mb-6 flex flex-col items-center space-y-8 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-4 dark:from-slate-700/50 dark:to-slate-600/60 sm:pb-10 sm:pt-8 md:mb-10"
-    >
-      <Icon
-        name="material-symbols:prayer-times-rounded"
-        class="text-[80px] text-white sm:text-[95px]"
-      />
+    <PrayerHeaderList v-model="search" />
 
-      <div class="relative w-full md:w-2/3 lg:w-3/4 xl:w-6/12">
-        <input
-          v-model="search"
-          type="text"
-          placeholder="Cari do'a"
-          class="input-search"
-        />
+    <div class="container">
+      <SkeletonPrayer v-if="!finishSetDataChunk" />
 
-        <div
-          class="absolute inset-y-2/4 right-2 flex size-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:size-9"
-        >
-          <Icon
-            name="radix-icons:magnifying-glass"
-            class="text-xl text-white"
-          />
-        </div>
+      <div v-else>
+        <PrayerList :prayers="prayerList" />
+        <div ref="bottomPrayList" />
       </div>
-    </div>
-
-    <SkeletonPrayer v-if="!finishSetDataChunk" />
-
-    <div
-      v-else
-      class="space-y-4"
-    >
-      <PrayerCard
-        v-for="(prayer, index) in prayerList"
-        :key="`prayer-${index}`"
-        :index="index"
-        :prayer="prayer"
-        :prayer-expanded="prayerExpanded"
-        @toggle-expand-prayer="toggleExpandPrayer"
-      />
-      <div ref="bottomPrayList" />
     </div>
   </div>
 </template>

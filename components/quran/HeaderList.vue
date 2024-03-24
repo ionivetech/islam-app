@@ -1,18 +1,20 @@
 <script lang="ts" setup>
-const modelValue = defineModel<string>()
+const search = defineModel<string>()
 </script>
 
 <template>
   <div class="search-section-wrapper">
+    <!-- Icon -->
     <img
       src="/images/alquran.svg"
       alt="alquran-logo"
       class="h-auto w-24"
     />
 
+    <!-- Search field -->
     <div class="relative w-full md:w-8/12 lg:w-6/12">
       <input
-        v-model="modelValue"
+        v-model="search"
         type="text"
         placeholder="Cari Surah"
         class="input-search"

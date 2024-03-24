@@ -1,26 +1,12 @@
 <script lang="ts" setup>
 const search = defineModel<string>()
-
-// Props
-withDefaults(
-  defineProps<{
-    hadithHistorySelected: string
-  }>(),
-  {
-    hadithHistorySelected: '',
-  },
-)
-
-const emits = defineEmits<{
-  (e: 'change-hadith-history', value: string): void
-}>()
 </script>
 
 <template>
   <div class="search-section-wrapper">
     <!-- Icon -->
     <Icon
-      name="solar:notebook-minimalistic-bold"
+      name="material-symbols:prayer-times-rounded"
       class="text-[80px] text-white sm:text-[95px]"
     />
 
@@ -29,7 +15,7 @@ const emits = defineEmits<{
       <input
         v-model="search"
         type="text"
-        placeholder="Cari nomor hadits"
+        placeholder="Cari Do'a"
         class="input-search"
       />
 
@@ -42,11 +28,5 @@ const emits = defineEmits<{
         />
       </div>
     </div>
-
-    <!-- List name of history -->
-    <HadithHistoryList
-      :selected="hadithHistorySelected"
-      @change-hadith-history="emits('change-hadith-history', $event)"
-    />
   </div>
 </template>
