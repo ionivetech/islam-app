@@ -3,9 +3,7 @@ const modelValue = defineModel<string>()
 </script>
 
 <template>
-  <div
-    class="mb-10 mt-16 flex h-72 w-full flex-col items-center justify-center gap-y-8 bg-gradient-to-br from-teal-700 to-teal-500 p-4 dark:from-slate-800/50 dark:to-slate-700/50 md:h-80"
-  >
+  <div class="search-section-wrapper">
     <img
       src="/images/alquran.svg"
       alt="alquran-logo"

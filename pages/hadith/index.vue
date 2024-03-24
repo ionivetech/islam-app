@@ -53,18 +53,18 @@ const searchHadithNumber = () => {
     isErrorSearch.value = false
     isFinishSearch.value = false
     isSearching.value = true
-    $fetch(`${hadithHistorySelected.value}/${search.value}`, {
+
+    $fetch<IHadithItems>(`${hadithHistorySelected.value}/${search.value}`, {
       baseURL: HADITH_API,
     })
       .then((res) => {
         searchResult.value = res
-        isSearching.value = false
-        isFinishSearch.value = true
       })
       .catch(() => {
-        searchResult.value = null
-        isSearching.value = false
         isErrorSearch.value = true
+      })
+      .finally(() => {
+        isSearching.value = false
         isFinishSearch.value = true
       })
   } else {
@@ -86,113 +86,88 @@ useHead({
 </script>
 
 <template>
-  <div class="container pt-20 md:pt-24">
+  <div>
     <!-- Header -->
-    <div
-      class="mb-6 flex flex-col items-center space-y-8 rounded-xl bg-gradient-to-br from-teal-700 to-teal-500 p-4 dark:from-slate-700/50 dark:to-slate-600/60 sm:pb-10 sm:pt-8 md:mb-10"
-    >
-      <Icon
-        name="solar:notebook-minimalistic-bold"
-        class="text-[80px] text-white sm:text-[95px]"
-      />
+    <HadithHeaderList
+      v-model="search"
+      :hadith-history-selected
+      @change-hadith-history="changeHadithHistory"
+    />
 
-      <div class="relative w-full md:w-2/3 lg:w-3/4 xl:w-6/12">
-        <input
-          v-model="search"
-          type="text"
-          placeholder="Cari nomor hadits"
-          class="input-search"
-        />
+    <div class="container">
+      <!-- Skeleton -->
+      <SkeletonHadith v-if="pending || isSearching" />
 
-        <div
-          class="absolute inset-y-2/4 right-2 flex size-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:size-9"
-        >
-          <Icon
-            name="radix-icons:magnifying-glass"
-            class="text-xl text-white"
-          />
-        </div>
-      </div>
-
-      <!-- List name of history -->
-      <HadithHistoryList
-        :selected="hadithHistorySelected"
-        @change-hadith-history="changeHadithHistory"
-      />
-    </div>
-
-    <!-- Skeleton -->
-    <SkeletonHadith v-if="pending || isSearching" />
-
-    <div
-      v-if="!pending"
-      class="mt-5"
-    >
-      <div class="mb-3">
-        <!-- Information total & search hadith -->
-        <p
-          v-if="!pending && !searchResult"
-          class="text-sm text-yami dark:text-slate-200 md:text-base"
-        >
-          Terdapat <b>{{ dataListHadith?.pagination.totalItems }}</b> hadits menurut
-          {{ dataListHadith?.name }}
-        </p>
-
-        <p
-          v-if="!pending && searchResult"
-          class="text-sm text-yami dark:text-slate-200 md:text-base"
-        >
-          Menampilkan hadits {{ dataListHadith?.name }} nomor <b>{{ search }}</b>
-        </p>
-      </div>
-
-      <!-- List hadith -->
-      <div v-if="!pending && !isSearching">
-        <!-- List all hadith -->
-        <div
-          v-if="!isFinishSearch"
-          class="grid grid-cols-1 gap-4"
-        >
-          <HadithCard
-            v-for="list in dataListHadith?.items"
-            :key="list.number"
-            :hadith-history-name="dataListHadith?.name"
-            :hadith="list"
-          />
-        </div>
-
-        <!-- Show search result -->
-        <HadithCard
-          v-if="isFinishSearch && searchResult && !isErrorSearch"
-          :hadith-history-name="dataListHadith?.name"
-          :hadith="searchResult"
-        />
-
-        <div
-          v-if="isFinishSearch && isErrorSearch"
-          class="rounded-lg bg-slate-200/50 p-5 text-sm font-normal text-yami dark:bg-slate-700/50 dark:text-slate-200 sm:text-base"
-        >
-          Tidak ditemukan hadits dengan nomor <b>{{ search }}</b>
-        </div>
-      </div>
-
-      <!-- Pagination -->
       <div
-        v-if="!pending && !search && !isFinishSearch"
-        class="mt-5 flex justify-end"
+        v-if="!pending"
+        class="mt-5"
       >
-        <UPagination
-          v-model="page"
-          :page-count="limit"
-          :total="dataListHadith!.pagination.totalItems"
-          size="sm"
-          :max="5"
-          :ui="{
-            wrapper: 'flex items-center space-x-1',
-            base: 'min-w-[32px] h-8 flex items-center justify-center rounded-full',
-            rounded: 'first:rounded-full last:rounded-full',
-          }"
-        />
+        <div class="mb-3">
+          <!-- Information total & search hadith -->
+          <p
+            v-if="!pending && !searchResult"
+            class="text-sm text-yami dark:text-slate-200 md:text-base"
+          >
+            Terdapat <b>{{ dataListHadith?.pagination.totalItems }}</b> hadits menurut
+            {{ dataListHadith?.name }}
+          </p>
+
+          <p
+            v-if="!pending && searchResult"
+            class="text-sm text-yami dark:text-slate-200 md:text-base"
+          >
+            Menampilkan hadits {{ dataListHadith?.name }} nomor <b>{{ search }}</b>
+          </p>
+        </div>
+
+        <!-- List hadith -->
+        <div v-if="!pending && !isSearching">
+          <!-- List all hadith -->
+          <div
+            v-if="!isFinishSearch"
+            class="grid grid-cols-1 gap-4"
+          >
+            <HadithCard
+              v-for="list in dataListHadith?.items"
+              :key="list.number"
+              :hadith-history-name="dataListHadith?.name"
+              :hadith="list"
+            />
+          </div>
+
+          <!-- Show search result -->
+          <HadithCard
+            v-if="isFinishSearch && searchResult && !isErrorSearch"
+            :hadith-history-name="dataListHadith?.name"
+            :hadith="searchResult"
+          />
+
+          <div
+            v-if="isFinishSearch && isErrorSearch"
+            class="rounded-lg bg-slate-200/50 p-5 text-sm font-normal text-yami dark:bg-slate-700/50 dark:text-slate-200 sm:text-base"
+          >
+            Tidak ditemukan hadits dengan nomor <b>{{ search }}</b>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div
+          v-if="!pending && !search && !isFinishSearch"
+          class="mt-5 flex justify-end"
+        >
+          <UPagination
+            v-model="page"
+            :page-count="limit"
+            :total="dataListHadith!.pagination.totalItems"
+            size="sm"
+            :max="5"
+            :ui="{
+              wrapper: 'flex items-center space-x-1',
+              base: 'min-w-[32px] h-8 flex items-center justify-center rounded-full',
+              rounded: 'first:rounded-full last:rounded-full',
+            }"
+          />
+        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Components
+@import 'components.scss';
+
+// Transition
+@import 'transition.scss';
+
+
+body {
+  @apply bg-background-light dark:bg-background-dark antialiased;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

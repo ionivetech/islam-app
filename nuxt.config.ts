@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     models: fileURLToPath(new URL('./models/', import.meta.url)),
   },
 
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.scss'],
 
   colorMode: {
     preference: 'light',
@@ -62,6 +62,7 @@ export default defineNuxtConfig({
 
   postcss: {
     plugins: {
+      'postcss-import': {},
       tailwindcss: {},
       autoprefixer: {},
       cssnano:
@@ -134,7 +135,7 @@ export default defineNuxtConfig({
   },
 
   tailwindcss: {
-    cssPath: '~/assets/css/main.css',
+    cssPath: '~/assets/css/main.scss',
     configPath: 'tailwind.config',
     viewer: false,
   },

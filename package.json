@@ -22,6 +22,8 @@
     "@types/node": "^20.11.30",
     "@vite-pwa/nuxt": "^0.6.0",
     "nuxt": "^3.11.1",
+    "postcss-import": "^16.1.0",
+    "sass": "^1.72.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
