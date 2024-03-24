@@ -67,6 +67,7 @@ const { data: dataTafsir } = useLazyFetch<ITafsir[]>(`/${route.params.id}`, {
 
 const setDataChunks = (data: IVerse[]) => {
   chunkPage.value = 1
+  verseList.value = []
   masterVerseList.value = data
 
   // Split array into chunks
@@ -101,8 +102,10 @@ const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 // Go to previous / next surah
 const goToSurah = (surah: IBeforeNextSurah) => router.push(`/al-quran/${surah.nomor}`)
 
-watchEffect(() => {
-  if (dataDetail.value) setDataChunks(dataDetail.value!.ayat!)
+onMounted(() => {
+  setTimeout(() => {
+    if (dataDetail.value) setDataChunks(dataDetail.value.ayat!)
+  }, 500)
 })
 
 useSeoMeta({

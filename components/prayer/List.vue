@@ -23,9 +23,12 @@ defineProps<{
   >
     <template #default="{ item, index, open }">
       <div class="flex cursor-pointer items-center justify-between gap-x-3 p-3 md:p-4">
-        <p class="text-sm font-normal text-yami dark:text-slate-200 md:text-base">
-          {{ index + 1 }}. {{ item.nama }}
-        </p>
+        <div
+          class="flex items-start gap-x-1.5 text-sm font-normal text-yami dark:text-slate-200 md:text-base"
+        >
+          <p>{{ index + 1 }}.</p>
+          <p>{{ item.nama }}</p>
+        </div>
 
         <Icon
           name="fluent:chevron-down-24-filled"

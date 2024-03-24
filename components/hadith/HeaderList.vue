@@ -21,7 +21,7 @@ const emits = defineEmits<{
     <!-- Icon -->
     <Icon
       name="solar:notebook-minimalistic-bold"
-      class="text-[80px] text-white sm:text-[95px]"
+      class="text-[70px] text-white sm:text-[95px]"
     />
 
     <!-- Search field -->
@@ -34,7 +34,7 @@ const emits = defineEmits<{
       />
 
       <div
-        class="absolute inset-y-2/4 right-2 flex size-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:size-9"
+        class="mdright-2 absolute inset-y-2/4 right-1 flex size-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:size-9"
       >
         <Icon
           name="radix-icons:magnifying-glass"

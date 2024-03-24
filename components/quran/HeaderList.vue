@@ -8,7 +8,7 @@ const search = defineModel<string>()
     <img
       src="/images/alquran.svg"
       alt="alquran-logo"
-      class="h-auto w-24"
+      class="w-22 h-auto md:w-24"
     />
 
     <!-- Search field -->
@@ -21,7 +21,7 @@ const search = defineModel<string>()
       />
 
       <div
-        class="absolute inset-y-2/4 right-2 flex size-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:size-9"
+        class="absolute inset-y-2/4 right-1 flex size-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:right-2 md:size-9"
       >
         <Icon
           name="radix-icons:magnifying-glass"
