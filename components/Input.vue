@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import type { InputSize } from '@nuxt/ui/dist/runtime/types'
-
 // Props
 withDefaults(
   defineProps<{
     loading?: boolean
     icon?: string
     loadingIcon?: string
-    size?: InputSize
+    size?: '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
     placeholder?: string
   }>(),
   {

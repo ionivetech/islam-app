@@ -13,7 +13,7 @@ const router = useRouter()
 // Ref
 const bottomVerseList = ref(null)
 
-// Variable
+// Variables
 const finishSetDataChunk = ref<boolean>(false)
 const masterVerseList = ref<IVerse[]>([])
 const chunkPage = ref<number>(1)
@@ -24,7 +24,7 @@ const showModalTafsir = ref<boolean>(false)
 const showListSurah = ref<boolean>(false)
 const tafsirSelected = ref<ITafsir | null>(null)
 
-// Composables
+// Composables infinite scrolling
 useInfiniteScrolling(
   bottomVerseList,
   () => {
@@ -96,22 +96,13 @@ const handleCloseModalTafsir = () => {
 }
 
 // Scroll to top of page
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  })
-}
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
 // Go to previous / next surah
-const goToSurah = (surah: IBeforeNextSurah) => {
-  router.push(`/al-quran/${surah.nomor}`)
-}
+const goToSurah = (surah: IBeforeNextSurah) => router.push(`/al-quran/${surah.nomor}`)
 
-onMounted(() => {
-  setTimeout(() => {
-    if (dataDetail.value) setDataChunks(dataDetail.value!.ayat!)
-  }, 500)
+watchEffect(() => {
+  if (dataDetail.value) setDataChunks(dataDetail.value!.ayat!)
 })
 
 useSeoMeta({
@@ -202,64 +193,24 @@ useSeoMeta({
     </div>
 
     <!-- List Surah -->
-    <USlideover
+    <SlideSurah
       v-model="showListSurah"
-      side="left"
-      :ui="{
-        background:
-          'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
-        width: 'w-screen md:max-w-md max-w-xs',
-        overlay: {
-          background: 'bg-gray-200/50 dark:bg-background-dark/50',
-        },
-      }"
-    >
-      <SlideSurah
-        v-if="showListSurah"
-        :detail-surah="dataDetail"
-        @close-slide="showListSurah = false"
-      />
-    </USlideover>
+      :detail-surah="dataDetail"
+      @close-slide="showListSurah = false"
+    />
 
     <!-- Modal Detail -->
-    <UModal
+    <ModalDetailSurah
       v-model="showModalDetail"
-      :ui="{
-        rounded: 'rounded-xl',
-        background:
-          'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
-        width: 'sm:max-w-[80vw] md:max-w-[70vw]',
-        overlay: {
-          background: 'bg-gray-200/50 dark:bg-background-dark/50 backdrop-blur',
-        },
-      }"
-    >
-      <ModalDetailSurah
-        v-if="showModalDetail"
-        :description="dataDetail?.deskripsi"
-        @close-modal="showModalDetail = false"
-      />
-    </UModal>
+      :description="dataDetail?.deskripsi"
+      @close-modal="showModalDetail = false"
+    />
 
     <!-- Modal Tafsir -->
-    <UModal
+    <ModalTafsir
       v-model="showModalTafsir"
-      prevent-close
-      :ui="{
-        rounded: 'rounded-xl',
-        background:
-          'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
-        width: 'sm:max-w-[80vw] md:max-w-[70vw]',
-        overlay: {
-          background: 'bg-gray-200/50 dark:bg-background-dark/50 backdrop-blur',
-        },
-      }"
-    >
-      <ModalTafsir
-        v-if="showModalTafsir"
-        :tafsir="tafsirSelected?.teks"
-        @close-modal="handleCloseModalTafsir"
-      />
-    </UModal>
+      :tafsir="tafsirSelected?.teks"
+      @close-modal="handleCloseModalTafsir"
+    />
   </div>
 </template>
