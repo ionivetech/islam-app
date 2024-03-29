@@ -6,4 +6,8 @@
   .search-section-wrapper {
     @apply mb-10 flex h-56 w-full flex-col items-center justify-center gap-y-5 md:gap-y-8 bg-gradient-to-br from-teal-700 to-teal-500 p-4 dark:from-slate-800/50 dark:to-slate-700/50 md:h-80;
   }
+
+  .btn-prev-next-surah {
+    @apply flex items-center gap-x-2 rounded-md border border-gray-300/70 px-2 py-1.5 text-sm text-smoke-1 dark:border-gray-700 dark:bg-background-dark-soft dark:text-smoke-2 sm:px-3 sm:py-2;
+  }
 }
