@@ -38,8 +38,6 @@ module.exports = {
         'surah-card': '0px 0px 12px #E7E7E7',
         'surah-card-dark': '0px 0px 12px #181616',
         slideover: '0px 4px 4px rgba(120, 120, 120, 0.25)',
-        'audio-player': '0px -2px 14px rgba(233, 233, 233, 1)',
-        'audio-player-dark': '0px -2px 20px rgba(24, 24, 24, 0.4)',
       },
       gridTemplateColumns: {
         'quran-list-lg': 'repeat(auto-fill, minmax(275px, 1fr))',

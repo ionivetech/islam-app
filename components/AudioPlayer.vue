@@ -153,7 +153,7 @@ const initAudioPlayer = () => {
       <Transition name="audio">
         <div
           v-if="showAudioPlayer"
-          class="fixed inset-x-0 bottom-0 z-50 w-full border-t border-slate-700/10 bg-background-light shadow-audio-player dark:border-slate-300/10 dark:bg-background-dark-soft dark:shadow-audio-player-dark"
+          class="fixed inset-x-0 bottom-16 z-10 w-full border-t border-slate-700/10 bg-background-light backdrop-blur dark:border-slate-300/10 dark:bg-background-dark/75 md:bottom-0"
         >
           <!-- Audio element -->
           <audio
@@ -170,9 +170,9 @@ const initAudioPlayer = () => {
             />
           </audio>
 
-          <div class="p-4">
+          <div class="p-2.5 md:p-4">
             <!-- Info surah -->
-            <div class="relative mb-2 flex w-full items-center">
+            <div class="relative mb-1 flex w-full items-center">
               <!-- Play & Pause button -->
               <div
                 class="relative mr-2 flex size-10 cursor-pointer items-center justify-center rounded-full bg-teal-600 text-2xl text-white md:absolute md:inset-x-0 md:mx-auto md:size-12"
@@ -218,7 +218,7 @@ const initAudioPlayer = () => {
             />
 
             <!-- Current time & duration -->
-            <div class="mt-1.5 flex items-center justify-between">
+            <div class="mt-1 flex items-center justify-between">
               <p class="text-xs text-yami dark:text-slate-200">{{ labelCurrentTime }}</p>
 
               <p class="text-xs text-smoke-1 dark:text-smoke-2">
