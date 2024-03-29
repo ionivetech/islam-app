@@ -115,7 +115,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div>
+  <div class="-mt-16">
     <div class="relative">
       <!-- Header detail surah for show surah name & list surah -->
       <HeaderDetailSurah

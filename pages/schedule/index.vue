@@ -172,7 +172,7 @@ useHead({
 </script>
 
 <template>
-  <div class="container pt-20 md:pt-24">
+  <div class="container pt-6 md:pt-8">
     <!-- Button change location -->
     <div class="flex justify-end">
       <div
