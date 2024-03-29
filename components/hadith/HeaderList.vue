@@ -20,7 +20,7 @@ const emits = defineEmits<{
   <div class="search-section-wrapper">
     <!-- Icon -->
     <Icon
-      name="solar:notebook-minimalistic-bold"
+      name="fa6-solid:book-open"
       class="text-[70px] text-white sm:text-[95px]"
     />
 

@@ -3,7 +3,6 @@ const route = useRoute()
 const colorMode = useColorMode()
 
 // Variables
-const showSidebarMenu = ref<boolean>(false)
 const menus: { url: string; label: string }[] = [
   { url: '/al-quran', label: 'Al-Quran' },
   { url: '/hadith', label: 'Hadits' },
@@ -27,17 +26,6 @@ const isDark = computed<boolean>({
     class="top-0 z-50 h-16 w-full border-b border-slate-700/10 bg-white py-4 backdrop-blur dark:border-slate-300/10 dark:bg-background-dark/75"
   >
     <div class="container flex items-center justify-between">
-      <!-- Toggle Menu -->
-      <div
-        class="block cursor-pointer md:hidden"
-        @click="showSidebarMenu = true"
-      >
-        <Icon
-          name="heroicons:bars-3-bottom-left-20-solid"
-          class="text-xl text-yami dark:text-slate-200"
-        />
-      </div>
-
       <div class="flex items-center">
         <!-- Icon -->
         <NuxtLink
@@ -79,20 +67,4 @@ const isDark = computed<boolean>({
       </div>
     </div>
   </header>
-
-  <!-- Sidebar menu -->
-  <USlideover
-    v-model="showSidebarMenu"
-    side="left"
-    :ui="{
-      background:
-        'bg-background-light dark:bg-background-dark dark:border dark:border-slate-700/50',
-      width: 'w-screen md:max-w-md max-w-xs',
-      overlay: {
-        background: 'bg-gray-200/50 dark:bg-background-dark/50',
-      },
-    }"
-  >
-    <SlideMenu @close-slide="showSidebarMenu = false" />
-  </USlideover>
 </template>

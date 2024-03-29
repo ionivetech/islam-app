@@ -96,8 +96,7 @@ const getIdCity = () => {
     transform: (data: any) => data.data[0].id,
   }).then((res) => {
     idCity.value = res.data.value
-    getPrayerTimeToday()
-    getPrayerTimeOneMonth()
+    getDataSchedule()
   })
 }
 
@@ -108,27 +107,34 @@ const handleSelectLocation = (location: ILocations) => {
 
   idCity.value = location.id
   showModalLocation.value = false
-  getPrayerTimeToday()
-  getPrayerTimeOneMonth()
+  getDataSchedule()
+}
+
+// Get data prayer time today and this month
+const getDataSchedule = async () => {
+  const promises = [getPrayerTimeToday(), getPrayerTimeOneMonth()]
+  const res = await Promise.all(promises)
+  if (res) isLoading.value = false
 }
 
 // Get data prayer time today
-const getPrayerTimeToday = () => {
-  useFetch(`/jadwal/${idCity.value}/${dateToday.value}`, {
+const getPrayerTimeToday = async () => {
+  const res = await useFetch(`/jadwal/${idCity.value}/${dateToday.value}`, {
     baseURL: SHOLAT_API,
     transform: (data: any) => data.data,
   }).then((res) => {
     prayerTime.value = res.data.value
-    isLoading.value = false
+    return res.status.value
   })
+  return res
 }
 
 // Get data prayer time 1 month
-const getPrayerTimeOneMonth = () => {
+const getPrayerTimeOneMonth = async () => {
   const date = dateToday.value.split('/')
   date.pop()
 
-  useFetch(`/jadwal/${idCity.value}/${date.join('/')}`, {
+  const res = await useFetch(`/jadwal/${idCity.value}/${date.join('/')}`, {
     baseURL: SHOLAT_API,
     transform: (data: any) => {
       const newData = data.data.jadwal.map((data: ISchedule, index: number) => ({
@@ -144,7 +150,9 @@ const getPrayerTimeOneMonth = () => {
     },
   }).then((res) => {
     prayerTimeOneMonth.value = res.data.value
+    return res.status.value
   })
+  return res
 }
 
 watch(indexActiveTab, (val) => {
@@ -172,7 +180,7 @@ useHead({
 </script>
 
 <template>
-  <div class="container pt-20 md:pt-24">
+  <div class="container pt-6 md:pt-8">
     <!-- Button change location -->
     <div class="flex justify-end">
       <div
@@ -267,13 +275,8 @@ useHead({
 
         <!-- Prayer schedule 1 month -->
         <div v-else-if="item.key === 'this-month'">
-          <!-- Skeleton -->
-          <div
-            v-if="isLoading"
-            class="h-[600px] w-full animate-pulse rounded-xl bg-gray-300 dark:bg-slate-700/30"
-          />
           <ScheduleMonth
-            v-else
+            :loading="isLoading"
             :data-schedule="prayerTimeOneMonth!"
           />
         </div>
