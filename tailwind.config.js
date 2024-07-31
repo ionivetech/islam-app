@@ -37,6 +37,8 @@ module.exports = {
         header: '0 4px 10px rgba(240, 240, 240, 1)',
         'surah-card': '0px 0px 12px #E7E7E7',
         'surah-card-dark': '0px 0px 12px #181616',
+        'hadith-card': '0px 0px 20px #F0F0F0',
+        'hadith-card-dark': '0px 0px 20px #2F2F2F',
         slideover: '0px 4px 4px rgba(120, 120, 120, 0.25)',
       },
       gridTemplateColumns: {

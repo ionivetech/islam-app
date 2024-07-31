@@ -1,10 +1,12 @@
-import { fileURLToPath } from 'url'
 
 export default defineNuxtConfig({
+  future: {
+    compatibilityVersion: 4,
+  },
+
   devtools: { enabled: true },
 
   app: {
-    pageTransition: { name: 'fade', mode: 'out-in' },
     head: {
       meta: [
         { name: 'theme-color', content: '#ffffff' },
@@ -17,19 +19,11 @@ export default defineNuxtConfig({
     },
   },
 
-  alias: {
-    models: fileURLToPath(new URL('./models/', import.meta.url)),
-  },
-
-  css: ['~/assets/css/main.scss'],
+  css: ['./assets/css/main.scss'],
 
   colorMode: {
     preference: 'light',
     fallback: 'light',
-  },
-
-  eslint: {
-    lintOnStart: false,
   },
 
   googleFonts: {
@@ -42,22 +36,18 @@ export default defineNuxtConfig({
     download: true,
   },
 
-  imports: {
-    dirs: ['stores'],
-  },
-
   modules: [
-    '@nuxtjs/eslint-module',
+    '@nuxt/eslint',
     '@pinia/nuxt',
     '@nuxt/ui',
-    'nuxt-icon',
     '@nuxtjs/google-fonts',
     '@vueuse/nuxt',
     '@vite-pwa/nuxt',
+    '@nuxt/icon'
   ],
 
   pinia: {
-    storesDirs: ['./stores/**'],
+    storesDirs: ['./app/stores/**'],
   },
 
   postcss: {
@@ -65,10 +55,6 @@ export default defineNuxtConfig({
       'postcss-import': {},
       tailwindcss: {},
       autoprefixer: {},
-      cssnano:
-        process.env.NODE_ENV === 'production'
-          ? { preset: ['default', { discardComments: { removeAll: true } }] }
-          : false, // disable cssnano when not in production
     },
   },
 
@@ -129,14 +115,10 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/': { prerender: true, redirect: '/al-quran' },
-    '/hadith': { ssr: true },
-    '/prayer': { ssr: true },
+    '/hadith': { isr: 3600 },
+    '/prayer': { isr: 3600 },
     '/schedule': { ssr: false },
   },
 
-  tailwindcss: {
-    cssPath: '~/assets/css/main.scss',
-    configPath: 'tailwind.config',
-    viewer: false,
-  },
+  compatibilityDate: '2024-07-03',
 })
