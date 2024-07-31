@@ -1,7 +1,11 @@
+import process from 'node:process'
+
+const sw = process.env.SW === 'true'
 
 export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
+    typescriptBundlerResolution: true,
   },
 
   devtools: { enabled: true },
@@ -59,6 +63,10 @@ export default defineNuxtConfig({
   },
 
   pwa: {
+    strategies: sw ? 'injectManifest' : 'generateSW',
+    srcDir: sw ? 'service-worker' : undefined,
+    filename: sw ? 'sw.ts' : undefined,
+    registerType: 'autoUpdate',
     manifest: {
       theme_color: '#ffffff',
       background_color: '#ffffff',
@@ -99,16 +107,20 @@ export default defineNuxtConfig({
       ],
     },
     workbox: {
-      navigateFallback: '/index.html',
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-      cleanupOutdatedCaches: false,
+    },
+    injectManifest: {
+      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
     },
     client: {
       installPrompt: true,
       periodicSyncForUpdates: 20,
     },
     devOptions: {
-      enabled: false,
+      enabled: true,
+      suppressWarnings: true,
+      navigateFallback: '/',
+      navigateFallbackAllowlist: [/^\/$/],
       type: 'module',
     },
   },
