@@ -1,4 +1,3 @@
-import { fileURLToPath } from 'url'
 
 export default defineNuxtConfig({
   future: {
@@ -18,10 +17,6 @@ export default defineNuxtConfig({
         lang: 'id',
       },
     },
-  },
-
-  alias: {
-    models: fileURLToPath(new URL('./app/models/', import.meta.url)),
   },
 
   css: ['./assets/css/main.scss'],
@@ -45,10 +40,10 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@pinia/nuxt',
     '@nuxt/ui',
-    'nuxt-icon',
     '@nuxtjs/google-fonts',
     '@vueuse/nuxt',
     '@vite-pwa/nuxt',
+    '@nuxt/icon'
   ],
 
   pinia: {
@@ -60,10 +55,6 @@ export default defineNuxtConfig({
       'postcss-import': {},
       tailwindcss: {},
       autoprefixer: {},
-      cssnano:
-        process.env.NODE_ENV === 'production'
-          ? { preset: ['default', { discardComments: { removeAll: true } }] }
-          : false, // disable cssnano when not in production
     },
   },
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interfaces
-import type { ISurah } from 'models/ISurah'
+import type { ISurah } from '@models/ISurah';
 
 // Store
 const alQuranStore = useAlQuranStore()

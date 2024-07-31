@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useGeolocation } from '@vueuse/core'
+import { useGeolocation } from '@vueuse/core';
 // Interfaces
-import type { ILocation, ILocations } from 'models/ILocation.js'
-import type { IPrayerTime, ISchedule } from 'models/IPrayerTime'
+import type { LocationData } from '@models/dto/dataLocation.dto';
+import type { ILocation, ILocations } from '@models/ILocation';
+import type { IPrayerTime, ISchedule } from '@models/IPrayerTime';
 
 // Get coordinate
 const { coords, pause: pauseWatchCoords, error: errorGetLocation } = useGeolocation()
@@ -57,17 +58,16 @@ const getDataLocation = () => {
       longitude: coords.value.longitude,
       localityLanguage: 'id',
     },
-    transform: (data: any) => {
-      const adminisTrativeLength = data.localityInfo.administrative.length
+    transform: (data: LocationData) => {
       return {
         latitude: data.latitude,
         longitude: data.longitude,
         countryName: data.countryName,
-        cityName: data.localityInfo.administrative[adminisTrativeLength - 1].name,
+        cityName: data.city,
       }
     },
   }).then((res) => {
-    dataLocation.value = res.data.value
+    dataLocation.value = res.data.value ?? null
     pauseWatchCoords()
     getIdCity()
   })
@@ -77,8 +77,8 @@ const getDataLocation = () => {
 const getAllLocation = () => {
   useFetch('/kota/semua', {
     baseURL: SHOLAT_API,
-    transform: (data: any) => {
-      const newData = data.data.map(({ id, lokasi }: ILocations) => ({
+    transform: ({ data }) => {
+      const newData = data.map(({ id, lokasi }: ILocations) => ({
         id,
         lokasi: lokasi.toLowerCase(),
       }))
@@ -93,7 +93,7 @@ const getAllLocation = () => {
 const getIdCity = () => {
   useFetch(`/kota/cari/${dataLocation.value?.cityName.toLowerCase()}`, {
     baseURL: SHOLAT_API,
-    transform: (data: any) => data.data[0].id,
+    transform: ({ data }) => data[0].id,
   }).then((res) => {
     idCity.value = res.data.value
     getDataSchedule()
@@ -121,7 +121,7 @@ const getDataSchedule = async () => {
 const getPrayerTimeToday = async () => {
   const res = await useFetch(`/jadwal/${idCity.value}/${dateToday.value}`, {
     baseURL: SHOLAT_API,
-    transform: (data: any) => data.data,
+    transform: ({ data }) => data,
   }).then((res) => {
     prayerTime.value = res.data.value
     return res.status.value
@@ -136,9 +136,9 @@ const getPrayerTimeOneMonth = async () => {
 
   const res = await useFetch(`/jadwal/${idCity.value}/${date.join('/')}`, {
     baseURL: SHOLAT_API,
-    transform: (data: any) => {
-      const newData = data.data.jadwal.map((data: ISchedule, index: number) => ({
-        ...data,
+    transform: ({ data }) => {
+      const newData = data.jadwal.map((schedule: ISchedule, index: number) => ({
+        ...schedule,
         tanggal: (index + 1).toString().padStart(2, '0'),
         class:
           index + 1 === new Date().getDate()
@@ -270,8 +270,8 @@ useHead({
           <SkeletonScheduleToday v-if="isLoading" />
 
           <ScheduleToday
-            v-else
-            :data-schedule="prayerTime!"
+            v-else-if="!isLoading && prayerTime"
+            :data-schedule="prayerTime"
           />
         </div>
 
@@ -279,7 +279,7 @@ useHead({
         <div v-else-if="item.key === 'this-month'">
           <ScheduleMonth
             :loading="isLoading"
-            :data-schedule="prayerTimeOneMonth!"
+            :data-schedule="prayerTimeOneMonth"
           />
         </div>
       </template>

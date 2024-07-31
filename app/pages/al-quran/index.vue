@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // Interfaces
-import type { ISurah } from 'models/ISurah'
+import type { ISurah } from '@models/ISurah';
 
 const nuxtApp = useNuxtApp()
 
@@ -11,10 +11,10 @@ const masterSurah = ref<ISurah[]>([])
 const surahFavorites = ref<ISurah[]>([])
 
 // Get list surah
-const { data: dataSurah, pending: pendingFetch } = useLazyFetch<ISurah[]>(ALQURAN_API, {
+const { data: dataSurah, status: statusDataSurah } = useLazyFetch<ISurah[]>(ALQURAN_API, {
   key: 'surah',
   server: false,
-  getCachedData: (key) => nuxtApp.static.data[key] ?? nuxtApp.payload.data[key],
+  getCachedData: (key) => nuxtApp.isHydrating ? nuxtApp.payload.data[key] : nuxtApp.static.data[key],
   transform: (data: any) => data.data,
 })
 
@@ -27,30 +27,22 @@ const surahList = computed((): ISurah[] => {
   )
 })
 
-// Set data list surah & favorite
 const setDataSurahAndFavorites = () => {
-  surahFavorites.value = useLocalStorage('surah-favorite', []).value
-  if (dataSurah.value && dataSurah.value.length > 0) {
-    const favorites = surahFavorites.value.map((surah) => surah.namaLatin.toLowerCase())
+  const favoritesFromLocalStorage = useLocalStorage('surah-favorite', []).value
+  const favorites = favoritesFromLocalStorage.map((surah: ISurah) => surah.namaLatin.toLowerCase())
 
-    const dataList = dataSurah.value?.map((surah: ISurah) => {
-      const isFavorite = favorites.includes(surah.namaLatin.toLowerCase())
-      surah.isFavorite = !!isFavorite
-      return surah
-    })
-    if (surahFavorites.value.length > 0) {
-      for (const surah of dataList) {
-        surah.isFavorite = favorites.includes(surah.namaLatin.toLowerCase())
-      }
-    }
+  const dataList = dataSurah.value?.map((surah) => {
+    const isFavorite = favorites.includes(surah.namaLatin.toLowerCase())
+    return { ...surah, isFavorite }
+  })
 
-    masterSurah.value = dataList
-    isLoading.value = false
-  }
+  masterSurah.value = dataList ?? []
+  surahFavorites.value = favoritesFromLocalStorage
+  isLoading.value = false
 }
 
 watchEffect(() => {
-  if (!pendingFetch.value) setDataSurahAndFavorites()
+  if (statusDataSurah.value === 'success') setDataSurahAndFavorites()
 })
 
 // Meta

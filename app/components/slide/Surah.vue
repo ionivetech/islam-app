@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // Interfaces
-import type { ISurah } from 'models/ISurah'
+import type { ISurah } from '@models/ISurah';
 
 const nuxtApp = useNuxtApp()
 
@@ -9,7 +9,7 @@ const showSlideOver = defineModel<boolean>()
 
 // Props
 defineProps<{
-  detailSurah: ISurah | null
+  detailSurah: ISurah | undefined
 }>()
 
 // Emits
@@ -24,14 +24,12 @@ const router = useRouter()
 const search = ref<string>('')
 
 // Get list surah
-const { data: surah, pending: pendingFetch } = useAsyncData<ISurah[]>(
-  'surah',
-  () => $fetch(ALQURAN_API),
-  {
-    getCachedData: (key) => nuxtApp.static.data[key] ?? nuxtApp.payload.data[key],
-    transform: (data: any) => data.data,
-  },
-)
+const { data: surah, pending: pendingFetch } = useLazyFetch<ISurah[]>(ALQURAN_API, {
+  key: 'surah',
+  server: false,
+  getCachedData: (key) => nuxtApp.isHydrating ? nuxtApp.payload.data[key] : nuxtApp.static.data[key],
+  transform: (data: any) => data.data,
+})
 
 // List surah
 const surahList = computed((): ISurah[] => {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interfaces
-import type { IPrayer } from '~/app/models/IPrayer'
+import type { IPrayer } from '@models/IPrayer';
 
 // Props
 defineProps<{

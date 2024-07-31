@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interface
-import type { IHadithItems, IHadithList } from 'models/IHadith'
+import type { IHadithItems, IHadithList } from '@models/IHadith';
 
 // Variable
 const hadithHistorySelected = ref<string>('abu-dawud')
@@ -29,7 +29,7 @@ watch(search, () => {
 })
 
 // Get list hadith by name of history & params
-const { data: dataListHadith, pending } = useFetch<IHadithList>(hadithHistorySelected, {
+const { data: dataListHadith, status: statusDataList } = useLazyFetch<IHadithList>(hadithHistorySelected, {
   baseURL: HADITH_API,
   params: {
     page,
@@ -54,11 +54,12 @@ const searchHadithNumber = () => {
     isFinishSearch.value = false
     isSearching.value = true
 
-    $fetch<IHadithItems>(`${hadithHistorySelected.value}/${search.value}`, {
-      baseURL: HADITH_API,
-    })
-      .then((res) => {
-        searchResult.value = res
+    const history = hadithHistorySelected.value
+    const number = search.value
+
+    $fetch<IHadithItems>(`${history}/${number}`, { baseURL: HADITH_API })
+      .then((result) => {
+        searchResult.value = result
       })
       .catch(() => {
         isErrorSearch.value = true
@@ -96,16 +97,16 @@ useHead({
 
     <div class="container">
       <!-- Skeleton -->
-      <SkeletonHadith v-if="pending || isSearching" />
+      <SkeletonHadith v-if="statusDataList === 'pending' || isSearching" />
 
       <div
-        v-if="!pending"
+        v-else-if="statusDataList === 'success'"
         class="mt-5"
       >
         <div class="mb-3">
           <!-- Information total & search hadith -->
           <p
-            v-if="!pending && !searchResult"
+            v-if="!searchResult"
             class="text-sm text-yami dark:text-slate-200 md:text-base"
           >
             Terdapat <b>{{ dataListHadith?.pagination.totalItems }}</b> hadits menurut
@@ -113,7 +114,7 @@ useHead({
           </p>
 
           <p
-            v-if="!pending && searchResult"
+            v-else
             class="text-sm text-yami dark:text-slate-200 md:text-base"
           >
             Menampilkan hadits {{ dataListHadith?.name }} nomor <b>{{ search }}</b>
@@ -121,7 +122,7 @@ useHead({
         </div>
 
         <!-- List hadith -->
-        <div v-if="!pending && !isSearching">
+        <div v-if="!isSearching">
           <!-- List all hadith -->
           <div
             v-if="!isFinishSearch"
@@ -152,7 +153,7 @@ useHead({
 
         <!-- Pagination -->
         <div
-          v-if="!pending && !search && !isFinishSearch"
+          v-if="!search && !isFinishSearch"
           class="mt-5 flex justify-end"
         >
           <UPagination

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 // Interfaces
-import type { ISchedule } from '~/app/models/IPrayerTime'
+import type { ISchedule } from '@models/IPrayerTime';
 
 defineProps<{
-  dataSchedule: ISchedule[]
+  dataSchedule: ISchedule[] | undefined
   loading: boolean
 }>()
 

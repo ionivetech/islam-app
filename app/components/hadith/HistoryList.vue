@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IHadithHistory } from 'models/IHadith'
+import type { IHadithHistory } from '@models/IHadith';
 
 // Props
 defineProps<{

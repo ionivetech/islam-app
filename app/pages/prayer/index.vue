@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 // Interfaces
-import type { IPrayer } from 'models/IPrayer';
+import type { IPrayer } from '@models/IPrayer';
+
+const nuxtApp = useNuxtApp()
 
 // Ref
 const bottomPrayList = ref(null)
@@ -32,11 +34,15 @@ useInfiniteScrolling(
 )
 
 // get list prayer
-const { data: dataPrayer } = await useFetch<IPrayer[]>('/api/doa')
+const { data: dataPrayer, status: statusDataPrayer } = await useLazyFetch<IPrayer[]>(
+  '/api/doa', {
+    server: false,
+  })
 
-const setDataChunks = (data: IPrayer[]) => {
+const setDataChunks = () => {
+  const datas: IPrayer[] = dataPrayer.value!
   chunkPage.value = 1
-  masterPrayerList.value = data
+  masterPrayerList.value = datas
 
   // Split array into chunks
   for (let i = 0; i < masterPrayerList.value.length; i += 20) {
@@ -44,11 +50,11 @@ const setDataChunks = (data: IPrayer[]) => {
     prayerChunk.value.push(chunk)
   }
 
-  dataPrayerList.value = prayerChunk.value[0]
+  dataPrayerList.value = prayerChunk.value[0] ?? []
   finishSetDataChunk.value = true
 }
 
-// List doa
+// Prayer list
 const prayerList = computed((): IPrayer[] => {
   const prayerData: IPrayer[] = dataPrayer.value || masterPrayerList.value
   if (search.value === '') return dataPrayerList.value
@@ -58,7 +64,7 @@ const prayerList = computed((): IPrayer[] => {
 })
 
 watchEffect(() => {
-  if (dataPrayer.value) setDataChunks(dataPrayer.value)
+  if (statusDataPrayer.value === 'success') setDataChunks()
 })
 
 useServerSeoMeta({
@@ -72,7 +78,7 @@ useServerSeoMeta({
     <PrayerHeaderList v-model="search" />
 
     <div class="container">
-      <SkeletonPrayer v-if="!finishSetDataChunk" />
+      <SkeletonPrayer v-if="statusDataPrayer !== 'success'" />
 
       <div v-else>
         <PrayerList :prayers="prayerList" />

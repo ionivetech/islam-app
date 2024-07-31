@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interface
-import type { IHadithItems } from 'models/IHadith';
+import type { IHadithItems } from '@models/IHadith';
 
 // Props
 withDefaults(

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 // Interface
-import type { IHadithHistory } from 'models/IHadith'
+import type { IHadithHistory } from '@models/IHadith'
 
 // Type state
 type Store = {

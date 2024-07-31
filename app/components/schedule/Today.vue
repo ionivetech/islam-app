@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // Variables
-import type { IPrayerTime, ISchedule } from '~/app/models/IPrayerTime'
+import type { IPrayerTime, ISchedule } from '@models/IPrayerTime';
 
 // Props
 defineProps<{

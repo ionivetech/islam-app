@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interfaces
-import type { IBeforeNextSurah, ISurah, IVerse } from 'models/ISurah';
+import type { IBeforeNextSurah, ISurah, IVerse } from '@models/ISurah';
 interface ITafsir {
   ayat: number
   teks: string
@@ -43,7 +43,7 @@ useInfiniteScrolling(
 )
 
 // Get detail surah
-const { data: dataDetail } = useAsyncData<ISurah>(
+const { data: detailSurah, status: statusDetailSurah } = useAsyncData<ISurah>(
   'surahDetail',
   () => $fetch(`${ALQURAN_API}/${route.params.id}`),
   {
@@ -77,13 +77,13 @@ const setDataChunks = (data: IVerse[]) => {
     verseChunk.value.push(chunk)
   }
 
-  verseList.value = verseChunk.value[0]
+  verseList.value = verseChunk.value[0] ?? []
   finishSetDataChunk.value = true
 }
 
 // Open modal tafsir
 const handleOpenModalTafsir = (index: number) => {
-  if (dataTafsir.value) {
+  if (dataTafsir.value && dataTafsir.value[index]) {
     tafsirSelected.value = dataTafsir.value[index]
     showModalTafsir.value = true
   }
@@ -105,13 +105,13 @@ const goToSurah = (surah: IBeforeNextSurah) => router.push(`/al-quran/${surah.no
 
 onMounted(() => {
   setTimeout(() => {
-    if (dataDetail.value) setDataChunks(dataDetail.value.ayat!)
+    if (detailSurah.value) setDataChunks(detailSurah.value.ayat!)
   }, 500)
 })
 
 useSeoMeta({
-  title: () => `Surah ${dataDetail.value?.namaLatin} | Islam App`,
-  description: () => `Detail surah ${dataDetail.value?.namaLatin}`,
+  title: () => `Surah ${detailSurah.value?.namaLatin} | Islam App`,
+  description: () => `Detail surah ${detailSurah.value?.namaLatin}`,
 })
 </script>
 
@@ -120,7 +120,7 @@ useSeoMeta({
     <div class="relative">
       <!-- Header detail surah for show surah name & list surah -->
       <HeaderDetailSurah
-        v-if="route.name === 'al-quran-id' && dataDetail"
+        v-if="route.name === 'al-quran-id' && detailSurah"
         @show-detail="showModalDetail = true"
         @show-list="showListSurah = true"
       />
@@ -141,8 +141,8 @@ useSeoMeta({
             <QuranVerseList
               v-for="(verse, index) in verseList"
               :key="`verse-${verse.nomorAyat}`"
-              :surah-name="dataDetail?.namaLatin"
-              :surah-number="dataDetail?.nomor"
+              :surah-name="detailSurah?.namaLatin"
+              :surah-number="detailSurah?.nomor"
               :verse="verse"
               :index="index"
               @open-tafsir="handleOpenModalTafsir"
@@ -152,14 +152,14 @@ useSeoMeta({
 
           <!-- Button prev & next surah -->
           <div
-            v-if="dataDetail"
+            v-if="detailSurah"
             class="mt-12 flex items-center justify-center space-x-3 md:mt-20"
           >
             <!-- Previous surah -->
             <button
-              v-if="dataDetail.suratSebelumnya"
+              v-if="detailSurah.suratSebelumnya"
               class="btn-prev-next-surah"
-              @click="goToSurah(dataDetail.suratSebelumnya as IBeforeNextSurah)"
+              @click="goToSurah(detailSurah.suratSebelumnya as IBeforeNextSurah)"
             >
               <Icon
                 name="heroicons:chevron-left-solid"
@@ -180,9 +180,9 @@ useSeoMeta({
 
             <!-- Next surah -->
             <button
-              v-if="dataDetail.suratSelanjutnya"
+              v-if="detailSurah.suratSelanjutnya"
               class="btn-prev-next-surah"
-              @click="goToSurah(dataDetail.suratSelanjutnya as IBeforeNextSurah)"
+              @click="goToSurah(detailSurah.suratSelanjutnya as IBeforeNextSurah)"
             >
               <span class="hidden sm:block">Surah berikutnya</span>
               <span class="block sm:hidden">Berikutnya</span>
@@ -198,15 +198,16 @@ useSeoMeta({
 
     <!-- List Surah -->
     <SlideSurah
+      v-if="statusDetailSurah === 'success'"
       v-model="showListSurah"
-      :detail-surah="dataDetail"
+      :detail-surah="detailSurah"
       @close-slide="showListSurah = false"
     />
 
     <!-- Modal Detail -->
     <ModalDetailSurah
       v-model="showModalDetail"
-      :description="dataDetail?.deskripsi"
+      :description="detailSurah?.deskripsi"
       @close-modal="showModalDetail = false"
     />
 
