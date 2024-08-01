@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // Models
-import type { ISurah } from '@models/ISurah';
+import type { ISurah } from '@/models/ISurah';
 
 // Props
 const props = defineProps<{

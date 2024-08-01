@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interface
-import type { IHadithItems, IHadithList } from '@models/IHadith';
+import type { IHadithItems, IHadithList } from '@/models/IHadith';
 
 // Variable
 const hadithHistorySelected = ref<string>('abu-dawud')

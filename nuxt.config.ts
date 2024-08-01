@@ -40,6 +40,10 @@ export default defineNuxtConfig({
     download: true,
   },
 
+  icon: {
+    serverBundle: 'remote',
+  },
+
   modules: [
     '@nuxt/eslint',
     '@pinia/nuxt',

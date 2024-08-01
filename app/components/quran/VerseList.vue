@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interfaces
-import type { IVerse } from '@models/ISurah';
+import type { IVerse } from '@/models/ISurah';
 
 // Props
 const props = withDefaults(

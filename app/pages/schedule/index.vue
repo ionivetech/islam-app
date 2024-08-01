@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useGeolocation } from '@vueuse/core';
 // Interfaces
-import type { LocationData } from '@models/dto/dataLocation.dto';
-import type { ILocation, ILocations } from '@models/ILocation';
-import type { IPrayerTime, ISchedule } from '@models/IPrayerTime';
+import type { LocationData } from '@/models/dto/dataLocation.dto';
+import type { ILocation, ILocations } from '@/models/ILocation';
+import type { IPrayerTime, ISchedule } from '@/models/IPrayerTime';
 
 // Get coordinate
 const { coords, pause: pauseWatchCoords, error: errorGetLocation } = useGeolocation()

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // Interfaces
-import type { IPrayer } from '@models/IPrayer';
+import type { IPrayer } from '@/models/IPrayer';
 
 const nuxtApp = useNuxtApp()
 

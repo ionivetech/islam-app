@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ILocations } from '@models/ILocation';
+import type { ILocations } from '@/models/ILocation';
 
 // Show modal
 const showModal = defineModel<boolean>()

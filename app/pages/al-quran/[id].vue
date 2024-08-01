@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interfaces
-import type { IBeforeNextSurah, ISurah, IVerse } from '@models/ISurah';
+import type { IBeforeNextSurah, ISurah, IVerse } from '@/models/ISurah';
 interface ITafsir {
   ayat: number
   teks: string
