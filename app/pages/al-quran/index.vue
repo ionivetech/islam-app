@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useStorage } from '@vueuse/core';
 // Interfaces
 import type { ISurah } from '@/models/ISurah';
 
@@ -28,7 +29,7 @@ const surahList = computed((): ISurah[] => {
 })
 
 const setDataSurahAndFavorites = () => {
-  const favoritesFromLocalStorage = useLocalStorage('surah-favorite', []).value
+  const favoritesFromLocalStorage = useStorage('surah-favorite', []).value
   const favorites = favoritesFromLocalStorage.map((surah: ISurah) => surah.namaLatin.toLowerCase())
 
   const dataList = dataSurah.value?.map((surah) => {

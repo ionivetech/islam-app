@@ -40,10 +40,6 @@ export default defineNuxtConfig({
     download: true,
   },
 
-  icon: {
-    serverBundle: 'remote',
-  },
-
   modules: [
     '@nuxt/eslint',
     '@pinia/nuxt',
@@ -51,8 +47,14 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@vueuse/nuxt',
     '@vite-pwa/nuxt',
-    '@nuxt/icon'
+    "@nuxt/icon"
   ],
+
+  icon: {
+    serverBundle: {
+      collections: ['fa6-solid', 'mdi', 'fluent', 'heroicons', 'logos', 'material-symbols', 'radix-icons']
+    },
+  },
 
   pinia: {
     storesDirs: ['./app/stores/**'],
