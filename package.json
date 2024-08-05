@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "set NODE_OPTIONS=--max_old_space_size=4096 && nuxt build",
     "dev": "nuxt dev --port 5000 --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

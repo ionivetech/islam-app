@@ -58,11 +58,14 @@ export default defineNuxtConfig({
       'postcss-import': {},
       tailwindcss: {},
       autoprefixer: {},
+      ...(process.env.NODE_ENV === 'production' ? {
+        cssnano: {
+          preset: ['default', {
+            discardComments: { removeAll: true },
+          }],
+        },
+      } : {}),
     },
-  },
-
-  build: {
-    analyze: true,
   },
 
   pwa: {
