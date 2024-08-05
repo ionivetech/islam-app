@@ -25,7 +25,7 @@ const emits = defineEmits<{
     <!-- Search field -->
     <InputSearch
       v-model="search"
-      placeholder="Cari nomor hadits"
+      placeholder="Cari Nomor Hadits"
     />
 
     <!-- List name of history -->

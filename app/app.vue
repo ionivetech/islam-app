@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { useMediaQuery } from '@vueuse/core';
-
 // Store
 const alQuranStore = useAlQuranStore()
 
-const isPhoneScreen = useMediaQuery('(max-width: 768px)')
+const { width } = useWindowSize()
+const isPhoneScreen = computed(() => width.value < 768)
 </script>
 
 <template>
@@ -13,7 +12,7 @@ const isPhoneScreen = useMediaQuery('(max-width: 768px)')
     :class="{
       'pb-[64px]': !alQuranStore.getPlayingAudio && isPhoneScreen,
       'pb-[140px]': alQuranStore.getPlayingAudio && !isPhoneScreen,
-      'pb-[204px]': alQuranStore.getPlayingAudio && isPhoneScreen,
+      'pb-[190px]': alQuranStore.getPlayingAudio && isPhoneScreen,
     }"
   >
     <VitePwaManifest />

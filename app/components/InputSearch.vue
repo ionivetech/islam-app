@@ -18,11 +18,11 @@ defineProps<{
     >
 
     <div
-      class="absolute inset-y-2/4 right-1 flex size-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 md:right-2 md:size-9"
+      class="absolute inset-y-2/4 flex size-8 -translate-y-2/4 items-center justify-center rounded-full bg-teal-600 dark:bg-slate-700 right-1.5 md:size-9"
     >
       <Icon
         icon="radix-icons:magnifying-glass"
-        class="text-xl text-white"
+        class="text-lg md:text-xl text-white"
       />
     </div>
   </div>
