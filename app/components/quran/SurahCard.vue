@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
 // Models
 import type { ISurah } from '@/models/ISurah';
 
@@ -42,7 +43,7 @@ const toggleFavorite = () => {
       <!-- Toggle wishlist -->
       <UTooltip :text="surah.isFavorite ? 'Hapus dari favorit' : 'Tambah ke favorit'">
         <Icon
-          :name="surah.isFavorite ? 'heroicons:heart-solid' : 'heroicons:heart'"
+          :icon="surah.isFavorite ? 'heroicons:heart-solid' : 'heroicons:heart'"
           :class="surah.isFavorite ? 'text-teal-600' : 'text-slate-500 dark:text-slate-300'"
           class="z-10 text-xl"
           @click.prevent="toggleFavorite"

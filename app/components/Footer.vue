@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import { Icon } from '@iconify/vue';
+</script>
+
 <template>
   <footer class="border-t border-gray-300/70 py-4 dark:border-gray-700">
     <div class="container flex flex-col items-center space-y-3 sm:space-y-5">
@@ -6,7 +10,7 @@
           Made with
         </p>
         <Icon
-          name="logos:nuxt-icon"
+          icon="logos:nuxt-icon"
           class="text-xl"
         />
       </div>
@@ -18,7 +22,7 @@
             target="_blank"
           >
             <Icon
-              name="mdi:github"
+              icon="mdi:github"
               class="text-2xl text-gray-600 dark:text-gray-300"
             />
           </NuxtLink>
@@ -28,7 +32,7 @@
             target="_blank"
           >
             <Icon
-              name="mdi:linkedin"
+              icon="mdi:linkedin"
               class="text-2xl text-gray-600 dark:text-gray-300"
             />
           </NuxtLink>

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
+
 // Use router
 const route = useRoute()
 
@@ -44,7 +46,7 @@ const menus: { url: string; label: string; icon: string }[] = [
         class="flex flex-col items-center gap-y-1.5"
       >
         <Icon
-          :name="menu.icon"
+          :icon="menu.icon"
           class="size-5"
         />
         <span class="text-xs">{{ menu.label }}</span>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue';
 import { useGeolocation } from '@vueuse/core';
 // Interfaces
 import type { LocationData } from '@/models/dto/dataLocation.dto';
@@ -58,12 +59,16 @@ const getDataLocation = () => {
       longitude: coords.value.longitude,
       localityLanguage: 'id',
     },
-    transform: (data: LocationData) => {
+    transform: (locationData: LocationData) => {
+      const administrativeData = locationData.localityInfo.administrative
+      const lastAdministrativeData = administrativeData[administrativeData.length - 1]!
+      const cityName = lastAdministrativeData.name.replace('Kabupaten', 'Kab.')
+
       return {
-        latitude: data.latitude,
-        longitude: data.longitude,
-        countryName: data.countryName,
-        cityName: data.city,
+        latitude: locationData.latitude,
+        longitude: locationData.longitude,
+        countryName: locationData.countryName,
+        cityName
       }
     },
   }).then((res) => {
@@ -188,7 +193,7 @@ useHead({
         class="mb-2 flex cursor-pointer items-center space-x-1 text-sm font-medium text-teal-600 dark:text-teal-500 md:text-base"
         @click="showModalLocation = true"
       >
-        <Icon name="heroicons:pencil-20-solid" />
+        <Icon icon="heroicons:pencil-20-solid" />
         <span>Ubah Lokasi</span>
       </div>
     </div>
@@ -216,7 +221,7 @@ useHead({
 
         <div class="mt-5 flex items-center space-x-2 text-white">
           <Icon
-            name="heroicons:map-pin-solid"
+            icon="heroicons:map-pin-solid"
             class="text-base md:text-lg"
           />
           <p
@@ -242,7 +247,7 @@ useHead({
       </div>
 
       <Icon
-        name="fa6-solid:mosque"
+        icon="fa6-solid:mosque"
         class="text-[70px] text-white/40 dark:text-white/20 sm:text-[80px]"
       />
     </div>

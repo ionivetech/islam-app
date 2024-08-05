@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue';
 // Interfaces
 import type { IPrayer } from '@/models/IPrayer';
 
@@ -31,7 +32,7 @@ defineProps<{
         </div>
 
         <Icon
-          name="fluent:chevron-down-24-filled"
+          icon="fluent:chevron-down-24-filled"
           :class="{ 'rotate-180': open }"
           class="w-4 min-w-[16px] text-yami transition-all duration-300 ease-in-out dark:text-slate-200 md:text-xl"
         />

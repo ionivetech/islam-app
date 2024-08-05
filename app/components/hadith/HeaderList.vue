@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
+
 const search = defineModel<string>()
 
 // Props
@@ -16,7 +18,7 @@ const emits = defineEmits<{
   <div class="search-section-wrapper">
     <!-- Icon -->
     <Icon
-      name="fa6-solid:book-open"
+      icon="fa6-solid:book-open"
       class="text-[70px] text-white sm:text-[95px]"
     />
 

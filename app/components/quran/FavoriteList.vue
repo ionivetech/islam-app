@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
 // Interfaces
 import type { ISurah } from '@/models/ISurah';
 
@@ -68,7 +69,7 @@ const deleteFromFavorite = (surah: ISurah): void => {
 
           <UTooltip text="Hapus dari favorit">
             <Icon
-              name="heroicons:heart-solid"
+              icon="heroicons:heart-solid"
               class="z-10 text-xl text-teal-600"
               @click.prevent="deleteFromFavorite(surah)"
             />

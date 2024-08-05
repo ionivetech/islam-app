@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { ILocations } from '@/models/ILocation';
+import { Icon } from '@iconify/vue';
 
 // Show modal
 const showModal = defineModel<boolean>()
@@ -65,7 +66,7 @@ const closeModal = () => (showModal.value = false)
               Pilih Lokasi
             </h4>
             <Icon
-              name="heroicons:x-mark"
+              icon="heroicons:x-mark"
               class="cursor-pointer text-xl"
               @click="closeModal"
             />

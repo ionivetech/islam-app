@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue';
 // Interfaces
 import type { IVerse } from '@/models/ISurah';
 
@@ -54,7 +55,7 @@ const playSurah = () => {
             role="button"
             @click="playSurah"
           >
-            <Icon name="heroicons:play" />
+            <Icon icon="heroicons:play" />
           </div>
         </UTooltip>
 
@@ -65,7 +66,7 @@ const playSurah = () => {
             role="button"
             @click="emits('open-tafsir', index)"
           >
-            <Icon name="heroicons:book-open" />
+            <Icon icon="heroicons:book-open" />
           </div>
         </UTooltip>
       </div>

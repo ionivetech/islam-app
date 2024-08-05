@@ -47,14 +47,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@vueuse/nuxt',
     '@vite-pwa/nuxt',
-    "@nuxt/icon"
   ],
-
-  icon: {
-    serverBundle: {
-      collections: ['fa6-solid', 'mdi', 'fluent', 'heroicons', 'logos', 'material-symbols', 'radix-icons']
-    },
-  },
 
   pinia: {
     storesDirs: ['./app/stores/**'],
@@ -66,6 +59,10 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+
+  build: {
+    analyze: true,
   },
 
   pwa: {

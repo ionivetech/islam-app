@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue';
+
 // Interfaces
 import type { ISurah } from '@/models/ISurah';
 
@@ -36,7 +38,7 @@ const playSurah = () => {
         @click="emits('show-list')"
       >
         <Icon
-          name="heroicons:squares-2x2-20-solid"
+          icon="heroicons:squares-2x2-20-solid"
           class="text-base text-slate-800 dark:text-slate-200 md:text-lg"
         />
         <p class="text-xs text-slate-800 dark:text-slate-200 md:text-sm">
@@ -51,7 +53,7 @@ const playSurah = () => {
           @click="emits('show-detail')"
         >
           <Icon
-            name="heroicons:information-circle-solid"
+            icon="heroicons:information-circle-solid"
             class="mr-1 text-base text-slate-800 dark:text-slate-200 md:text-lg"
           />
           Detail
@@ -63,7 +65,7 @@ const playSurah = () => {
           @click="playSurah"
         >
           <Icon
-            name="heroicons:play-solid"
+            icon="heroicons:play-solid"
             class="mr-1 text-base text-teal-700 dark:text-teal-500 md:text-lg"
           />
           Putar

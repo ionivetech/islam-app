@@ -131,7 +131,7 @@ useHead({
             <HadithCard
               v-for="list in dataListHadith?.items"
               :key="list.number"
-              :hadith-history-name="dataListHadith?.name"
+              :hadith-history-icon="dataListHadith?.name"
               :hadith="list"
             />
           </div>
@@ -139,7 +139,7 @@ useHead({
           <!-- Show search result -->
           <HadithCard
             v-if="isFinishSearch && searchResult && !isErrorSearch"
-            :hadith-history-name="dataListHadith?.name"
+            :hadith-history-icon="dataListHadith?.name"
             :hadith="searchResult"
           />
 

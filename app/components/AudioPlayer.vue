@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue';
+
 // Store
 const alQuranStore = useAlQuranStore()
 
@@ -182,7 +184,7 @@ const initAudioPlayer = () => {
                 role="button"
                 @click="togglePlay"
               >
-                <Icon :name="isPlaying ? 'heroicons:pause-solid' : 'heroicons:play-solid'" />
+                <Icon :icon="isPlaying ? 'heroicons:pause-solid' : 'heroicons:play-solid'" />
               </div>
 
               <div>
@@ -199,7 +201,7 @@ const initAudioPlayer = () => {
                 class="absolute right-1 top-1 cursor-pointer md:right-2 md:top-2"
               >
                 <Icon
-                  name="heroicons:x-mark-solid"
+                  icon="heroicons:x-mark-solid"
                   class="text-xl text-yami dark:text-slate-200"
                   @click="stop"
                 />

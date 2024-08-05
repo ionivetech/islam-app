@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue';
 // Interfaces
 import type { IBeforeNextSurah, ISurah, IVerse } from '@/models/ISurah';
 interface ITafsir {
@@ -141,7 +142,7 @@ useSeoMeta({
             <QuranVerseList
               v-for="(verse, index) in verseList"
               :key="`verse-${verse.nomorAyat}`"
-              :surah-name="detailSurah?.namaLatin"
+              :surah-icon="detailSurah?.namaLatin"
               :surah-number="detailSurah?.nomor"
               :verse="verse"
               :index="index"
@@ -162,7 +163,7 @@ useSeoMeta({
               @click="goToSurah(detailSurah.suratSebelumnya as IBeforeNextSurah)"
             >
               <Icon
-                name="heroicons:chevron-left-solid"
+                icon="heroicons:chevron-left-solid"
                 class="text-base"
               />
               <span class="hidden sm:block">Surah sebelumnya</span>
@@ -187,7 +188,7 @@ useSeoMeta({
               <span class="hidden sm:block">Surah berikutnya</span>
               <span class="block sm:hidden">Berikutnya</span>
               <Icon
-                name="heroicons:chevron-right-solid"
+                icon="heroicons:chevron-right-solid"
                 class="text-base"
               />
             </button>

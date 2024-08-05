@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
 // Interfaces
 import type { ISurah } from '@/models/ISurah';
 
@@ -67,7 +68,7 @@ const handleSelectSurah = (id: number) => {
           List Surah
         </h4>
         <Icon
-          name="heroicons:x-mark"
+          icon="heroicons:x-mark"
           class="cursor-pointer text-xl"
           @click="emits('close-slide')"
         />

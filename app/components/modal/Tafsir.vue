@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
+
 const showModal = defineModel<boolean>()
 
 // Props
@@ -38,7 +40,7 @@ const emits = defineEmits<{
             Tafsir
           </h4>
           <Icon
-            name="heroicons:x-mark"
+            icon="heroicons:x-mark"
             class="cursor-pointer text-xl"
             @click="emits('close-modal')"
           />

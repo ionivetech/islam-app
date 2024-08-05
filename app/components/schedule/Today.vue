@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
 // Variables
 import type { IPrayerTime, ISchedule } from '@/models/IPrayerTime';
 
@@ -28,7 +29,7 @@ const schedules = ref<{ key: string; text: string; icon: string }[]>([
         >
           <div class="flex items-center space-x-3">
             <Icon
-              :name="schedule.icon"
+              :icon="schedule.icon"
               class="text-xl text-slate-500 dark:text-slate-400"
             />
             <p class="text-base text-smoke-1 dark:text-smoke-2">
