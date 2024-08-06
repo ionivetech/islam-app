@@ -69,10 +69,6 @@ export default defineNuxtConfig({
   },
 
   pwa: {
-    strategies: sw ? 'injectManifest' : 'generateSW',
-    srcDir: sw ? 'service-worker' : undefined,
-    filename: sw ? 'sw.ts' : undefined,
-    registerType: 'autoUpdate',
     manifest: {
       theme_color: '#ffffff',
       background_color: '#ffffff',
@@ -113,20 +109,16 @@ export default defineNuxtConfig({
       ],
     },
     workbox: {
+      navigateFallback: null,
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-    },
-    injectManifest: {
-      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+      cleanupOutdatedCaches: false,
     },
     client: {
       installPrompt: true,
       periodicSyncForUpdates: 20,
     },
     devOptions: {
-      enabled: true,
-      suppressWarnings: true,
-      navigateFallback: '/',
-      navigateFallbackAllowlist: [/^\/$/],
+      enabled: false,
       type: 'module',
     },
   },
